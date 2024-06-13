@@ -19,8 +19,6 @@ logging.basicConfig(
 )
 
 
-@has_joined_channel
-@balance_update
 async def start_command(update, context):
     """Welcome message to the user"""
 
