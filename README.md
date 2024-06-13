@@ -33,3 +33,4 @@ Quizpal transforms learning into an engaging experience by generating custom qui
 8. New information: Tiktok is an insanely good search engine
 9. Each telegram id gets assigned 4 in-game stars and each question consumes 1 star
 10. When you have a balance of 1 star, you need to topup stars to continue playing
+11. The balance system doesnt work at all, this is intentional so users can use it for free for sometime
