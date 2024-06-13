@@ -12,7 +12,7 @@ Quizpal transforms learning into an engaging experience by generating custom qui
 
 ## Some cool stuff in play
 
-![img.png](img.png)
+![img.png](assets/img.png)
 > If you add an Inline Button into a pinned message the pinned messsage has a button, so this bot uses this to display 
 > the current star balance of the user. And we update that message as the balance changes to always show the current 
 > balance.
