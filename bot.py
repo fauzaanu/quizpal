@@ -139,7 +139,7 @@ async def generate_and_send_question(chat_id, topic, update, user, context, retr
         keyboard = [
             [
                 InlineKeyboardButton(text='Learn more', callback_data=f'ex?q={question.id}'),
-                InlineKeyboardButton(text='♾️ Next Question', callback_data=f'nq?t={alpha_space(topic.name)}')
+                InlineKeyboardButton(text='♾️ Next Question', callback_data=f'nq?t={topic.id}')
             ],
 
         ]
@@ -227,7 +227,7 @@ async def learn_more(update, context):
             InlineKeyboardButton(text='ChatGPT', url=f'https://chatgpt.com/?q={question_text}')
         ],
         [
-            InlineKeyboardButton(text='♾️ Next Question', callback_data=f'nq?t={alpha_space(topic.name)}')
+            InlineKeyboardButton(text='♾️ Next Question', callback_data=f'nq?t={topic.id}')
         ],
     ]
 
@@ -243,7 +243,9 @@ async def learn_more(update, context):
 @has_joined_channel
 async def next_question_callback(update, context):
     query = update.callback_query
-    topic_name = query.data.split('=')[1]
+    topic_id = int(query.data.split('=')[1])
+    topic = Topic.get(id=topic_id)
+    topic_name = topic.name
     user = TelegramUser.get(chat_id=query.message.chat.id)
     topic = Topic.get(name=topic_name, user=user)
 
