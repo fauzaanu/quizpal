@@ -82,10 +82,11 @@ async def save_topic(update, context):
     if len(topic) > 75 or len(topic.split()) > 10:
         await context.bot.send_message(
             chat_id=update.message.chat.id,
-            text=('Please describe your topic in less than 75 characters and 10 words\n\n'
-                  'Your topic was shortend to:\n\n'
+            text=('📝 Please describe your topic in 75 characters or fewer and in 10 words or less\n\n'
+                  'Your topic has been shortened to:\n\n'
                   f'`{topic}`\n\n'
-                  f'you have {len(topic)} characters and {len(topic.split())} words'),
+                  f'ℹ️ Your topic still contains {len(topic)} characters and {len(topic.split())} words\n'
+                  ),
             parse_mode='MarkdownV2'
         )
         return
