@@ -37,5 +37,38 @@ async def get_user_details(update):
         if update.callback_query.message.chat.id:
             user_details += f'🆔 Chat ID: {update.callback_query.message.chat.id}\n'
 
-
     return user_details
+
+
+def remove_question_words(string_to_convert):
+    question_words = ['who', 'what', 'when', 'where', 'why', 'how', 'which', 'whom']
+    converted_string = str()
+    for word in string_to_convert.split():
+        if word.lower() not in question_words:
+            converted_string += word + ' '
+    return converted_string
+
+
+def remove_verbs(string_to_convert):
+    verbs = ['is', 'are', 'am', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did',
+             'shall', 'will', 'should', 'would', 'may', 'might', 'must', 'can', 'could']
+    prepositions = [
+        'aboard', 'about', 'above', 'across', 'after', 'against', 'along', 'amid', 'among', 'anti', 'around',
+        'as', 'at', 'before', 'behind', 'below', 'beneath', 'beside', 'besides', 'between', 'beyond', 'but', 'by',
+        'concerning', 'considering', 'despite', 'down', 'during', 'except', 'excepting', 'excluding', 'following',
+        'for', 'from', 'in', 'inside', 'into', 'like', 'minus', 'near', 'of', 'off', 'on', 'onto', 'opposite', 'outside',
+        'over', 'past', 'per', 'plus', 'regarding', 'round', 'save', 'since', 'than', 'through', 'to', 'toward',
+        'towards', 'under', 'underneath', 'unlike', 'until', 'up', 'upon', 'versus', 'via', 'with', 'within', 'without'
+    ]
+    verb_string = str()
+    final_string = str()
+
+    for word in string_to_convert.split():
+        if word.lower() not in verbs:
+            verb_string += word + ' '
+
+    for word in verb_string.split():
+        if word.lower() not in prepositions:
+            final_string += word + ' '
+
+    return final_string

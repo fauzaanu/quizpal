@@ -9,7 +9,7 @@ from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHan
 
 from constants import INTRO_MESSAGE
 from decorators import balance_update, has_joined_channel
-from helpers import balance_markup, alpha_space, get_user_details
+from helpers import balance_markup, alpha_space, get_user_details, remove_question_words, remove_verbs
 from models import TelegramUser, Topic, StarPayment, QuizQuestion
 from prompt_engineering import generate_quiz_question
 
@@ -73,23 +73,22 @@ async def save_topic(update, context):
 
     topic = update.message.text
 
-    for char in topic:
-        # if any special characters are found, return an error message
-        if not char.isalnum() and char != ' ':
-            await context.bot.send_message(
-                chat_id=update.message.chat.id,
-                text='Topic names should not contain special characters. Please try again.'
-            )
-            return
+    topic = topic.strip()
+    topic = alpha_space(topic)
+    topic = remove_question_words(topic)
+    topic = remove_verbs(topic)
 
     # if the topic length is more than 100 characters, return an error message
-    if len(topic) > 100 or len(topic.split()) > 7:
+    if len(topic) > 75 or len(topic.split()) > 10:
         await context.bot.send_message(
             chat_id=update.message.chat.id,
-            text='Please describe your topic in less than 100 characters and 7 words.'
+            text=('Please describe your topic in less than 75 characters and 10 words\n\n'
+                  'Your topic was shortend to:\n\n'
+                  f'`{topic}`\n\n'
+                  f'you have {len(topic)} characters and {len(topic.split())} words'),
+            parse_mode='MarkdownV2'
         )
         return
-
 
     user = TelegramUser.get(chat_id=update.message.chat.id)
 
