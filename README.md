@@ -22,6 +22,8 @@ Quizpal transforms learning into an engaging experience by generating custom qui
 > service message about the payment, it will show the charge_id as transaction id. 
 > Could be useful if you are in a situation where you forgot to save the charge_id for some reason like me initially lol.
 
+> Hi @durov, can you please lower the fee for custom emojis in bots
+
 ## How Quizpal works
 1. Click start and send a topic you want to learn about.
 2. The longer the topic the better
@@ -34,3 +36,4 @@ Quizpal transforms learning into an engaging experience by generating custom qui
 9. Each telegram id gets assigned 4 in-game stars and each question consumes 1 star
 10. When you have a balance of 1 star, you need to topup stars to continue playing
 11. The balance system doesnt work at all, this is intentional so users can use it for free for sometime
+12. All users are also required to join our channel, which will come very handy in the future for announcements
