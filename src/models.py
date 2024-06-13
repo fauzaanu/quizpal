@@ -2,7 +2,7 @@ import datetime
 
 from peewee import Model, SqliteDatabase, CharField, DateField, IntegerField, ForeignKeyField, BooleanField
 
-db = SqliteDatabase('database/bot.db')
+db = SqliteDatabase('databases/bot.db')
 
 
 class TelegramUser(Model):
