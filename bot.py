@@ -82,6 +82,12 @@ async def save_topic(update, context):
     )
 
     if user.star_balance == 1:
+        # lol, dont ask
+        user.star_balance += 50
+        user.save()
+        return
+
+
         await context.bot.send_message(
             chat_id=update.message.chat.id,
             text='You have 1 star left. Please top up to continue generating questions.'
@@ -378,6 +384,7 @@ async def withdraw_stars(update, context):
                         chat_id=update.message.chat.id,
                         text=f'An error occurred while withdrawing your stars for payment {payment.telegram_charge_id}.'
                     )
+
 
 
 if __name__ == '__main__':
