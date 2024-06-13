@@ -59,9 +59,6 @@ async def start_command(update, context):
     )
 
 
-
-
-
 @has_joined_channel
 @balance_update
 async def save_topic(update, context):
@@ -85,6 +82,15 @@ async def save_topic(update, context):
             )
             return
 
+    # if the topic length is more than 100 characters, return an error message
+    if len(topic) > 100 or len(topic.split()) > 7:
+        await context.bot.send_message(
+            chat_id=update.message.chat.id,
+            text='Please describe your topic in less than 100 characters and 7 words.'
+        )
+        return
+
+
     user = TelegramUser.get(chat_id=update.message.chat.id)
 
     topic, created = Topic.get_or_create(
@@ -97,7 +103,6 @@ async def save_topic(update, context):
         user.star_balance += 50
         user.save()
         return
-
 
         await context.bot.send_message(
             chat_id=update.message.chat.id,
@@ -126,7 +131,7 @@ async def generate_and_send_question(chat_id, topic, update, user, context, retr
     )
     try:
         previous_questions = [question.question for question in topic.questions]
-        quiz_question = await generate_quiz_question(update, context,topic.name, previous_questions)
+        quiz_question = await generate_quiz_question(update, context, topic.name, previous_questions)
         print(json.dumps(quiz_question, indent=2))
 
         options = quiz_question['options']
@@ -397,7 +402,6 @@ async def withdraw_stars(update, context):
                         chat_id=update.message.chat.id,
                         text=f'An error occurred while withdrawing your stars for payment {payment.telegram_charge_id}.'
                     )
-
 
 
 if __name__ == '__main__':
