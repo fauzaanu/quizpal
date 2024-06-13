@@ -1,0 +1,25 @@
+name: Telegram Bot CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH Login and Execute Commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          port: 22
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd quizbot/quizpal/
+            git stash
+            git checkout
+            git pull
+            /home/${{ secrets.SERVER_USERNAME }}/.local/bin/poetry shell
+            /home/${{ secrets.SERVER_USERNAME }}/.local/bin/poetry install --no-root
+            sudo systemctl restart quizbot.service
