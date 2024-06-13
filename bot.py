@@ -47,7 +47,7 @@ INTRO_MESSAGE = (
     "🔹 `Few Shot Learning with Prototypical Networks`\n"
     "🔹 `Cognitive Load Theory in Instructional Design`\n"
     "🔹 `Clinical Pharmacokinetics and Pharmacodynamics`\n\n"
-    "📚 *Send any topic to get started* 📚\n"
+    "📚 *Get started by sending me a topic* 📚\n"
 )
 
 CHANNEL = "@aboutquizpal"
