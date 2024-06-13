@@ -3,11 +3,13 @@ import os
 from typing import List, Dict
 from dotenv import load_dotenv
 from openai import OpenAI
+from telegram import Update
 
+from helpers import get_user_details, alpha_space
 from models import Topic, QuizQuestion, QuizAnswer, AnswerExplanation
 
 
-def update_db(json_response, topic):
+async def update_db(json_response, topic):
     topic = Topic.get(name=topic)
     question = QuizQuestion.create(
         question=json_response['question'],
@@ -29,7 +31,8 @@ def update_db(json_response, topic):
     return question
 
 
-def generate_quiz_question(topic: str, previous_questions: List[str], attempt: int = 1) -> dict:
+async def generate_quiz_question(update: Update, context, topic: str, previous_questions: List[str],
+                                 attempt: int = 1) -> dict:
     """
     Generate a quiz question for the specified topic. Retries up to 5 times in case of invalid response.
     """
@@ -64,20 +67,20 @@ def generate_quiz_question(topic: str, previous_questions: List[str], attempt: i
         "Question length must not exceed 300 characters."
     )
 
-    response = send_to_gpt(user_prompt, system_prompt)
+    response = await send_to_gpt(update, context, user_prompt, system_prompt, )
     try:
         json_response: dict = json.loads(response)
-        if validate_json(json_response):
-            update_db(json_response, topic)
+        if await validate_json(json_response):
+            await update_db(json_response, topic)
             return json_response
         else:
             raise ValueError("Invalid JSON response received from GPT.")
     except (json.JSONDecodeError, ValueError) as e:
         print(f"Attempt {attempt}: {e}")
-        return generate_quiz_question(topic, previous_questions, attempt + 1)
+        return await generate_quiz_question(topic, previous_questions, attempt + 1)
 
 
-def validate_json(response: Dict[str, str]) -> bool:
+async def validate_json(response: Dict[str, str]) -> bool:
     """
     Validate the JSON response.
     """
@@ -93,7 +96,8 @@ def validate_json(response: Dict[str, str]) -> bool:
     return True
 
 
-def send_to_gpt(user_prompt: str, system_prompt: str, model: str = "gpt-3.5-turbo") -> str:
+async def send_to_gpt(update: Update, context, user_prompt: str, system_prompt: str,
+                      model: str = "gpt-3.5-turbo") -> str:
     """
     Creates the OpenAI client and sends the request to the API.
     """
@@ -114,6 +118,22 @@ def send_to_gpt(user_prompt: str, system_prompt: str, model: str = "gpt-3.5-turb
     # 1K tokens
     print(completion.usage.prompt_tokens * (0.0005 / 1000) + completion.usage.completion_tokens * (0.0015 / 1000),
           "USD")
+
+    # alert admin about cost
+    try:
+        cost = completion.usage.prompt_tokens * (0.0005 / 1000) + completion.usage.completion_tokens * (0.0015 / 1000)
+
+        user_details = await get_user_details(update)
+        await context.bot.send_message(
+            chat_id=os.getenv("ADMIN_CHAT_ID"),
+            text=(f"User: {user_details} \n\n"
+                  f"{cost} USD\n"
+                  f"{cost * 15.42} MVR"
+                  ),
+        )
+    except Exception as e:
+        print(e)
+
     return completion.choices[0].message.content
 
 
@@ -156,11 +176,6 @@ if __name__ == "__main__":
     # so how many stars will pay us 20$ per year
     # ok let users purchase 2500 stars and give them a balance of 25,000 in game stars
     # no refunds?
-
-
-
-
-
     try:
         quiz_question = generate_quiz_question(topic, previous_questions)
         print(json.dumps(quiz_question, indent=2))

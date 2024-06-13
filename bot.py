@@ -9,7 +9,7 @@ from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHan
 
 from constants import INTRO_MESSAGE
 from decorators import balance_update, has_joined_channel
-from helpers import balance_markup, alpha_space
+from helpers import balance_markup, alpha_space, get_user_details
 from models import TelegramUser, Topic, StarPayment, QuizQuestion
 from prompt_engineering import generate_quiz_question
 
@@ -26,18 +26,9 @@ async def start_command(update, context):
         chat_id=update.message.chat.id,
     )
 
-    user_details = str()
-    if update.message.chat.first_name:
-        user_details += f'First Name: {update.message.chat.first_name}\n'
-    if update.message.chat.last_name:
-        user_details += f'Last Name: {update.message.chat.last_name}\n'
-    if update.message.chat.username:
-        user_details += f'Username: {update.message.chat.username}\n'
-    if update.message.chat.id:
-        user_details += f'Chat ID: {update.message.chat.id}\n'
+    user_details = await get_user_details(update)
 
     # alert admin
-
     await context.bot.send_message(
         chat_id=os.environ['ADMIN_CHAT_ID'],
         text=f'🚀 Someone used start: 🚀\n\n{user_details}'
@@ -66,6 +57,9 @@ async def start_command(update, context):
         message_id=intro_msg.message_id,
         disable_notification=True
     )
+
+
+
 
 
 @has_joined_channel
@@ -132,7 +126,7 @@ async def generate_and_send_question(chat_id, topic, update, user, context, retr
     )
     try:
         previous_questions = [question.question for question in topic.questions]
-        quiz_question = generate_quiz_question(topic.name, previous_questions)
+        quiz_question = await generate_quiz_question(update, context,topic.name, previous_questions)
         print(json.dumps(quiz_question, indent=2))
 
         options = quiz_question['options']
