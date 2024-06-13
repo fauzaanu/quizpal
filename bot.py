@@ -1,18 +1,15 @@
 import json
 import logging
 import os
-import random
-from dataclasses import dataclass
-from functools import wraps
 
 from dotenv import load_dotenv
-from telegram import LabeledPrice, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton, \
-    Update
-from telegram.error import BadRequest
+from telegram import LabeledPrice, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHandler, PreCheckoutQueryHandler, \
-    CallbackQueryHandler, CallbackContext
-from telegram.helpers import escape_markdown
+    CallbackQueryHandler
 
+from constants import INTRO_MESSAGE
+from decorators import balance_update, has_joined_channel
+from helpers import balance_markup, alpha_space
 from models import TelegramUser, Topic, StarPayment, QuizQuestion
 from prompt_engineering import generate_quiz_question
 
@@ -20,98 +17,6 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
-
-
-@dataclass
-class State:
-    START = 'START'
-    TOPIC = 'TOPIC'
-    QUESTION = 'QUESTION'
-    ANSWER = 'ANSWER'
-    EXPLANATION = 'EXPLANATION'
-    END = 'END'
-
-
-INTRO_MESSAGE = (
-    "🌟 *Welcome to Quizpal* 🌟\n\n"
-    "📚 Send any topic to generate questions 📚\n"
-    "💫 Each question costs 1 Telegram Star\n"
-    "💫 You have 4 Stars to start with\n\n"
-
-    "⚙️ *Bot Commands:*\n\n"
-    "🔹 /topics \- View your topics\n"
-    "🔹 /balance \- Check your star balance\n"
-    "🔹 /withdraw \- Withdraw all your stars\n"
-    "🔹 All text without a command is treated as a topic\n\n"
-    "🔍 *Examples of topics*:\n\n"
-    "🔹 `Few Shot Learning with Prototypical Networks`\n"
-    "🔹 `Cognitive Load Theory in Instructional Design`\n"
-    "🔹 `Clinical Pharmacokinetics and Pharmacodynamics`\n\n"
-    "📚 *Get started by sending me a topic* 📚\n"
-)
-
-CHANNEL = "@aboutquizpal"
-
-
-def has_joined_channel(func):
-    @wraps(func)
-    async def wrapper(update: Update, context: CallbackContext, *args, **kwargs):
-        """Decorator to check if the user has joined the channel"""
-
-        if update.message is None:
-            user_id = update.callback_query.message.chat.id
-        else:
-            user_id = update.message.chat.id
-
-        # Check if the user is a member of the channel
-        member = await context.bot.get_chat_member(
-            chat_id=CHANNEL,
-            user_id=user_id
-        )
-        if member.status in ['member', 'administrator', 'creator']:
-            # User is a member of the channel
-            return await func(update, context, *args, **kwargs)
-        else:
-            await context.bot.send_message(
-                chat_id=user_id,
-                text=f"You should be a subscriber of {CHANNEL} channel to use this bot. "
-                     f"Please join the channel and send /start again.",
-                reply_markup=InlineKeyboardMarkup([
-                    [InlineKeyboardButton(text='Join Channel', url=f'https://t.me/{CHANNEL[1:]}')]
-                ])
-            )
-
-    return wrapper
-
-
-def balance_update(func):
-    @wraps(func)
-    async def wrapper(update: Update, context: CallbackContext, *args, **kwargs):
-        """Decorator to check if the user has joined the channel"""
-
-        if update.message is None:
-            user_id = update.callback_query.message.chat.id
-        else:
-            user_id = update.message.chat.id
-
-        # update the users balance on the message
-        user = TelegramUser.get(chat_id=user_id)
-
-        try:
-            await context.bot.edit_message_text(
-                chat_id=user_id,
-                message_id=user.state,
-                text=INTRO_MESSAGE,
-                parse_mode='MarkdownV2',
-                reply_markup=balance_markup(user.star_balance)
-            )
-        except BadRequest:
-            pass
-        finally:
-            # User is a member of the channel
-            return await func(update, context, *args, **kwargs)
-
-    return wrapper
 
 
 @has_joined_channel
@@ -188,14 +93,6 @@ async def save_topic(update, context):
     await generate_and_send_question(update.message.chat.id, topic, update, user, context, retry=0)
 
 
-def alpha_space(explanation):
-    explanation_s = str()
-    for char in explanation:
-        if char.isalnum() or char == ' ':
-            explanation_s += char
-    return explanation_s
-
-
 async def generate_and_send_question(chat_id, topic, update, user, context, retry=0):
     if retry > 3:
         return await context.bot.send_message(
@@ -256,7 +153,7 @@ async def generate_and_send_question(chat_id, topic, update, user, context, retr
                 chat_id=chat_id,
                 text=explanation_text,
                 parse_mode="MarkdownV2",
-                reply_markup = InlineKeyboardMarkup(keyboard)
+                reply_markup=InlineKeyboardMarkup(keyboard)
             )
             user.star_balance -= 1
             user.save()
@@ -442,12 +339,6 @@ async def successful_payment_callback(update, context):
     )
 
 
-def balance_markup(star_balance):
-    return InlineKeyboardMarkup([
-        [InlineKeyboardButton(text=f'You have {star_balance} ⭐', callback_data='balance')],
-    ])
-
-
 @balance_update
 @has_joined_channel
 async def withdraw_stars(update, context):
@@ -493,10 +384,11 @@ async def withdraw_stars(update, context):
 
 if __name__ == '__main__':
     load_dotenv(override=True)
-    print(os.environ['TELEGRAM_BOT_TOKEN'])
     token = os.environ['TELEGRAM_BOT_TOKEN']
+
     application = ApplicationBuilder().token(token).build()
 
+    # Handlers
     commands = CommandHandler('start', start_command)
     topic = CommandHandler('topics', topics)
     withdraw = CommandHandler('withdraw', withdraw_stars)
@@ -504,23 +396,23 @@ if __name__ == '__main__':
     successful_payment = MessageHandler(filters.SUCCESSFUL_PAYMENT, successful_payment_callback)
     save_topic = MessageHandler(filters.TEXT, save_topic)
 
+    # Command handlers
     application.add_handler(commands)
     application.add_handler(balance)
     application.add_handler(topic)
     application.add_handler(withdraw)
 
-    # payment processing
+    # payments
     application.add_handler(PreCheckoutQueryHandler(precheckout_callback))
-
-    # callback for successful payment
     application.add_handler(successful_payment)
 
-    # callback for next question
+    # Next question callback
     application.add_handler(CallbackQueryHandler(next_question_callback, pattern='nq'))
 
-    # callback for learning more
+    # Learn more callback
     application.add_handler(CallbackQueryHandler(learn_more, pattern='e'))
 
+    # Save topic handler - Full text and so the last handler
     application.add_handler(save_topic)
 
     application.run_polling()
