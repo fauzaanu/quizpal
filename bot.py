@@ -26,6 +26,23 @@ async def start_command(update, context):
         chat_id=update.message.chat.id,
     )
 
+    user_details = str()
+    if update.message.chat.first_name:
+        user_details += f'First Name: {update.message.chat.first_name}\n'
+    if update.message.chat.last_name:
+        user_details += f'Last Name: {update.message.chat.last_name}\n'
+    if update.message.chat.username:
+        user_details += f'Username: {update.message.chat.username}\n'
+    if update.message.chat.id:
+        user_details += f'Chat ID: {update.message.chat.id}\n'
+
+    # alert admin
+
+    await context.bot.send_message(
+        chat_id=os.environ['ADMIN_CHAT_ID'],
+        text=f'🚀 Someone used start: 🚀\n\n{user_details}'
+    )
+
     if user.star_balance == 0:
         user.first_name = update.message.chat.first_name,
         user.last_name = update.message.chat.last_name,
