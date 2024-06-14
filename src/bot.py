@@ -436,43 +436,43 @@ async def get_video(update, context):
     )
 
 
-async def file_id_grabber(update, context):
-    """sends file id to admin"""
-    update_str = str(update)
-    start_str = "file_id='"
-    end_str = "'"
-    # grab all the file ids
-    for i in range(update_str.count(start_str)):
-        start = update_str.find(start_str)
-        end = update_str.find(end_str, start + len(start_str))
-        file_id = update_str[start + len(start_str):end]
-
-        file = await context.bot.get_file(file_id)
-        image_ext = ['.jpg', '.jpeg', '.png', '.gif']
-        if file.file_path.endswith('.mp4'):
-            await context.bot.send_video(
-                chat_id=os.environ['ADMIN_CHAT_ID'],
-                video=file_id
-            )
-        # image paths
-        elif file.file_path.endswith(tuple(image_ext)):
-            await context.bot.send_photo(
-                chat_id=os.environ['ADMIN_CHAT_ID'],
-                photo=file_id
-            )
-
-        else:
-            await context.bot.send_document(
-                chat_id=os.environ['ADMIN_CHAT_ID'],
-                document=file_id
-            )
-
-        await context.bot.send_message(
-            chat_id=os.environ['ADMIN_CHAT_ID'],
-            text=f'Recieved File ID: {file_id}'
-        )
-
-        update_str = update_str[end:]
+# async def file_id_grabber(update, context):
+#     """sends file id to admin"""
+#     update_str = str(update)
+#     start_str = "file_id='"
+#     end_str = "'"
+#     # grab all the file ids
+#     for i in range(update_str.count(start_str)):
+#         start = update_str.find(start_str)
+#         end = update_str.find(end_str, start + len(start_str))
+#         file_id = update_str[start + len(start_str):end]
+#
+#         file = await context.bot.get_file(file_id)
+#         image_ext = ['.jpg', '.jpeg', '.png', '.gif']
+#         if file.file_path.endswith('.mp4'):
+#             await context.bot.send_video(
+#                 chat_id=os.environ['ADMIN_CHAT_ID'],
+#                 video=file_id
+#             )
+#         # image paths
+#         elif file.file_path.endswith(tuple(image_ext)):
+#             await context.bot.send_photo(
+#                 chat_id=os.environ['ADMIN_CHAT_ID'],
+#                 photo=file_id
+#             )
+#
+#         else:
+#             await context.bot.send_document(
+#                 chat_id=os.environ['ADMIN_CHAT_ID'],
+#                 document=file_id
+#             )
+#
+#         await context.bot.send_message(
+#             chat_id=os.environ['ADMIN_CHAT_ID'],
+#             text=f'Recieved File ID: {file_id}'
+#         )
+#
+#         update_str = update_str[end:]
 
 
 if __name__ == '__main__':
@@ -489,7 +489,7 @@ if __name__ == '__main__':
     video = CommandHandler('help', get_video)
     successful_payment = MessageHandler(filters.SUCCESSFUL_PAYMENT, successful_payment_callback)
     save_topic = MessageHandler(filters.TEXT, save_topic)
-    file_id_grabber = MessageHandler(filters.ALL, file_id_grabber)
+    # file_id_grabber = MessageHandler(filters.ALL, file_id_grabber)
 
     # Command handlers
     application.add_handler(commands)
@@ -512,6 +512,6 @@ if __name__ == '__main__':
 
     # Save topic handler - Full text and so the last handler
     application.add_handler(save_topic)
-    application.add_handler(file_id_grabber)
+    # application.add_handler(file_id_grabber)
 
     application.run_polling()
