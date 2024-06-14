@@ -135,7 +135,6 @@ async def save_topic(update, context):
                     text='#H File updated successfully.'
                 )
 
-
     topic = update.message.text
 
     topic = topic.strip()
@@ -185,15 +184,9 @@ async def generate_and_send_question(chat_id, topic, update, user, context, retr
             text='We are unable to generate a question at the moment. Please try again later.'
         )
 
-    temp_msg = await context.bot.send_message(
-        chat_id=chat_id,
-        text='🔄 Generating a question for you. Please wait... ⏳'
-    )
-
     generating_msg = await context.bot.sendAnimation(
         chat_id=chat_id,
         animation=StaticFile.get(identifier='#G').telegram_fileid,
-        caption='🔄 Generating a question for you. Please wait... ⏳'
     )
 
     try:
@@ -208,50 +201,41 @@ async def generate_and_send_question(chat_id, topic, update, user, context, retr
         question_text = quiz_question['question']
         question = QuizQuestion.get(question=question_text)
 
-        # generate a question
-        try:
-            await context.bot.send_poll(
-                type='quiz',
-                chat_id=chat_id,
-                question=question_text,
-                options=options,
-                correct_option_id=correct_option_id,
-                is_anonymous=True,
-                protect_content=False,
-                reply_markup=InlineKeyboardMarkup(
+        await context.bot.send_poll(
+            type='quiz',
+            chat_id=chat_id,
+            question=question_text,
+            options=options,
+            correct_option_id=correct_option_id,
+            is_anonymous=True,
+            protect_content=False,
+            reply_markup=InlineKeyboardMarkup(
+                [
                     [
-                        [
-                            InlineKeyboardButton(text='🔍 Explain', callback_data=f'ex?q={question.id}'),
-                            InlineKeyboardButton(text='♾️ Next Question', callback_data=f'nq?t={topic.id}')
-                        ],
-                    ]
-                )
-
+                        InlineKeyboardButton(text='🔍 Explain', callback_data=f'ex?q={question.id}'),
+                        InlineKeyboardButton(text='♾️ Next Question', callback_data=f'nq?t={topic.id}')
+                    ],
+                ]
             )
 
-            for topic in quiz_question['related_topics']:
-                SuggestedTopic.create(
-                    stopic=topic,
-                    question=question
-                )
+        )
 
-            user.star_balance -= 1
-            user.save()
-
-            await context.bot.edit_message_media(
-                chat_id=chat_id,
-                message_id=generating_msg.message_id,
-                media=InputMediaAnimation(
-                    media=StaticFile.get(identifier='#S').telegram_fileid,
-                    caption='✅ Question generated successfully. 🎉'
-                )
+        for topic in quiz_question['related_topics']:
+            SuggestedTopic.create(
+                stopic=topic,
+                question=question
             )
-        except Exception as e:
-            print(e)
-            # return await generate_and_send_question(chat_id, topic, update, user, context, retry + 1)
-        # except BadRequest:
-        # return await generate_and_send_question(chat_id, topic, update, user, context, retry + 1)
 
+        user.star_balance -= 1
+        user.save()
+
+        await context.bot.edit_message_media(
+            chat_id=chat_id,
+            message_id=generating_msg.message_id,
+            media=InputMediaAnimation(
+                media=StaticFile.get(identifier='#S').telegram_fileid,
+            )
+        )
         await context.bot.edit_message_text(
             chat_id=chat_id,
             message_id=user.state,
@@ -263,21 +247,15 @@ async def generate_and_send_question(chat_id, topic, update, user, context, retr
                 ])
         )
 
-    except ValueError as e:
-        print(e)
+    except Exception as e:
         await context.bot.edit_message_media(
             chat_id=chat_id,
             message_id=generating_msg.message_id,
             media=InputMediaAnimation(
                 media=StaticFile.get(identifier='#E').telegram_fileid,
-                caption='❌ Unable to generate a question. Please try again later.'
             )
         )
-    finally:
-        await context.bot.delete_message(
-            chat_id=temp_msg.chat.id,
-            message_id=temp_msg.message_id
-        )
+        await alert_admin(f"Error generating question: {e}", context, update)
 
 
 async def explanation(update, context):
