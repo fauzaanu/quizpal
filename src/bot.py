@@ -106,7 +106,21 @@ async def save_topic(update, context):
                     chat_id=update.message.chat.id,
                     text='#E File updated successfully.'
                 )
-            elif update.message.caption == "#H":
+            elif update.message.caption == "#G":
+                # get the file_id
+                file_id = update.message.animation.file_id
+                # save the file_id to the database
+                s, _ = StaticFile.get_or_create(
+                    identifier="#G",
+                )
+                s.telegram_fileid = file_id
+                s.save()
+
+                return await context.bot.send_message(
+                    chat_id=update.message.chat.id,
+                    text='#E File updated successfully.'
+                )
+            elif update.message.caption == "#G":
                 # get the file_id
                 file_id = update.message.video.file_id
                 # save the file_id to the database
@@ -120,6 +134,7 @@ async def save_topic(update, context):
                     chat_id=update.message.chat.id,
                     text='#H File updated successfully.'
                 )
+
 
     topic = update.message.text
 
@@ -177,7 +192,7 @@ async def generate_and_send_question(chat_id, topic, update, user, context, retr
 
     generating_msg = await context.bot.sendAnimation(
         chat_id=chat_id,
-        animation="CgACAgUAAxkBAAIBjGZsfSwhU9rtnldNQ08cul6gtKUsAALNDQACVCBoV21__LXajbNDNQQ",
+        animation=StaticFile.get(identifier='#G').telegram_fileid,
         caption='🔄 Generating a question for you. Please wait... ⏳'
     )
 
