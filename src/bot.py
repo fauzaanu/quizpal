@@ -15,6 +15,7 @@ from decorators import balance_update, has_joined_channel
 from helpers import balance_markup, alpha_space, get_user_details, remove_question_words, remove_verbs
 from models import TelegramUser, Topic, StarPayment, QuizQuestion
 from prompt_engineering import generate_quiz_question
+from admin_alerts import alert_admin
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -29,13 +30,7 @@ async def start_command(update, context):
         chat_id=update.message.chat.id,
     )
 
-    user_details = await get_user_details(update)
-
-    # alert admin
-    await context.bot.send_message(
-        chat_id=os.environ['ADMIN_CHAT_ID'],
-        text=f'🚀 Someone used start: 🚀\n\n{user_details}'
-    )
+    await alert_admin("Someone used start", context, update)
 
     if user.star_balance == 0:
         user.first_name = update.message.chat.first_name,

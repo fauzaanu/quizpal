@@ -7,6 +7,7 @@ from telegram import Update
 
 from helpers import get_user_details, alpha_space
 from models import Topic, QuizQuestion, QuizAnswer, AnswerExplanation
+from admin_alerts import alert_admin
 
 
 async def update_db(json_response, topic):
@@ -122,15 +123,7 @@ async def send_to_gpt(update: Update, context, user_prompt: str, system_prompt: 
     # alert admin about cost
     try:
         cost = completion.usage.prompt_tokens * (0.0005 / 1000) + completion.usage.completion_tokens * (0.0015 / 1000)
-
-        user_details = await get_user_details(update)
-        await context.bot.send_message(
-            chat_id=os.getenv("ADMIN_CHAT_ID"),
-            text=(f"User: {user_details} \n\n"
-                  f"{cost} USD\n"
-                  f"{cost * 15.42} MVR"
-                  ),
-        )
+        await alert_admin(f"{cost} USD\n{cost * 15.42} MVR", context, update)
     except Exception as e:
         print(e)
 
