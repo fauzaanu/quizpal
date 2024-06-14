@@ -1,4 +1,5 @@
 import datetime
+import os
 
 from peewee import Model, SqliteDatabase, CharField, DateField, IntegerField, ForeignKeyField, BooleanField
 
@@ -67,14 +68,36 @@ class AnswerExplanation(Model):
         database = db
 
 
+class SuggestedTopic(Model):
+    stopic = CharField()
+    question = ForeignKeyField(QuizQuestion, backref='suggested_topics')
+    created_at = DateField(default=datetime.datetime.now)
+
+    class Meta:
+        database = db
+
+
+class StaticFile(Model):
+    telegram_fileid = CharField()
+    identifier = CharField()
+    created_at = DateField(default=datetime.datetime.now)
+
+    class Meta:
+        database = db
+
+
 if __name__ == '__main__':
+    print(os.getcwd())
+    os.chdir('../')
     db.connect()
     db.create_tables([TelegramUser,
                       QuizQuestion,
                       QuizAnswer,
                       AnswerExplanation,
                       Topic,
-                      StarPayment
+                      StarPayment,
+                      SuggestedTopic,
+                      StaticFile
                       ])
 
     db.close()
