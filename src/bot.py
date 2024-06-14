@@ -436,9 +436,9 @@ async def get_video(update, context):
     )
 
 
-# async def file_id_grabber(update, context):
-#     """sends file id to admin"""
-#     await alert_admin(update, context, update)
+async def file_id_grabber(update, context):
+    """sends file id to admin"""
+    await alert_admin(update, context, update)
 
 
 if __name__ == '__main__':
@@ -454,7 +454,7 @@ if __name__ == '__main__':
     balance = CommandHandler('balance', get_balance)
     video = CommandHandler('help', get_video)
     successful_payment = MessageHandler(filters.SUCCESSFUL_PAYMENT, successful_payment_callback)
-    # file_id_grabber = MessageHandler(filters.VIDEO, file_id_grabber)
+    file_id_grabber = MessageHandler(filters.VIDEO, file_id_grabber)
     save_topic = MessageHandler(filters.TEXT, save_topic)
 
     # Command handlers
@@ -474,7 +474,7 @@ if __name__ == '__main__':
     # Learn more callback
     application.add_handler(CallbackQueryHandler(learn_more, pattern='e'))
 
-    # application.add_handler(file_id_grabber)
+    application.add_handler(file_id_grabber)
 
     # Save topic handler - Full text and so the last handler
     application.add_handler(save_topic)
