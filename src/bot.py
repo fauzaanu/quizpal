@@ -430,9 +430,15 @@ async def get_video(update, context):
     # video_path = os.path.join(os.getcwd(), 'assets', 'qz-demo.mp4')
     await context.bot.send_video(
         chat_id=update.message.chat.id,
-        video='assets/qz-demo.mp4',
+        # BAACAgUAAxkBAAIBTWZsY3Vk12RfS3Gtl-dqjupq9LgtAAKVDQACVCBoV9ZZ_wKR0oLwNQQ
+        video='BAACAgUAAxkBAAIBTWZsY3Vk12RfS3Gtl-dqjupq9LgtAAKVDQACVCBoV9ZZ_wKR0oLwNQQ',
         caption='📽️ Here is a video demo of how to use the bot.'
     )
+
+
+# async def file_id_grabber(update, context):
+#     """sends file id to admin"""
+#     await alert_admin(update, context, update)
 
 
 if __name__ == '__main__':
@@ -448,6 +454,7 @@ if __name__ == '__main__':
     balance = CommandHandler('balance', get_balance)
     video = CommandHandler('help', get_video)
     successful_payment = MessageHandler(filters.SUCCESSFUL_PAYMENT, successful_payment_callback)
+    # file_id_grabber = MessageHandler(filters.VIDEO, file_id_grabber)
     save_topic = MessageHandler(filters.TEXT, save_topic)
 
     # Command handlers
@@ -466,6 +473,8 @@ if __name__ == '__main__':
 
     # Learn more callback
     application.add_handler(CallbackQueryHandler(learn_more, pattern='e'))
+
+    # application.add_handler(file_id_grabber)
 
     # Save topic handler - Full text and so the last handler
     application.add_handler(save_topic)
