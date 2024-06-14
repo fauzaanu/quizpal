@@ -1,11 +1,14 @@
 import json
 import logging
 import os
+from typing import Callable, Coroutine, Any, Union, List, Dict, Optional
 
 from dotenv import load_dotenv
 from telegram import LabeledPrice, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
+from telegram._utils.types import JSONDict
 from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHandler, PreCheckoutQueryHandler, \
-    CallbackQueryHandler
+    CallbackQueryHandler, BaseRateLimiter
+from telegram.ext._utils.types import RLARGS
 
 from constants import INTRO_MESSAGE
 from decorators import balance_update, has_joined_channel
@@ -56,6 +59,11 @@ async def start_command(update, context):
         chat_id=update.message.chat.id,
         message_id=intro_msg.message_id,
         disable_notification=True
+    )
+
+    await context.bot.send_message(
+        chat_id=update.message.chat.id,
+        text='📝 Send /help to see a video demo of how to use the bot.'
     )
 
 
@@ -404,6 +412,20 @@ async def withdraw_stars(update, context):
                     )
 
 
+@balance_update
+@has_joined_channel
+async def get_video(update, context):
+    """Sends a video to the user"""
+
+    # video_path = os.path.join(os.getcwd(), 'assets', 'qz-demo.mp4')
+
+    await context.bot.send_video(
+        chat_id=update.message.chat.id,
+        video='../assets/qz-demo.mp4',
+        caption='📽️ Here is a video demo of how to use the bot.'
+    )
+
+
 if __name__ == '__main__':
     load_dotenv(override=True)
     token = os.environ['TELEGRAM_BOT_TOKEN']
@@ -415,6 +437,7 @@ if __name__ == '__main__':
     topic = CommandHandler('topics', topics)
     withdraw = CommandHandler('withdraw', withdraw_stars)
     balance = CommandHandler('balance', get_balance)
+    video = CommandHandler('help', get_video)
     successful_payment = MessageHandler(filters.SUCCESSFUL_PAYMENT, successful_payment_callback)
     save_topic = MessageHandler(filters.TEXT, save_topic)
 
@@ -423,6 +446,7 @@ if __name__ == '__main__':
     application.add_handler(balance)
     application.add_handler(topic)
     application.add_handler(withdraw)
+    application.add_handler(video)
 
     # payments
     application.add_handler(PreCheckoutQueryHandler(precheckout_callback))
