@@ -37,7 +37,7 @@ async def start_command(update, context):
         user.first_name = update.message.chat.first_name,
         user.last_name = update.message.chat.last_name,
         user.username = update.message.chat.username,
-        user.star_balance = 4
+        user.star_balance = 50
         user.save()
 
     intro_msg = await context.bot.send_message(
@@ -163,27 +163,18 @@ async def save_topic(update, context):
     )
 
     if user.star_balance == 1:
-        # lol, dont ask
-        user.star_balance += 50
-        user.save()
-        return
-
         await context.bot.send_message(
             chat_id=update.message.chat.id,
-            text='You have 1 star left. Please top up to continue generating questions.'
+            text='You have 1 star left. Please purchase our premium plan to continue generating questions.'
+                 'Our premium pack grants you 10,000 Quizpal stars and they never expire.'
+                 'The cost of the premium plan is 1500 Telegram Stars. (Approx. $30)'
         )
         return await send_invoice(update, context, chat_id=update.message.chat.id)
 
-    await generate_and_send_question(update.message.chat.id, topic, update, user, context, retry=0)
+    await generate_and_send_question(update.message.chat.id, topic, update, user, context)
 
 
-async def generate_and_send_question(chat_id, topic, update, user, context, retry=0):
-    if retry > 3:
-        return await context.bot.send_message(
-            chat_id=chat_id,
-            text='We are unable to generate a question at the moment. Please try again later.'
-        )
-
+async def generate_and_send_question(chat_id, topic, update, user, context):
     generating_msg = await context.bot.sendAnimation(
         chat_id=chat_id,
         animation=StaticFile.get(identifier='#G').telegram_fileid,
@@ -363,7 +354,7 @@ async def next_question_callback(update, context):
         )
         return await send_invoice(update, context, chat_id=query.message.chat.id)
 
-    await generate_and_send_question(query.message.chat.id, topic, update, user, context, retry=0)
+    await generate_and_send_question(query.message.chat.id, topic, update, user, context)
 
 
 @balance_update
@@ -413,13 +404,12 @@ async def get_balance(update, context):
 async def send_invoice(update, context, chat_id):
     await context.bot.send_invoice(
         chat_id=chat_id,
-        title='Quizpal Topup',
-        description='Top up your stars to continue generating questions.'
-                    'Each question costs 1 star. With 150 stars, you can generate 150 questions.',
+        title='Quizpal Yearly',
+        description='You will recieve 10,000 Quizpal stars Valid forever.',
         payload='WPBOT-PYLD',
         currency='XTR',
         prices=[
-            LabeledPrice('Basic', 150)
+            LabeledPrice('Basic', 1500)
         ],
         provider_token='',
     )
@@ -445,7 +435,7 @@ async def successful_payment_callback(update, context):
         telegram_charge_id=update.message.successful_payment.telegram_payment_charge_id
     )
 
-    user.star_balance += update.message.successful_payment.total_amount
+    user.star_balance += 10000
     user.save()
 
     await context.bot.edit_message_text(
@@ -529,7 +519,7 @@ if __name__ == '__main__':
     # Handlers
     commands = CommandHandler('start', start_command)
     topic = CommandHandler('topics', topics)
-    withdraw = CommandHandler('withdraw', withdraw_stars)
+    # withdraw = CommandHandler('withdraw', withdraw_stars)
     balance = CommandHandler('balance', get_balance)
     video = CommandHandler('help', get_video)
 
@@ -540,7 +530,7 @@ if __name__ == '__main__':
     application.add_handler(commands)
     application.add_handler(balance)
     application.add_handler(topic)
-    application.add_handler(withdraw)
+    # application.add_handler(withdraw)
     application.add_handler(video)
 
     # payments
