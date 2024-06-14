@@ -70,7 +70,9 @@ async def generate_quiz_question(update: Update, context, topic: str, previous_q
         "  'explanation': 'The Anaphase Promoting Complex (APC/C) triggers "
         "the separation of sister chromatids by targeting securin for degradation, "
         "thus activating separase to cleave cohesin complexes.',\n"
-        "  'related_topics': ['Cell Cycle', 'Mitotic Spindle', 'Chromosome Segregation']\n"
+        "  'related_topics': ['Cell cycle regulation and checkpoints', "
+        "'Mitosis and meiosis cycles, "
+        "Chromosome structure and function']\n"
         "}\n\n"
 
         "Bad Example:\n"
@@ -80,10 +82,11 @@ async def generate_quiz_question(update: Update, context, topic: str, previous_q
         "  'correct_option': 'Separates chromatids',\n"
         "  'explanation': 'The Anaphase Promoting Complex (APC/C) triggers the separation of sister "
         "chromatids by targeting securin for degradation.',\n"
-        "  'related_topics': ['Cell Division', 'Chromatids']\n"
+        "  'related_topics': ['Cell', 'Chromatids']\n"
         "}\n\n"
         "Note that the good example is specific, challenging, and requires deep understanding, whereas the bad example "
-        "is too straightforward and lacks complexity and includes unnecessary phrases such as 'In the context of'.\n\n"
+        "is too straightforward and lacks complexity and includes unnecessary phrases such as 'In the context of"
+        "The Good example also gives more specefic related topics rather than short one word phrases'.\n\n"
     )
 
     response = await send_to_gpt(update, context, user_prompt, system_prompt, )

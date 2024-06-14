@@ -168,8 +168,13 @@ async def generate_and_send_question(chat_id, topic, update, user, context, retr
                 f"❓ _{alpha_space(question_text)}_ \n\n"
                 f"📖 **Answer**\n\n"
                 f"||{alpha_space(quiz_question['explanation'])}|| \n\n"
-                f"✏️✨💡"
+                f"✏️💡\n\n"
+                f"**✨ Here are some related topics to this question "
+                f"you can send back to me to generate more questions**\n\n"
             )
+
+            for topic in quiz_question['related_topics']:
+                explanation_text += f'🔗 `{topic}`\n'
 
             await context.bot.send_message(
                 chat_id=chat_id,
