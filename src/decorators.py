@@ -1,3 +1,4 @@
+import random
 from functools import wraps
 
 from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
@@ -13,6 +14,10 @@ def has_joined_channel(func):
     @wraps(func)
     async def wrapper(update: Update, context: CallbackContext, *args, **kwargs):
         """Decorator to check if the user has joined the channel"""
+
+        # only check if the user joined the channel 50% of the time
+        if random.randint(0, 1) == 0:
+            return await func(update, context, *args, **kwargs)
 
         if update.message is None:
             user_id = update.callback_query.message.chat.id
