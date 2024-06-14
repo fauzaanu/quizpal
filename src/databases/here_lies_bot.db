@@ -1,0 +1,3 @@
+This is the directory that bot.db should be in.
+It should  be created by running models.py directly.
+This should only be done once, initially.
