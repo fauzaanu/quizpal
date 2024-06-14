@@ -78,8 +78,8 @@ class SuggestedTopic(Model):
 
 
 class StaticFile(Model):
-    telegram_fileid = CharField()
-    identifier = CharField()
+    telegram_fileid = CharField(null=True)
+    identifier = CharField(null=False)
     created_at = DateField(default=datetime.datetime.now)
 
     class Meta:

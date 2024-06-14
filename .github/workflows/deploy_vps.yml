@@ -22,4 +22,5 @@ jobs:
             git pull
             /home/${{ secrets.SERVER_USERNAME }}/.local/bin/poetry shell
             /home/${{ secrets.SERVER_USERNAME }}/.local/bin/poetry install --no-root
+            /home/${{ secrets.SERVER_USERNAME }}/.local/bin/poetry run src/models.py
             sudo systemctl restart quizbot.service
