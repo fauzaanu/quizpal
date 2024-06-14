@@ -11,6 +11,7 @@ python-telegram-bot = "^21.3"
 python-dotenv = "^1.0.1"
 openai = "^1.33.0"
 peewee = "^3.17.5"
+requests = "^2.32.3"
 
 
 [build-system]

@@ -53,12 +53,13 @@ def remove_question_words(string_to_convert):
 
 def remove_verbs(string_to_convert):
     verbs = ['is', 'are', 'am', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did',
-             'shall', 'will', 'should', 'would', 'may', 'might', 'must', 'can', 'could']
+             'shall', 'will', 'should', 'would', 'may', 'might', 'must', 'can', 'could', "the"]
     prepositions = [
         'aboard', 'about', 'above', 'across', 'after', 'against', 'along', 'amid', 'among', 'anti', 'around',
         'as', 'at', 'before', 'behind', 'below', 'beneath', 'beside', 'besides', 'between', 'beyond', 'but', 'by',
         'concerning', 'considering', 'despite', 'down', 'during', 'except', 'excepting', 'excluding', 'following',
-        'for', 'from', 'in', 'inside', 'into', 'like', 'minus', 'near', 'of', 'off', 'on', 'onto', 'opposite', 'outside',
+        'for', 'from', 'in', 'inside', 'into', 'like', 'minus', 'near', 'of', 'off', 'on', 'onto', 'opposite',
+        'outside',
         'over', 'past', 'per', 'plus', 'regarding', 'round', 'save', 'since', 'than', 'through', 'to', 'toward',
         'towards', 'under', 'underneath', 'unlike', 'until', 'up', 'upon', 'versus', 'via', 'with', 'within', 'without'
     ]
@@ -84,3 +85,58 @@ async def alert_admin(message, context, update):
         chat_id=os.environ['ADMIN_CHAT_ID'],
         text=f'{user_details}\n\n{message}'
     )
+
+
+async def get_journal_articles(question: str):
+    "from the question grab some journal articles"
+    import requests
+    # https://www.doaj.org/api/search/articles/cognitive%20load?page=1&pageSize=20
+
+    # publisher
+    # year
+    # author
+    # link
+    # abstract
+    # title
+    # created_date
+
+    question = remove_question_words(alpha_space(remove_verbs(question)))
+    base_url = "https://www.doaj.org/api/search/articles/"
+
+    response = requests.get(f"{base_url}{question}?page=1&pageSize=2")
+    response_json = response.json()
+
+    if response_json['total'] == 0:
+        return None
+    else:
+        response_str = str()
+        response_str = process_response_str(response_json, response_str)
+        return response_str
+
+
+def escape_dot(string_to_convert):
+    converted_string = str()
+    for char in string_to_convert:
+        if char == '.':
+            converted_string += f'\{char}'
+        elif char == '-':
+            converted_string += f'\{char}'
+        else:
+            converted_string += char
+    return converted_string
+
+
+def process_response_str(response_json, response_str):
+    articles = response_json['results']
+
+    for article in articles:
+        response_str += (f"📚 {alpha_space(article['bibjson']['title'])[0:100]} \. \. \."
+                         f"\n[🔗 Link]({escape_dot(article['bibjson']['link'][0]['url'])})"
+                         f"\n\n")
+    return response_str
+
+
+if __name__ == "__main__":
+    pass
+    # x = get_journal_articles("cognitive load")
+    # print(x)

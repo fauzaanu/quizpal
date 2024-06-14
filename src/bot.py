@@ -12,7 +12,8 @@ from telegram.ext._utils.types import RLARGS
 
 from constants import INTRO_MESSAGE
 from decorators import balance_update, has_joined_channel
-from helpers import balance_markup, alpha_space, get_user_details, remove_question_words, remove_verbs, alert_admin
+from helpers import balance_markup, alpha_space, get_user_details, remove_question_words, remove_verbs, alert_admin, \
+    get_journal_articles
 from models import TelegramUser, Topic, StarPayment, QuizQuestion
 from prompt_engineering import generate_quiz_question
 
@@ -164,23 +165,33 @@ async def generate_and_send_question(chat_id, topic, update, user, context, retr
 
             )
 
+            topic_text = str()
+            journal_text = str()
+            for topic in quiz_question['related_topics']:
+                topic_text += f'🔗 `{topic}`\n'
+                j = await get_journal_articles(topic)
+                journal_text += j if j else ''
+
+            if journal_text:
+                journal_text = (f"*✨ Related Journal Articles*\n\n"
+                                + journal_text)
+
             explanation_text = (
                 f"❓ _{alpha_space(question_text)}_ \n\n"
-                f"📖 **Answer**\n\n"
+                f"📖 *Answer*\n\n"
                 f"||{alpha_space(quiz_question['explanation'])}|| \n\n"
                 f"✏️💡\n\n"
-                f"**✨ Here are some related topics to this question "
-                f"you can send back to me to generate more questions**\n\n"
+                f"**✨ Suggested Topics**\n\n"
+                f"{topic_text}\n\n"
+                f"{journal_text if journal_text else ''}"
             )
-
-            for topic in quiz_question['related_topics']:
-                explanation_text += f'🔗 `{topic}`\n'
 
             await context.bot.send_message(
                 chat_id=chat_id,
                 text=explanation_text,
                 parse_mode="MarkdownV2",
-                reply_markup=InlineKeyboardMarkup(keyboard)
+                reply_markup=InlineKeyboardMarkup(keyboard),
+                disable_web_page_preview=True
             )
             user.star_balance -= 1
             user.save()

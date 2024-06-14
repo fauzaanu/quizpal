@@ -1,0 +1,1487 @@
+{
+  "total": 3190,
+  "page": 1,
+  "pageSize": 20,
+  "timestamp": "2024-06-14T13:26:45.505753Z",
+  "query": "cognitive load",
+  "results": [
+    {
+      "last_updated": "2023-12-20T17:10:05Z",
+      "bibjson": {
+        "identifier": [
+          {
+            "id": "1590-492X",
+            "type": "pissn"
+          },
+          {
+            "id": "1825-8670",
+            "type": "eissn"
+          },
+          {
+            "id": "10.6092/issn.1825-8670/17765",
+            "type": "doi"
+          }
+        ],
+        "journal": {
+          "volume": "27",
+          "number": "67",
+          "country": "IT",
+          "issns": [
+            "1590-492X",
+            "1825-8670"
+          ],
+          "publisher": "University of Bologna",
+          "language": [
+            "EN",
+            "IT"
+          ],
+          "title": "Encyclopaideia"
+        },
+        "month": "12",
+        "end_page": "95",
+        "keywords": [
+          "school trip",
+          "education",
+          "cognitive load",
+          "intrinsic motivation",
+          "teaching"
+        ],
+        "year": "2023",
+        "start_page": "91",
+        "subject": [
+          {
+            "code": "L",
+            "scheme": "LCC",
+            "term": "Education"
+          }
+        ],
+        "author": [
+          {
+            "affiliation": "Scuola Universitaria Professionale della Svizzera Italiana",
+            "name": "Raffaele Beretta Piccoli"
+          }
+        ],
+        "link": [
+          {
+            "content_type": "html",
+            "type": "fulltext",
+            "url": "https://encp.unibo.it/article/view/17765"
+          }
+        ],
+        "abstract": "To provide a possible interpretation of the passive attitude often exhibited by pupils in the context of school trips, the article does not follow the path of moralistic judgement, but starts from the essence of the teaching profession, which consists in showing the world to the students. The article adopts the thesis of the presence, in many school trips, of an excessive cognitive load and affirms the need to devote the same attention to teaching in these learning contexts as in class work. Graduality is proposed as the key to a learning experience based on a motivation that arises from the discovery of reality.",
+        "title": "Preparing an Effective School Trip: Precision Work"
+      },
+      "id": "0004c8f15f8746869387c92098d5a16e",
+      "created_date": "2023-12-20T17:10:05Z"
+    },
+    {
+      "last_updated": "2022-12-22T00:24:07Z",
+      "bibjson": {
+        "identifier": [
+          {
+            "id": "1664-1078",
+            "type": "eissn"
+          },
+          {
+            "id": "10.3389/fpsyg.2022.852995",
+            "type": "doi"
+          }
+        ],
+        "journal": {
+          "volume": "13",
+          "country": "CH",
+          "issns": [
+            "1664-1078"
+          ],
+          "publisher": "Frontiers Media S.A.",
+          "language": [
+            "EN"
+          ],
+          "title": "Frontiers in Psychology"
+        },
+        "month": "6",
+        "keywords": [
+          "cognitive reserve",
+          "fMRI",
+          "multivariate analysis",
+          "verbal working memory",
+          "inter-subject similarity"
+        ],
+        "year": "2022",
+        "subject": [
+          {
+            "code": "BF1-990",
+            "scheme": "LCC",
+            "term": "Psychology"
+          }
+        ],
+        "author": [
+          {
+            "name": "Christian Habeck"
+          },
+          {
+            "name": "Yunglin Gazes"
+          },
+          {
+            "name": "Yaakov Stern"
+          }
+        ],
+        "link": [
+          {
+            "content_type": "HTML",
+            "type": "fulltext",
+            "url": "https://www.frontiersin.org/articles/10.3389/fpsyg.2022.852995/full"
+          }
+        ],
+        "abstract": "Cognitive Reserve (CR), according to a recent consensus definition of the NIH-funded Reserve and Resilience collaboratory,1 is constituted by any mechanism contributing to cognitive performance beyond, or interacting with, brain structure in the widest sense. To identity multivariate activation patterns fulfilling this postulate, we investigated a verbal Sternberg fMRI task and imaged 181 people with age coverage in the ranges 20–30 (44 participants) and 55–70 (137 participants). Beyond task performance, participants were characterized in terms of demographics, and neuropsychological assessments of vocabulary, episodic memory, perceptual speed, and abstract fluid reasoning. Participants studied an array of either one, three, or six upper-case letters for 3 s (=encoding phase), then a blank fixation screen was presented for 7 s (=maintenance phase), to be probed with a lower-case letter to which they responded with a differential button press whether the letter was part of the studied array or not (=retrieval phase). We focused on identifying maintenance-related activation patterns showing memory load increases in pattern score on an individual participant level for both age groups. We found such a pattern that increased with memory load for all but one person in the young participants (p &lt; 0.001), and such a pattern for all participants in the older group (p &lt; 0.001). Both patterns showed broad topographic similarities; however, relationships to task performance and neuropsychological characteristics were markedly different and point to individual differences in Cognitive Reserve. Beyond the derivation of group-level activation patterns, we also investigated the inter-subject spatial similarity of individual working memory rehearsal patterns in the older participants’ group as a function of neuropsychological and task performance, education, and mean cortical thickness. Higher task accuracy and neuropsychological function was reliably associated with higher inter-subject similarity of individual-level activation patterns in older participants.",
+        "title": "Age-Specific Activation Patterns and Inter-Subject Similarity During Verbal Working Memory Maintenance and Cognitive Reserve"
+      },
+      "admin": {
+        "seal": true
+      },
+      "id": "0008d3b04e924467bcd46163172b987c",
+      "created_date": "2022-06-09T05:44:07Z"
+    },
+    {
+      "last_updated": "2023-03-20T18:53:22Z",
+      "bibjson": {
+        "identifier": [
+          {
+            "id": "10.16910/jemr.16.1.3",
+            "type": "doi"
+          },
+          {
+            "id": "1995-8692",
+            "type": "eissn"
+          }
+        ],
+        "journal": {
+          "volume": "16",
+          "number": "1",
+          "country": "CH",
+          "issns": [
+            "1995-8692"
+          ],
+          "publisher": "Bern Open Publishing",
+          "language": [
+            "EN"
+          ],
+          "title": "Journal of Eye Movement Research"
+        },
+        "month": "March",
+        "keywords": [
+          "eye movements",
+          "gaze entropy",
+          "rea of interest",
+          "scanpath",
+          "visual scanning",
+          "aviation training"
+        ],
+        "year": "2023",
+        "subject": [
+          {
+            "code": "QM1-695",
+            "scheme": "LCC",
+            "term": "Human anatomy"
+          }
+        ],
+        "author": [
+          {
+            "name": "Naila Ayala"
+          },
+          {
+            "name": "Abdullah  Zafar"
+          },
+          {
+            "name": "Suzanne  Kearns"
+          },
+          {
+            "name": "Elizabeth  Irving"
+          },
+          {
+            "name": "Shi  Cao"
+          },
+          {
+            "name": "Ewa Niechwiej-Szwedo"
+          }
+        ],
+        "link": [
+          {
+            "content_type": "HTML",
+            "type": "fulltext",
+            "url": "https://bop.unibe.ch/JEMR/article/view/8828"
+          }
+        ],
+        "abstract": "\nEye movements have been used to examine the cognitive function of pilots and understand how information processing abilities impact performance. Traditional and advanced measures of gaze behaviour effectively reflect changes in cognitive load, situational awareness, and expert-novice differences. However, the extent to which gaze behaviour changes during the early stages of skill development has yet to be addressed. The current study investigated the impact of task difficulty on gaze behaviour in low-time pilots (N=18) while they completed simulated landing scenarios. An increase in task difficulty resulted in longer fixation of the runway, and a reduction in the stationary gaze entropy (gaze dispersion) and gaze transition entropy (sequence complexity). These findings suggest that pilots’ gaze became less complex and more focused on fewer areas of interest when task difficulty increased. Additionally, a novel approach to identify and track instances when pilots restrict their attention outside the cockpit (i.e., gaze tunneling) was explored and shown to be sensitive to changes in task difficulty. Altogether, the gaze-related metrics used in the present study provide valuable information for assessing pilots gaze behaviour and help further understand how gaze contributes to better performance in low-time pilots.\n",
+        "title": "The effects of task difficulty on gaze behaviour during landing with visual flight rules in low-time pilots"
+      },
+      "id": "00168996d72442dfb596d88ec1e4407b",
+      "created_date": "2023-03-20T18:53:22Z"
+    },
+    {
+      "last_updated": "2023-12-13T18:03:40Z",
+      "bibjson": {
+        "identifier": [
+          {
+            "id": "2521-344X",
+            "type": "pissn"
+          },
+          {
+            "id": "2521-3458",
+            "type": "eissn"
+          },
+          {
+            "id": "10.52567/trj.v7i02.224",
+            "type": "doi"
+          }
+        ],
+        "journal": {
+          "volume": "07",
+          "number": "02",
+          "country": "PK",
+          "issns": [
+            "2521-344X",
+            "2521-3458"
+          ],
+          "publisher": "Rand Publications",
+          "language": [
+            "EN"
+          ],
+          "title": "The Rehabilitation Journal"
+        },
+        "month": "06",
+        "end_page": "548",
+        "year": "2023",
+        "start_page": "544",
+        "subject": [
+          {
+            "code": "HD7255-7256",
+            "scheme": "LCC",
+            "term": "Vocational rehabilitation. Employment of people with disabilities"
+          }
+        ],
+        "author": [
+          {
+            "name": "Zahid Mehmood"
+          },
+          {
+            "name": "Zubair  Ahmad"
+          },
+          {
+            "name": "Asad  Ullah"
+          },
+          {
+            "name": "Anam  Aftab"
+          },
+          {
+            "name": "Junaid  Akram"
+          },
+          {
+            "name": "Abdul Haseeb  Bhutta"
+          },
+          {
+            "name": "Abdul  Wahab"
+          }
+        ],
+        "link": [
+          {
+            "content_type": "{'x': 'http://www.crossref.org/schema/4.4.2', 'j': 'http://www.ncbi.nlm.nih.gov/JATS1'}",
+            "type": "fulltext",
+            "url": "http://www.trjournal.org/index.php/TRJ/article/view/224"
+          }
+        ],
+        "abstract": "         Background: Understanding students' perception of the educational environment and their cognitive load in this context is crucial for optimizing the effectiveness of e-learning platforms.  Objective: To compare educational environment perception and cognitive load in under-graduates Doctor of Physical Therapy (DPT) and post-graduate Master in Science of Physical Therapy (MSPT) students having online learning experiences.  Methodology: In this comparative cross-sectional study, data was collected through non-probability convenient sampling from n=274 under-graduates DPT (n=225) and post-graduates MSPT(n=49) students of either gender having one-semester experience of online learning, Dundee Ready Education Environment Measure (DREEM) for measuring educational environmental perception and Rating Scale of Mental Effort (RSME) for measurement of cognitive load. Online self-structured was developed questionnaire and shared through communication media platform and data analysis was made through SPSS version 28.  Results: There were n=225 under-graduates (DPT) and n=49 post-graduates (MSPT) students in which, there were n=208 females and n=66 males.  The overall DREEM score showed that MSPT students are more significantly positive (p\u003C0.001, Cohen’s d=1.01) than DPT students regarding the perception of the educational environment with a large effect size. While there was no significant difference (p=0.114) between MSP and DPT students regarding cognitive load.  Conclusion: Post-graduates (MSPT) students have better educational environmental perception than undergraduate (DPT) students but there was no significant difference in cognitive load in undergraduate (DPT) and post-graduates (MSPT) students.  Keywords: cognition; cognitive load; mental effort; e-learning; physiotherapist.",
+        "title": "Educational environment perception and cognitive load among physical therapy students during e-learning"
+      },
+      "id": "0036cece8a27476c9477b7a669e20e1a",
+      "created_date": "2023-12-13T18:03:40Z"
+    },
+    {
+      "last_updated": "2022-12-22T03:37:54Z",
+      "bibjson": {
+        "identifier": [
+          {
+            "id": "1664-1078",
+            "type": "eissn"
+          },
+          {
+            "id": "10.3389/fpsyg.2018.00299",
+            "type": "doi"
+          }
+        ],
+        "journal": {
+          "volume": "9",
+          "country": "CH",
+          "issns": [
+            "1664-1078"
+          ],
+          "publisher": "Frontiers Media S.A.",
+          "language": [
+            "EN"
+          ],
+          "title": "Frontiers in Psychology"
+        },
+        "month": "3",
+        "keywords": [
+          "stock-and-flow simulations",
+          "correlation heuristic",
+          "violation of mass balance",
+          "experience",
+          "problem structure",
+          "decision aids"
+        ],
+        "year": "2018",
+        "subject": [
+          {
+            "code": "BF1-990",
+            "scheme": "LCC",
+            "term": "Psychology"
+          }
+        ],
+        "author": [
+          {
+            "affiliation": "Applied Cognitive Science Laboratory, School of Computing and Electrical Engineering, Indian Institute of Technology Mandi, Kamand, India",
+            "name": "Medha Kumar"
+          },
+          {
+            "affiliation": "Applied Cognitive Science Laboratory, School of Computing and Electrical Engineering, Indian Institute of Technology Mandi, Kamand, India",
+            "name": "Varun Dutt"
+          },
+          {
+            "affiliation": "School of Humanities and Social Sciences, Indian Institute of Technology Mandi, Kamand, India",
+            "name": "Varun Dutt"
+          }
+        ],
+        "link": [
+          {
+            "content_type": "HTML",
+            "type": "fulltext",
+            "url": "http://journal.frontiersin.org/article/10.3389/fpsyg.2018.00299/full"
+          }
+        ],
+        "abstract": "Research shows that people’s wait-and-see preferences for actions against climate change are a result of several factors, including cognitive misconceptions. The use of simulation tools could help reduce these misconceptions concerning Earth’s climate. However, it is still unclear whether the learning in these tools is of the problem’s surface features (dimensions of emissions and absorptions and cover-story used) or of the problem’s structural features (how emissions and absorptions cause a change in CO2 concentration under different CO2 concentration scenarios). Also, little is known on how problem’s difficulty in these tools (the shape of CO2 concentration trajectory), as well as the use of these tools as a decision aid influences performance. The primary objective of this paper was to investigate how learning about Earth’s climate via simulation tools is influenced by problem’s surface and structural features, problem’s difficulty, and decision aids. In experiment 1, we tested the influence of problem’s surface and structural features in a simulation called Dynamic Climate Change Simulator (DCCS) on subsequent performance in a paper-and-pencil Climate Stabilization (CS) task (N = 100 across four between-subject conditions). In experiment 2, we tested the effects of problem’s difficulty in DCCS on subsequent performance in the CS task (N = 90 across three between-subject conditions). In experiment 3, we tested the influence of DCCS as a decision aid on subsequent performance in the CS task (N = 60 across two between-subject conditions). Results revealed a significant reduction in people’s misconceptions in the CS task after performing in DCCS compared to when performing in CS task in the absence of DCCS. The decrease in misconceptions in the CS task was similar for both problems’ surface and structural features, showing both structure and surface learning in DCCS. However, the proportion of misconceptions was similar across both simple and difficult problems, indicating the role of cognitive load to hamper learning. Finally, misconceptions were reduced when DCCS was used as a decision aid. Overall, these results highlight the role of simulation tools in alleviating climate misconceptions. We discuss the implication of using simulation tools for climate education and policymaking.",
+        "title": "Experience in a Climate Microworld: Influence of Surface and Structure Learning, Problem Difficulty, and Decision Aids in Reducing Stock-Flow Misconceptions"
+      },
+      "admin": {
+        "seal": true
+      },
+      "created_date": "2018-03-26T05:26:55Z",
+      "id": "003f8180bf8d46909854f6e6354112a7"
+    },
+    {
+      "last_updated": "2022-12-21T16:54:33Z",
+      "bibjson": {
+        "identifier": [
+          {
+            "id": "2313-2272",
+            "type": "pissn"
+          },
+          {
+            "id": "2408-8897",
+            "type": "eissn"
+          },
+          {
+            "id": "10.22363/2313-2272-2018-18-4-627-637",
+            "type": "doi"
+          }
+        ],
+        "journal": {
+          "volume": "18",
+          "number": "4",
+          "country": "RU",
+          "issns": [
+            "2313-2272",
+            "2408-8897"
+          ],
+          "publisher": "Peoples’ Friendship University of Russia (RUDN University)",
+          "language": [
+            "EN",
+            "RU"
+          ],
+          "title": "RUDN journal of Sociology"
+        },
+        "month": "12",
+        "end_page": "637",
+        "keywords": [
+          "cognitive load",
+          "multimodal quantitative assessment of interview-related cognitive load",
+          "PAPI and CAPI",
+          "survey data quality",
+          "the Paas scale",
+          "heart rate"
+        ],
+        "year": "2018",
+        "start_page": "627",
+        "subject": [
+          {
+            "code": "HM401-1281",
+            "scheme": "LCC",
+            "term": "Sociology (General)"
+          }
+        ],
+        "author": [
+          {
+            "affiliation": "National Research University Higher School of Economics; Institute of Sociology of FCTAS RAS",
+            "name": "I F Deviatko"
+          }
+        ],
+        "link": [
+          {
+            "content_type": "pdf",
+            "type": "fulltext",
+            "url": "http://journals.rudn.ru/sociology/article/viewFile/19745/16320"
+          }
+        ],
+        "abstract": "The belief that survey research instruments mediating communication between interviewer and respondent influence the quality of data obtained in the interview has become a conventional methodological wisdom long ago. However, the impact of the cognitive load experienced by the interviewer has not been systematically examined. When a questionnaire is filled up by an interviewer it is the latter who has to allocate limited individual resources of attention, memory, visual and motor control, active listening and interpretation in order to minimize the respondent’s misunderstanding of the questions and one’s own errors of the answers’ fixation. However, among various methods of pre-testing or evaluating survey mode effects and assessing instruments’ quality, the methods of multimodal quantitative estimation of instrument-related cognitive load experienced by interviewers during the interview are still rare or lacking. Thus, the article presents a brief review of subjective, behavioral and physiological measures of the cognitive load, which are used in such disciplinary fields as cognitive science, ergonomics, etc., and a discussion of preliminary findings of the field quasi-experiment conducted among the interviewers of the Russian Longitudinal Monitoring Survey on the first stage of transition to the CAPI mode. The quasi-experiment findings prove some possibilities and limitations of the parallel use of a version of the cognitive load rating scale developed by F. Paas and a simple physiological measure (heart rate) supplemented with a background screen video capture from Android-based tablets used for CAPI interviews for the multimodal quantitative evaluation and optimization of the interviewer’s cognitive load.",
+        "title": "DEVELOPING AN APPROACH TO MULTIMODAL QUANTITATIVE ASSESSMENT OF INTERVIEWERS’ COGNITIVE LOAD: FIRST RESULTS OF A FIELD QUASI EXPERIMENT"
+      },
+      "created_date": "2018-12-12T12:20:05Z",
+      "id": "006e56e9009841428a6febedbb713228"
+    },
+    {
+      "last_updated": "2023-06-17T05:32:00Z",
+      "bibjson": {
+        "identifier": [
+          {
+            "id": "1932-6203",
+            "type": "eissn"
+          },
+          {
+            "id": "10.1371/journal.pone.0286054",
+            "type": "doi"
+          }
+        ],
+        "journal": {
+          "volume": "18",
+          "number": "5",
+          "country": "US",
+          "issns": [
+            "1932-6203"
+          ],
+          "publisher": "Public Library of Science (PLoS)",
+          "language": [
+            "EN"
+          ],
+          "title": "PLoS ONE"
+        },
+        "month": "0",
+        "year": "2023",
+        "start_page": "e0286054",
+        "subject": [
+          {
+            "code": "R",
+            "scheme": "LCC",
+            "term": "Medicine"
+          },
+          {
+            "code": "Q",
+            "scheme": "LCC",
+            "term": "Science"
+          }
+        ],
+        "author": [
+          {
+            "name": "Ahmed Hassan Rakha"
+          }
+        ],
+        "link": [
+          {
+            "type": "fulltext",
+            "url": "https://doi.org/10.1371/journal.pone.0286054"
+          }
+        ],
+        "abstract": "The use of 3D Hologram Technology (3DHT) in teaching and learning has many advantages, such as attracting students' attention, reducing cognitive load and self-effort, and improving spatial awareness. In addition, a number of studies have confirmed that the reciprocal teaching style is effective in teaching motor skills. Thus, the current study aimed to investigate the effectiveness of reciprocal style when combined with 3DHT in learning some fundamental boxing skills. A quasi-experimental design was used by creating two experimental and control groups. For the experimental group, the reciprocal style is combined with 3DHT to teach some fundamental boxing skills. In contrast, the control group is taught a program based on a teacher command style. Pretest-posttest designs were made for the two groups. The sample consisted of 40 boxing beginners aged 12 to 14 who were enrolled in the 2022/2023 training season at Port Fouad Sports Club in Port Said, Egypt. The participants were randomly divided into two experimental and control groups. There were homogenized based on age, height, weight, IQ, physical fitness, and skill level. The results showed the experimental group achieved a higher skill level due to the combination of 3DHT and a reciprocal style in compared to the control group, which relied solely on the teacher's command style,. Due to this, it is imperative to utilize hologram technology as a pedagogical resource to enhance the learning process and combine it with teaching strategies that support active learning.",
+        "title": "Application of 3D hologram technology combined with reciprocal style to learn some fundamental boxing skills."
+      },
+      "admin": {
+        "seal": true
+      },
+      "id": "007a11d6c6ba4a2d92a46245c4d1c45c",
+      "created_date": "2023-05-27T05:31:21Z"
+    },
+    {
+      "last_updated": "2022-12-22T01:19:47Z",
+      "bibjson": {
+        "identifier": [
+          {
+            "id": "10.13128/formare-22553",
+            "type": "doi"
+          },
+          {
+            "id": "1825-7321",
+            "type": "eissn"
+          }
+        ],
+        "journal": {
+          "volume": "18",
+          "number": "1",
+          "country": "IT",
+          "issns": [
+            "1825-7321"
+          ],
+          "publisher": "Firenze University Press",
+          "language": [
+            "EN",
+            "IT"
+          ],
+          "title": "Formare"
+        },
+        "month": "April",
+        "keywords": [
+          "online testing",
+          "online exam",
+          "online assessment",
+          "university",
+          "test online",
+          "esami online"
+        ],
+        "year": "2018",
+        "subject": [
+          {
+            "code": "L",
+            "scheme": "LCC",
+            "term": "Education"
+          }
+        ],
+        "author": [
+          {
+            "affiliation": "Università degli Studi di Firenze",
+            "name": "Andrea Nardi"
+          }
+        ],
+        "link": [
+          {
+            "content_type": "HTML",
+            "type": "fulltext",
+            "url": "https://oaj.fupress.net/index.php/formare/article/view/3725"
+          }
+        ],
+        "abstract": "Nowadays, the class size and the growing number of undergraduate students generate unprecedented problems of management, monitoring and evaluation of learning. From this point of view technologies may provide opportunities which deserve to be investigated for their potential to contribute to solve problems related to the management of large size classes. Since many teachers show resistance towards the replacement of traditional exams with e-assessment, little effort has been made for the innovation of the evaluation procedures at the university level. However, several studies have been carried out in this field. This paper provides an overview of the current electronic evaluation activity in the university context. Data shows benefits related to students’ monitoring for the simplification of procedures and the reduction of teachers’ cognitive load. Moreover students appreciate the electronic mode for the possibility to obtain immediate feedback. The challenges concern the technological infrastructure, the scalability and safe use.\nValutare l’apprendimento online: una rassegna degli studi sull’e-testing nel contesto universitario\nOggigiorno le dimensioni delle classi e il numero crescente di studenti in ambito universitario pongono inediti problemi di gestione, monitoraggio e valutazione degli apprendimenti. La tecnologia da questo punto di vista rappresenta un’opportunità che necessita di essere indagata perché potenzialmente in grado di contribuire alla risoluzione delle problematiche connesse alla gestione di una grande mole di iscritti. Poiché molti docenti manifestano diffidenza verso la sostituzione degli esami tradizionali con modalità elettroniche di valutazione, pochi sforzi sono stati compiuti in questi anni per l’innovazione delle procedure valutative. Tuttavia, molti sono gli studi realizzati in questo campo. Questo lavoro fornisce una panoramica dell’attuale attività di valutazione elettronica nel contesto universitario. Dai dati raccolti emergono benefici in relazione al monitoraggio degli studenti per la semplificazione delle procedure e la riduzione del carico di lavoro dei docenti. Inoltre gli studenti apprezzano la modalità elettronica per la possibilità di ottenere feedback immediati. Le sfide riguardano l’infrastruttura tecnologica, la scalabilità e la sicurezza.",
+        "title": "Evaluating online learning: a review of studies on e-testing in the university context"
+      },
+      "created_date": "2018-09-17T08:31:11Z",
+      "id": "007fce39341847bdb8a54117abedb989"
+    },
+    {
+      "last_updated": "2022-12-21T19:08:28Z",
+      "bibjson": {
+        "identifier": [
+          {
+            "id": "1932-6203",
+            "type": "eissn"
+          },
+          {
+            "id": "10.1371/journal.pone.0237339",
+            "type": "doi"
+          }
+        ],
+        "journal": {
+          "volume": "15",
+          "number": "8",
+          "country": "US",
+          "issns": [
+            "1932-6203"
+          ],
+          "publisher": "Public Library of Science (PLoS)",
+          "language": [
+            "EN"
+          ],
+          "title": "PLoS ONE"
+        },
+        "month": "0",
+        "year": "2020",
+        "start_page": "e0237339",
+        "subject": [
+          {
+            "code": "R",
+            "scheme": "LCC",
+            "term": "Medicine"
+          },
+          {
+            "code": "Q",
+            "scheme": "LCC",
+            "term": "Science"
+          }
+        ],
+        "author": [
+          {
+            "name": "Ning Li"
+          },
+          {
+            "name": "Jincai Huang"
+          },
+          {
+            "name": "Yanghe Feng"
+          }
+        ],
+        "link": [
+          {
+            "type": "fulltext",
+            "url": "https://doi.org/10.1371/journal.pone.0237339"
+          }
+        ],
+        "abstract": "\u003Ch4\u003EBackground\u003C/h4\u003ECognitive ability refers to the ability to receive, process, store, and extract information. It is the most important psychological condition for people to successfully complete activities. Previous studies have shown that the design of the human-computer interface of the command and control system cannot exceed the cognitive ability of the operator of the command and control system, and it must match the cognitive ability of the operator in order to reduce the mental load intensity, and improve the accuracy, timeliness and work efficiency. However, previous researchers in the field of cognitive science have not put forward a core index system that can represent the cognitive ability of ship command and control system operators and the importance of each index, and there are few achievements that can be used for reference.\u003Ch4\u003EObjective\u003C/h4\u003ETo explore the core index system of cognitive ability that affecting the cognitive process of command and control system operators, and to verify the index system.\u003Ch4\u003EMethods\u003C/h4\u003EBased on the classic O*NET questionnaire, two indexes of O*NET were revised, three indexes of response ability were added, and then a questionnaire on the importance evaluation of cognitive abilities index was formed. The questionnaire includes 24 indexes in six aspects: verbal abilities, idea generation and reasoning abilities, quantitative abilities, visual perception abilities, mnemonic and attentive abilities, and response abilities. The cognitive ability importance evaluation data of 202 people from different positions in the ship command and control system were collected. These data reflect the overall level of cognitive ability of operators in the whole ship command and control field.\u003Ch4\u003EResults\u003C/h4\u003EThe data analysis results show that: firstly, the most important cognitive abilities affecting command and control system operators were visual perception abilities, mnemonic and attentive abilities, and response abilities. Secondly, the results of confirmatory factor analysis show that CMIN/DF, GFI, CFI, TLI, RMSEA, RMR and other indicators used in the model test all meet the requirements. The model has a good fitting degree, and the overall index extraction method is feasible. Thirdly, the independence T test results show that for beginners and experienced experts, there is a significant difference in the important evaluation of mnemonic and attentive abilities, while there is no significant difference in the important evaluation of response and visual perception abilities. Fourthly, the results of Bi-group confirmatory factor analysis experiment show that the structural model has good stability and factor invariance.\u003Ch4\u003EConclusions\u003C/h4\u003EThrough the research of this paper, the index system which can express the core cognitive ability of the commander of command and control system is successfully constructed, and the index system has been fully verified by mathematics. The 3 abilities and 10 indexes in the index system are closely related to the work tasks of operators, which also reflects the correctness of our construction results to a certain extent. According to the results of data analysis, there are differences between assistant commanders and professional commanders in the evaluation of the importance of some indexes, which reflects the importance of working age and experience to the promotion of position skills. The results of this research are of great significance for the subsequent acquisition of cognitive ability data and assessment of post cognitive ability of command and control system operators.",
+        "title": "Construction and confirmatory factor analysis of the core cognitive ability index system of ship C2 system operators."
+      },
+      "admin": {
+        "seal": true
+      },
+      "id": "0085da6f16b54acb88117a871bdea0ab",
+      "created_date": "2020-08-29T05:31:58Z"
+    },
+    {
+      "last_updated": "2023-02-15T08:56:38Z",
+      "bibjson": {
+        "identifier": [
+          {
+            "id": "2624-9367",
+            "type": "eissn"
+          },
+          {
+            "id": "10.3389/fspor.2022.1089882",
+            "type": "doi"
+          }
+        ],
+        "journal": {
+          "volume": "4",
+          "country": "CH",
+          "issns": [
+            "2624-9367"
+          ],
+          "publisher": "Frontiers Media S.A.",
+          "language": [
+            "EN"
+          ],
+          "title": "Frontiers in Sports and Active Living"
+        },
+        "month": "2",
+        "keywords": [
+          "functional testing",
+          "dual-task",
+          "drop vertical jump",
+          "single leg hop",
+          "cutting",
+          "ACL"
+        ],
+        "year": "2023",
+        "subject": [
+          {
+            "code": "GV557-1198.995",
+            "scheme": "LCC",
+            "term": "Sports"
+          }
+        ],
+        "author": [
+          {
+            "name": "Courtney R. Chaaban"
+          },
+          {
+            "name": "Jeffrey A. Turner"
+          },
+          {
+            "name": "Darin A. Padua"
+          }
+        ],
+        "link": [
+          {
+            "content_type": "HTML",
+            "type": "fulltext",
+            "url": "https://www.frontiersin.org/articles/10.3389/fspor.2022.1089882/full"
+          }
+        ],
+        "abstract": "The optimal set of return to sport (RTS) tests after anterior cruciate ligament (ACL) injury and ACL reconstruction (ACLR) remains elusive. Many athletes fail to pass current RTS test batteries, fail to RTS, or sustain secondary ACL injuries if they do RTS. The purpose of this review is to summarize current literature regarding functional RTS testing after ACLR and to encourage clinicians to have patients “think” (add a secondary cognitive task) outside the “box” (in reference to the box used during the drop vertical jump task) when performing functional RTS tests. We review important criteria for functional tests in RTS testing, including task-specificity and measurability. Firstly, tests should replicate the sport-specific demands the athlete will encounter when they RTS. Many ACL injuries occur when the athlete is performing a dual cognitive-motor task (e.g., attending to an opponent while performing a cutting maneuver). However, most functional RTS tests do not incorporate a secondary cognitive load. Secondly, tests should be measurable, both through the athlete’s ability to complete the task safely (through biomechanical analyses) and efficiently (through measures of performance). We highlight and critically examine three examples of functional tests that are commonly used for RTS testing: the drop vertical jump, single-leg hop tests, and cutting tasks. We discuss how biomechanics and performance can be measured during these tasks, including the relationship these variables may have with injury. We then discuss how cognitive demands can be added to these tasks, and how these demands influence both biomechanics and performance. Lastly, we provide clinicians with practical recommendations on how to implement secondary cognitive tasks into functional testing and how to assess athletes’ biomechanics and performance.",
+        "title": "Think outside the box: Incorporating secondary cognitive tasks into return to sport testing after ACL reconstruction"
+      },
+      "admin": {
+        "seal": true
+      },
+      "id": "00bbb7beb6f14c4bb9da358d95613f23",
+      "created_date": "2023-02-15T08:56:38Z"
+    },
+    {
+      "last_updated": "2022-12-21T23:51:38Z",
+      "bibjson": {
+        "identifier": [
+          {
+            "id": "1319-1578",
+            "type": "pissn"
+          },
+          {
+            "id": "10.1016/j.jksuci.2016.06.005",
+            "type": "DOI"
+          }
+        ],
+        "journal": {
+          "volume": "30",
+          "number": "2",
+          "country": "SA",
+          "issns": [
+            "1319-1578"
+          ],
+          "publisher": "Elsevier",
+          "language": [
+            "EN"
+          ],
+          "title": "Journal of King Saud University: Computer and Information Sciences"
+        },
+        "month": "04",
+        "end_page": "222",
+        "year": "2018",
+        "start_page": "206",
+        "subject": [
+          {
+            "code": "QA75.5-76.95",
+            "scheme": "LCC",
+            "term": "Electronic computers. Computer science"
+          }
+        ],
+        "author": [
+          {
+            "affiliation": "Corresponding author.; M.M. Institute of Computer Technology & Business Management, MM University, Mullana, Ambala, Haryana, India",
+            "name": "Neha Gulati"
+          },
+          {
+            "affiliation": "M.M. Institute of Computer Technology & Business Management, MM University, Mullana, Ambala, Haryana, India",
+            "name": "Atul Garg"
+          }
+        ],
+        "link": [
+          {
+            "type": "fulltext",
+            "url": "http://www.sciencedirect.com/science/article/pii/S131915781630043X"
+          }
+        ],
+        "abstract": "Search Engine (SE) is the most preferred information retrieval tool ubiquitously used. In spite of vast scale involvement of users in SE’s, their limited capabilities to understand the user/searcher context and emotions places high cognitive, perceptual and learning load on the user to maintain the search momentum. In this regard, the present work discusses a Cognitive Agent (CA) based approach to support the user in Web-based search process. The work suggests a framework called Secured Cognitive Agent based Multi-strategic Intelligent Search System (CAbMsISS) to assist the user in search process. It helps to reduce the contextual and emotional mismatch between the SE’s and user. After implementation of the proposed framework, performance analysis shows that CAbMsISS framework improves Query Retrieval Time (QRT) and effectiveness for retrieving relevant results as compared to Present Search Engine (PSE). Supplementary to this, it also provides search suggestions when user accesses a resource previously tagged with negative emotions. Overall, the goal of the system is to enhance the search experience for keeping the user motivated. The framework provides suggestions through the search log that tracks the queries searched, resources accessed and emotions experienced during the search. The implemented framework also considers user security. Keywords: BDI model, Cognitive Agent, Emotion, Information retrieval, Intelligent search, Search Engine",
+        "title": "A Secured Cognitive Agent based Multi-strategic Intelligent Search System"
+      },
+      "created_date": "2018-04-11T07:01:23Z",
+      "id": "00c7be51c06441d6bd609390934ae215"
+    },
+    {
+      "last_updated": "2022-12-21T19:15:28Z",
+      "bibjson": {
+        "identifier": [
+          {
+            "id": "10.1186/s13049-018-0549-3",
+            "type": "doi"
+          },
+          {
+            "id": "1757-7241",
+            "type": "eissn"
+          }
+        ],
+        "journal": {
+          "volume": "26",
+          "number": "1",
+          "country": "GB",
+          "issns": [
+            "1757-7241"
+          ],
+          "publisher": "BMC",
+          "language": [
+            "EN"
+          ],
+          "title": "Scandinavian Journal of Trauma, Resuscitation and Emergency Medicine"
+        },
+        "month": "9",
+        "end_page": "10",
+        "keywords": [
+          "Airway",
+          "Intubation",
+          "Emergency",
+          "Patient safety / safety",
+          "Human error",
+          "Drug preparation"
+        ],
+        "year": "2018",
+        "start_page": "1",
+        "subject": [
+          {
+            "code": "RC86-88.9",
+            "scheme": "LCC",
+            "term": "Medical emergencies. Critical care. Intensive care. First aid"
+          }
+        ],
+        "author": [
+          {
+            "affiliation": "Emergency Medical Retrieval Service, ScotSTAR, Scottish Ambulance Service",
+            "name": "Paul Swinton"
+          },
+          {
+            "affiliation": "Royal Alexandra Hospital",
+            "name": "Alasdair R. Corfield"
+          },
+          {
+            "affiliation": "Royal Alexandra Hospital",
+            "name": "Chris Moultrie"
+          },
+          {
+            "affiliation": "Emergency Medical Retrieval Service, ScotSTAR, Scottish Ambulance Service",
+            "name": "David Percival"
+          },
+          {
+            "affiliation": "Emergency Medical Retrieval Service, ScotSTAR, Scottish Ambulance Service",
+            "name": "Jeffrey Proctor"
+          },
+          {
+            "affiliation": "Scottish Ambulance Service, Clinical Directorate",
+            "name": "Neil Sinclair"
+          },
+          {
+            "affiliation": "Centre for Trauma Sciences, Queen Mary, University of London",
+            "name": "Zane B. Perkins"
+          }
+        ],
+        "link": [
+          {
+            "content_type": "HTML",
+            "type": "fulltext",
+            "url": "http://link.springer.com/article/10.1186/s13049-018-0549-3"
+          }
+        ],
+        "abstract": "Abstract Background We examined the effect of advanced preparation and organisation of equipment and drugs for Pre-hospital Emergency Anaesthesia (PHEA) and tracheal intubation on procedural time, error rates, and cognitive load. Methods This study was a randomised, controlled experiment with a crossover design. Clinical teams (physician and paramedic) from the Emergency Medical Retrieval Service and the Scottish Air Ambulance Division were randomised to perform a standardised pre-hospital clinical simulation using either unprepared (standard practice) or pre-prepared (experimental method) PHEA equipment and drugs. Following a two-week washout period, each team performed the corresponding simulation. The primary outcome was intervention time. Secondary outcomes were safety-related incidents and errors, and degree of cognitive load. Results In total 23 experiments were completed, 12 using experimental method and 11 using standard practice. Time required to perform PHEA using the experimental method was significantly shorter than with standard practice (11,45 versus 20:59) minutes: seconds; p = \u003C 0.001). The experimental method also significantly reduced procedural errors (0 versus 9, p = 0.007) and the cognitive load experienced by the intubator assistant (41.9 versus 68.7 mm, p = 0.006). Conclusions Pre-preparation of PHEA equipment and drugs resulted in safer performance of PHEA and has the potential to reduce on-scene time by up to a third.",
+        "title": "Impact of drug and equipment preparation on pre-hospital emergency Anaesthesia (PHEA) procedural time, error rate and cognitive load"
+      },
+      "admin": {
+        "seal": true
+      },
+      "created_date": "2018-09-23T13:09:16Z",
+      "id": "00fa5bc675364819b35cf58af42d5f77"
+    },
+    {
+      "last_updated": "2022-12-21T18:52:55Z",
+      "bibjson": {
+        "identifier": [
+          {
+            "id": "1932-6203",
+            "type": "eissn"
+          },
+          {
+            "id": "10.1371/journal.pone.0055776",
+            "type": "doi"
+          }
+        ],
+        "journal": {
+          "volume": "8",
+          "number": "2",
+          "country": "US",
+          "issns": [
+            "1932-6203"
+          ],
+          "publisher": "Public Library of Science (PLoS)",
+          "language": [
+            "EN"
+          ],
+          "title": "PLoS ONE"
+        },
+        "month": "0",
+        "year": "2013",
+        "start_page": "e55776",
+        "subject": [
+          {
+            "code": "R",
+            "scheme": "LCC",
+            "term": "Medicine"
+          },
+          {
+            "code": "Q",
+            "scheme": "LCC",
+            "term": "Science"
+          }
+        ],
+        "author": [
+          {
+            "name": "Hans Rempel"
+          },
+          {
+            "name": "Bing Sun"
+          },
+          {
+            "name": "Cyrus Calosing"
+          },
+          {
+            "name": "Linda Abadjian"
+          },
+          {
+            "name": "Alexander Monto"
+          },
+          {
+            "name": "Lynn Pulliam"
+          }
+        ],
+        "link": [
+          {
+            "type": "fulltext",
+            "url": "http://europepmc.org/articles/PMC3578833?pdf=render"
+          }
+        ],
+        "abstract": "Coinfection with human immunodeficiency virus (HIV) and hepatitis C virus (HCV) challenges the immune system with two viruses that elicit distinct immune responses. Chronic immune activation is a hallmark of HIV infection and an accurate indicator of disease progression. Suppressing HIV viremia by antiretroviral therapy (ART) effectively prolongs life and significantly improves immune function. HIV/HCV coinfected individuals have peripheral immune activation despite effective ART control of HIV viral load. Here we examined freshly isolated CD14 monocytes for gene expression using high-density cDNA microarrays and analyzed T cell subsets, CD4 and CD8, by flow cytometry to characterize immune activation in monoinfected HCV and HIV, and HIV-suppressed coinfected subjects. To determine the impact of coinfection on cognition, subjects were evaluated in 7 domains for neuropsychological performance, which were summarized as a global deficit score (GDS). Monocyte gene expression analysis in HIV-suppressed coinfected subjects identified 43 genes that were elevated greater than 2.5 fold. Correlative analysis of subjects' GDS and gene expression found eight genes with significance after adjusting for multiple comparisons. Correlative expression of six genes was confirmed by qPCR, five of which were categorized as type 1 IFN response genes. Global deficit scores were not related to plasma lipopolysaccharide levels. In the T cell compartment, coinfection significantly increased expression of activation markers CD38 and HLADR on both CD4 and CD8 T cells but did not correlate with GDS. These findings indicate that coinfection is associated with a type 1 IFN monocyte activation profile which was further found to correlate with cognitive impairment, even in subjects with controlled HIV infection. HIV-suppressed coinfected subjects with controlled HIV viral load experiencing immune activation could benefit significantly from successful anti-HCV therapy and may be considered as preferential candidates.",
+        "title": "Monocyte activation in HIV/HCV coinfection correlates with cognitive impairment."
+      },
+      "admin": {
+        "seal": true
+      },
+      "created_date": "2016-06-14T23:47:20Z",
+      "id": "014065c9728f4b2685707d8e197bbc0d"
+    },
+    {
+      "last_updated": "2022-12-22T04:01:02Z",
+      "bibjson": {
+        "identifier": [
+          {
+            "id": "2300-3405",
+            "type": "eissn"
+          },
+          {
+            "id": "10.1515/fcds-2018-0019",
+            "type": "doi"
+          }
+        ],
+        "journal": {
+          "volume": "43",
+          "number": "4",
+          "country": "PL",
+          "issns": [
+            "2300-3405"
+          ],
+          "publisher": "Sciendo",
+          "language": [
+            "EN"
+          ],
+          "title": "Foundations of Computing and Decision Sciences"
+        },
+        "month": "12",
+        "end_page": "393",
+        "keywords": [
+          "owl2",
+          "ontology",
+          "framework",
+          "transformation",
+          "translation",
+          "mapping",
+          "groovy"
+        ],
+        "year": "2018",
+        "start_page": "375",
+        "subject": [
+          {
+            "code": "QA75.5-76.95",
+            "scheme": "LCC",
+            "term": "Electronic computers. Computer science"
+          }
+        ],
+        "author": [
+          {
+            "affiliation": "Faculty of Computer Science and Management, Wrocław University of Science and Technology, ul. I. Łukasiewicza 5, 50-371Wrocław, Poland",
+            "name": "Hnatkowska Bogumiła"
+          },
+          {
+            "name": "Woroniecki Paweł"
+          }
+        ],
+        "link": [
+          {
+            "type": "fulltext",
+            "url": "https://doi.org/10.1515/fcds-2018-0019"
+          }
+        ],
+        "abstract": "Domain ontologies are valuable knowledge assets with many potential applications, e.g. in software engineering. Their content is often a subject of bi-directional transformations. Unfortunately, a centralized transformation service which can be easily extended with new mappers is not available for ontology users. In consequence, they have to deal with many different translation programs, which have to be installed and learned separately. The paper presents a framework for universal ontology processing, dedicated to ontologies expressed in OWL2. The framework usefulness was verified by a proof-of-concept implementation, for which an existing OWL2 to Groovy translator was adapted. During the integration process, the translator functionality was enhanced with ontology individuals mapping. The exemplary implementation confirmed that the framework with plug-in architecture is flexible and easy for customization. The ontology stakeholders should benefit from the reduced cognitive load and more satisfying transformation process.",
+        "title": "Universal Framework for OWL2 Ontology Transformations"
+      },
+      "created_date": "2019-02-02T16:11:10Z",
+      "id": "0144cef81c394463a6da386d9734532f"
+    },
+    {
+      "last_updated": "2023-11-17T05:08:56Z",
+      "bibjson": {
+        "identifier": [
+          {
+            "id": "10.1192/j.eurpsy.2022.845",
+            "type": "doi"
+          },
+          {
+            "id": "0924-9338",
+            "type": "pissn"
+          },
+          {
+            "id": "1778-3585",
+            "type": "eissn"
+          }
+        ],
+        "journal": {
+          "volume": "65",
+          "country": "GB",
+          "issns": [
+            "0924-9338",
+            "1778-3585"
+          ],
+          "publisher": "Cambridge University Press",
+          "language": [
+            "EN"
+          ],
+          "title": "European Psychiatry"
+        },
+        "month": "June",
+        "end_page": "S332",
+        "keywords": [
+          "Network Analysis",
+          "functional connectivity",
+          "EEG",
+          "mild cognitive impairment"
+        ],
+        "year": "2022",
+        "start_page": "S332",
+        "subject": [
+          {
+            "code": "RC435-571",
+            "scheme": "LCC",
+            "term": "Psychiatry"
+          }
+        ],
+        "author": [
+          {
+            "affiliation": "Semmelweis University, Department Of Psychiatry And Psychotherapy, Budapest, Hungary",
+            "name": "Z. Fodor"
+          },
+          {
+            "affiliation": "National Institute of Clinical Neurosciences, Department Of Neurology, Budapest, Hungary",
+            "name": "A. Horváth"
+          },
+          {
+            "affiliation": "Semmelweis University, Department Of Psychiatry And Psychotherapy, Budapest, Hungary",
+            "name": "Z. Hidasi"
+          },
+          {
+            "affiliation": "Amsterdam Neuroscience, Vrije Universiteit Amsterdam, Amsterdam UMC, Department Of Clinical Neurophysiology, Amsterdam, Netherlands Alzheimer Center Amsterdam, Amsterdam Neuroscience, Vrije Universiteit Amsterdam, Amsterdam UMC, Department Of Neurology, Amsterdam, Netherlands",
+            "name": "A. Gouw"
+          },
+          {
+            "affiliation": "Amsterdam Neuroscience, Vrije Universiteit Amsterdam, Amsterdam UMC, Department Of Clinical Neurophysiology, Amsterdam, Netherlands",
+            "name": "C. Stam"
+          },
+          {
+            "affiliation": "Semmelweis University, Department Of Psychiatry And Psychotherapy, Budapest, Hungary",
+            "name": "G. Csukly"
+          }
+        ],
+        "link": [
+          {
+            "content_type": "HTML",
+            "type": "fulltext",
+            "url": "https://www.cambridge.org/core/product/identifier/S0924933822008458/type/journal_article"
+          }
+        ],
+        "abstract": "\nIntroduction\nWhile decreased alpha-band functional connectivity (FC) and changes in network topology have been reported in Alzheimer’s disease, it is not yet entirely known whether these differences mark cognitive decline in the early stages of the disease.\n\nObjectives\nOur study aimed to analyze EEG FC and network differences in the alpha frequency band during visuospatial memory maintenance between Mild Cognitive Impairment (MCI) patients and healthy elderly with subjective memory complaints.\n\nMethods\nFC and network structure of 17 MCI patients and 20 control participants were studied with 128-channel EEG during a visuospatial memory task. FC was measured by amplitude envelope correlation with leakage correction (AEC-c), while network analysis was performed by applying the Minimum Spanning Tree approach.\n\nResults\nIncreasing memory load enhanced the mean alpha-band FC in the control group. In contrast to that, after an initial increase, the MCI group showed significantly (p\u003C0.05) diminished FC in the highest memory load condition. Mean alpha AEC-c correlated significantly with the size and mean diffusivity of medial temporal lobe structures in the entire sample. The network analysis revealed a rerouted network in the MCI group with a more centralized topology and a more unequal traffic load distribution compared to the control group.\n\nConclusions\nAlpha-band FC correlates with cognitive load-related modulation, with medial temporal lobe atrophy, and with the disruption of hippocampal fiber integrity in the earliest stages of cognitive decline. The more integrated network topology of the MCI group is in line with the “hub overload and failure” framework and might be part of a compensatory mechanism.\n\nDisclosure\nNo significant relationships.\n\n",
+        "title": "EEG alpha band functional connectivity and network structure mark hub overload in Mild Cognitive Impairment during memory maintenance"
+      },
+      "id": "01660e0aae754e7db66a317d5624edef",
+      "created_date": "2023-11-17T05:08:51Z"
+    },
+    {
+      "last_updated": "2022-12-21T20:07:31Z",
+      "bibjson": {
+        "identifier": [
+          {
+            "id": "1662-5153",
+            "type": "eissn"
+          },
+          {
+            "id": "10.3389/fnbeh.2011.00055",
+            "type": "doi"
+          }
+        ],
+        "journal": {
+          "volume": "5",
+          "country": "CH",
+          "issns": [
+            "1662-5153"
+          ],
+          "publisher": "Frontiers Media S.A.",
+          "language": [
+            "EN"
+          ],
+          "title": "Frontiers in Behavioral Neuroscience"
+        },
+        "month": "9",
+        "keywords": [
+          "Allostasis",
+          "Anxiety",
+          "Anxiety Disorders",
+          "social cognition",
+          "stress",
+          "Attachment"
+        ],
+        "year": "2011",
+        "subject": [
+          {
+            "code": "RC321-571",
+            "scheme": "LCC",
+            "term": "Neurosciences. Biological psychiatry. Neuropsychiatry"
+          }
+        ],
+        "author": [
+          {
+            "affiliation": "University College London",
+            "name": "Tobias eNolte"
+          },
+          {
+            "affiliation": "Anna Freud Centre",
+            "name": "Tobias eNolte"
+          },
+          {
+            "affiliation": "Royal Holloway, University of London",
+            "name": "Jo eGuiney"
+          },
+          {
+            "affiliation": "University College London",
+            "name": "Peter eFonagy"
+          },
+          {
+            "affiliation": "Yale University",
+            "name": "Linda C. Mayes"
+          },
+          {
+            "affiliation": "University College London",
+            "name": "Patrick eLuyten"
+          },
+          {
+            "affiliation": "University of Leuven, Belgium",
+            "name": "Patrick eLuyten"
+          }
+        ],
+        "link": [
+          {
+            "content_type": "HTML",
+            "type": "fulltext",
+            "url": "http://journal.frontiersin.org/Journal/10.3389/fnbeh.2011.00055/full"
+          }
+        ],
+        "abstract": "Anxiety disorders represent a common but often debilitating form of psychopathology in both children and adults. While there is a growing understanding of the aetiology and maintainance of these disorders across various research domains, only recently have integrative accounts been proposed. While classical attachment history has been a traditional core construct in psychological models of anxiety, contemporary attachment theory has the potential to integrate neurobiological and behavioral findings within a multidisciplinary developmental framework.The current paper proposes a modern attachment theory-based developmental model grounded in relevant literature from multiple disciplines including social neuroscience, genetics, neuroendocrinology, and the study of family factors involved in the development of anxiety disorders. Recent accounts of stress regulation have highlighted the interplay between stress, anxiety and activation of the attachment system. This interplay directly affects the development of social cognitive and mentalizing capacities that are acquired in the interpersonal context of early attachment relationships. Early attachment experiences are conceptualised as the key organiser of a complex interplay between genetic, environmental and epigentic contributions to the development of anxiety disorders – a multifactorial aetiology resulting from dysfunctional co-regulation of fear and stress states. These risk-conferring processes are characterised by hyperactivation strategies in the face of anxiety.In the model, the cumulative allostatic load and subsequent wear and tear effects associated with hyperactivation strategies converge on the neural pathways of anxiety and stress. Attachment experiences further influence the development of anxiety as potential moderators of risk factors, differentially impacting on genetic vulnerability and relevant neurobiological pathways. Implications for further research and potential treatments are outlined.",
+        "title": "Interpersonal stress regulation and the development of anxiety disorders: an attachment-based developmental framework"
+      },
+      "admin": {
+        "seal": true
+      },
+      "created_date": "2014-05-22T09:33:15Z",
+      "id": "019a169cd4f9480f9dfaaa7eb268bbe1"
+    },
+    {
+      "last_updated": "2024-03-26T17:46:58Z",
+      "bibjson": {
+        "identifier": [
+          {
+            "id": "2169-3536",
+            "type": "eissn"
+          },
+          {
+            "id": "10.1109/ACCESS.2024.3371980",
+            "type": "doi"
+          }
+        ],
+        "journal": {
+          "volume": "12",
+          "country": "US",
+          "issns": [
+            "2169-3536"
+          ],
+          "publisher": "IEEE",
+          "language": [
+            "EN"
+          ],
+          "title": "IEEE Access"
+        },
+        "end_page": "34655",
+        "keywords": [
+          "Assembly systems",
+          "human factors",
+          "cognitive load",
+          "quality control",
+          "automobile manufacture"
+        ],
+        "year": "2024",
+        "start_page": "34644",
+        "subject": [
+          {
+            "code": "TK1-9971",
+            "scheme": "LCC",
+            "term": "Electrical engineering. Electronics. Nuclear engineering"
+          }
+        ],
+        "author": [
+          {
+            "orcid_id": "https://orcid.org/0009-0007-2225-6778",
+            "affiliation": "Sandalwood Engineering and Ergonomics, Livonia, MI, USA",
+            "name": "Carlos Real"
+          },
+          {
+            "orcid_id": "https://orcid.org/0000-0002-9825-9437",
+            "affiliation": "National School of Public Health, Universidad de Antioquia, Medell&#x00ED;n, Colombia",
+            "name": "Yaniel Torres"
+          }
+        ],
+        "link": [
+          {
+            "type": "fulltext",
+            "url": "https://ieeexplore.ieee.org/document/10457578/"
+          }
+        ],
+        "abstract": "Human operator-induced assembly errors affect the quality of car manufacturing. Understanding the factors influencing assembly errors is critical for quality improvement. The sequence of assembly operations, a factor markedly affecting cognitive load, remains largely understudied. We aimed to assess the effect of changing the sequence of assembly operations on error rates through four field experiments conducted in a car manufacturing plant. The parts (and errors) under study were child lock labels (missing labels), sunroofs (missing bolts), windshield wiper arms (loose bolts), and armrests (wrong selection). Parts were chosen based on data from quality records, and they represent different scenarios regarding the sequencing of assembly operations. Minitab was used to conduct the statistical test for two proportions at a significance level of 0.05. The experiments ran for a period varying from 9 to 25 weeks (22292 to 138456 cars). All four experiments exhibited significant differences in the proportion of errors. MODAPTS cycle-time calculations revealed no negative effect of assembly sequence variations on productivity. The study findings show that changing the assembly operation sequence can reduce the error rates, possibly due to the intermediary effect in reducing the operator&#x2019;s cognitive load. Overall, realizing quality improvement requires optimizing the assembly operation sequence in terms of time and productivity while considering its possible impact on error rates.",
+        "title": "Effect of Changes in the Sequence of Assembly Operations on Error Rates: A Case Study From the Car Manufacturing Industry"
+      },
+      "id": "019b1288a7404b8093cd047cd4191313",
+      "created_date": "2024-03-09T00:01:03Z"
+    },
+    {
+      "last_updated": "2022-12-21T21:39:02Z",
+      "bibjson": {
+        "identifier": [
+          {
+            "id": "2296-4185",
+            "type": "eissn"
+          },
+          {
+            "id": "10.3389/fbioe.2021.804904",
+            "type": "doi"
+          }
+        ],
+        "journal": {
+          "volume": "9",
+          "country": "CH",
+          "issns": [
+            "2296-4185"
+          ],
+          "publisher": "Frontiers Media S.A.",
+          "language": [
+            "EN"
+          ],
+          "title": "Frontiers in Bioengineering and Biotechnology"
+        },
+        "month": "1",
+        "keywords": [
+          "perturbed posture",
+          "system identification",
+          "piecewise affine autoregressive with exogenous inputs",
+          "neuromuscular control",
+          "cognitive load"
+        ],
+        "year": "2022",
+        "subject": [
+          {
+            "code": "TP248.13-248.65",
+            "scheme": "LCC",
+            "term": "Biotechnology"
+          }
+        ],
+        "author": [
+          {
+            "name": "Andrea Tigrini"
+          },
+          {
+            "name": "Federica Verdini"
+          },
+          {
+            "name": "Marco Maiolatesi"
+          },
+          {
+            "name": "Andrea Monteriù"
+          },
+          {
+            "name": "Francesco Ferracuti"
+          },
+          {
+            "name": "Sandro Fioretti"
+          },
+          {
+            "name": "Sauro Longhi"
+          },
+          {
+            "name": "Alessandro Mengarelli"
+          }
+        ],
+        "link": [
+          {
+            "content_type": "HTML",
+            "type": "fulltext",
+            "url": "https://www.frontiersin.org/articles/10.3389/fbioe.2021.804904/full"
+          }
+        ],
+        "abstract": "In this study, the neuromuscular control modeling of the perturbed human upright stance is assessed through piecewise affine autoregressive with exogenous input (PWARX) models. Ten healthy subjects underwent an experimental protocol where visual deprivation and cognitive load are applied to evaluate whether PWARX can be used for modeling the role of the central nervous system (CNS) in balance maintenance in different conditions. Balance maintenance is modeled as a single-link inverted pendulum; and kinematic, dynamic, and electromyography (EMG) data are used to fit the PWARX models of the CNS activity. Models are trained on 70% and tested on the 30% of unseen data belonging to the remaining dataset. The models are able to capture which factors the CNS is subjected to, showing a fitting accuracy higher than 90% for each experimental condition. The models present a switch between two different control dynamics, coherent with the physiological response to a sudden balance perturbation and mirrored by the data-driven lag selection for data time series. The outcomes of this study indicate that hybrid postural control policies, yet investigated for unperturbed stance, could be an appropriate motor control paradigm when balance maintenance undergoes external disruption.",
+        "title": "Neuromuscular Control Modelling of Human Perturbed Posture Through Piecewise Affine Autoregressive With Exogenous Input Models"
+      },
+      "admin": {
+        "seal": true
+      },
+      "id": "01a47b1470f84d7ca6219ee86acac351",
+      "created_date": "2022-01-21T06:38:12Z"
+    },
+    {
+      "last_updated": "2022-12-22T00:57:43Z",
+      "bibjson": {
+        "identifier": [
+          {
+            "id": "http://dx.doi.org/10.5038/1936-4660.8.1.4",
+            "type": "doi"
+          },
+          {
+            "id": "1936-4660",
+            "type": "pissn"
+          },
+          {
+            "id": "1936-4660",
+            "type": "eissn"
+          }
+        ],
+        "journal": {
+          "volume": "8",
+          "number": "1",
+          "country": "US",
+          "issns": [
+            "1936-4660"
+          ],
+          "publisher": "National Numeracy Network",
+          "language": [
+            "EN"
+          ],
+          "title": "Numeracy"
+        },
+        "month": "1",
+        "keywords": [
+          "educational measurement",
+          "cognitive load theory",
+          "item writing",
+          "classroom assessment"
+        ],
+        "year": "2015",
+        "start_page": "4",
+        "subject": [
+          {
+            "code": "LC8-6691",
+            "scheme": "LCC",
+            "term": "Special aspects of education"
+          },
+          {
+            "code": "QA1-939",
+            "scheme": "LCC",
+            "term": "Mathematics"
+          }
+        ],
+        "author": [
+          {
+            "affiliation": "University of Kansas",
+            "name": "Susan C. Gillmor"
+          },
+          {
+            "affiliation": "University of Kansas",
+            "name": "John Poggio"
+          },
+          {
+            "affiliation": "Georgia Institute of Technology",
+            "name": "Susan Embretson"
+          }
+        ],
+        "link": [
+          {
+            "type": "fulltext",
+            "url": "http://scholarcommons.usf.edu/numeracy/vol8/iss1/art4/"
+          }
+        ],
+        "abstract": "This study explores a new item-writing framework for improving the validity of math assessment items. The authors transfer insights from Cognitive Load Theory (CLT), traditionally used in instructional design, to educational measurement. Fifteen, multiple-choice math assessment items were modified using research-based strategies for reducing extraneous cognitive load. An experimental design with 222 middle-school students tested the effects of the reduced cognitive load items on student performance and anxiety. Significant findings confirm the main research hypothesis that reducing the cognitive load of math assessment items improves student performance. Three load-reducing item modifications are identified as particularly effective for reducing item difficulty: signalling important information, aesthetic item organization, and removing extraneous content. Load reduction was not shown to impact student anxiety. Implications for classroom assessment and future research are discussed.",
+        "title": "Effects of Reducing the Cognitive Load of Mathematics Test Items on Student Performance"
+      },
+      "admin": {
+        "seal": true
+      },
+      "created_date": "2015-03-13T15:07:16Z",
+      "id": "01bee2db17f046be82084de7431b97d9"
+    },
+    {
+      "last_updated": "2022-12-22T03:41:41Z",
+      "bibjson": {
+        "identifier": [
+          {
+            "id": "10.1186/s11689-018-9236-y",
+            "type": "doi"
+          },
+          {
+            "id": "1866-1947",
+            "type": "pissn"
+          },
+          {
+            "id": "1866-1955",
+            "type": "eissn"
+          }
+        ],
+        "journal": {
+          "volume": "10",
+          "number": "1",
+          "country": "GB",
+          "issns": [
+            "1866-1947",
+            "1866-1955"
+          ],
+          "publisher": "BMC",
+          "language": [
+            "EN"
+          ],
+          "title": "Journal of Neurodevelopmental Disorders"
+        },
+        "month": "6",
+        "end_page": "12",
+        "keywords": [
+          "Autism spectrum disorder",
+          "Verbal working memory",
+          "Cognitive load",
+          "Executive functioning",
+          "fMRI"
+        ],
+        "year": "2018",
+        "start_page": "1",
+        "subject": [
+          {
+            "code": "RC321-571",
+            "scheme": "LCC",
+            "term": "Neurosciences. Biological psychiatry. Neuropsychiatry"
+          }
+        ],
+        "author": [
+          {
+            "affiliation": "Diagnostic Imaging & Research Institute, Hospital for Sick Children",
+            "name": "Vanessa M. Vogan"
+          },
+          {
+            "affiliation": "Diagnostic Imaging & Research Institute, Hospital for Sick Children",
+            "name": "Kaitlyn E. Francis"
+          },
+          {
+            "affiliation": "Diagnostic Imaging & Research Institute, Hospital for Sick Children",
+            "name": "Benjamin R. Morgan"
+          },
+          {
+            "affiliation": "Department of Psychology, University of Toronto",
+            "name": "Mary Lou Smith"
+          },
+          {
+            "affiliation": "Diagnostic Imaging & Research Institute, Hospital for Sick Children",
+            "name": "Margot J. Taylor"
+          }
+        ],
+        "link": [
+          {
+            "content_type": "HTML",
+            "type": "fulltext",
+            "url": "http://link.springer.com/article/10.1186/s11689-018-9236-y"
+          }
+        ],
+        "abstract": "Abstract Background Autism spectrum disorder (ASD) is a pervasive neurodevelopmental disorder characterised by diminished social reciprocity and communication skills and the presence of stereotyped and restricted behaviours. Executive functioning deficits, such as working memory, are associated with core ASD symptoms. Working memory allows for temporary storage and manipulation of information and relies heavily on frontal-parietal networks of the brain. There are few reports on the neural correlates of working memory in youth with ASD. The current study identified the neural systems underlying verbal working memory capacity in youth with and without ASD using functional magnetic resonance imaging (fMRI). Methods Fifty-seven youth, 27 with ASD and 30 sex- and age-matched typically developing (TD) controls (9–16 years), completed a one-back letter matching task (LMT) with four levels of difficulty (i.e. cognitive load) while fMRI data were recorded. Linear trend analyses were conducted to examine brain regions that were recruited as a function of increasing cognitive load. Results We found similar behavioural performance on the LMT in terms of reaction times, but in the two higher load conditions, the ASD youth had lower accuracy than the TD group. Neural patterns of activations differed significantly between TD and ASD groups. In TD youth, areas classically used for working memory, including the lateral and medial frontal, as well as superior parietal brain regions, increased in activation with increasing task difficulty, while areas related to the default mode network (DMN) showed decreasing activation (i.e., deactivation). The youth with ASD did not appear to use this opposing cognitive processing system; they showed little recruitment of frontal and parietal regions across the load but did show similar modulation of the DMN. Conclusions In a working memory task, where the load was manipulated without changing executive demands, TD youth showed increasing recruitment with increasing load of the classic fronto-parietal brain areas and decreasing involvement in default mode regions. In contrast, although they modulated the default mode network, youth with ASD did not show the modulation of increasing brain activation with increasing load, suggesting that they may be unable to manage increasing verbal information. Impaired verbal working memory in ASD would interfere with the youths’ success academically and socially. Thus, determining the nature of atypical neural processing could help establish or monitor working memory interventions for ASD.",
+        "title": "Load matters: neural correlates of verbal working memory in children with autism spectrum disorder"
+      },
+      "admin": {
+        "seal": true
+      },
+      "created_date": "2018-08-20T18:06:23Z",
+      "id": "01d7767f6324466c868a8b850ae947b1"
+    }
+  ],
+  "next": "https://doaj.org/api/v3/search/articles/cognitive%20load?page=2&pageSize=20",
+  "last": "https://doaj.org/api/v3/search/articles/cognitive%20load?page=160&pageSize=20"
+}
