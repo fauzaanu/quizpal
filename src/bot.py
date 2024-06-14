@@ -428,10 +428,9 @@ async def get_video(update, context):
     """Sends a video to the user"""
 
     # video_path = os.path.join(os.getcwd(), 'assets', 'qz-demo.mp4')
-
     await context.bot.send_video(
         chat_id=update.message.chat.id,
-        video='../assets/qz-demo.mp4',
+        video='assets/qz-demo.mp4',
         caption='📽️ Here is a video demo of how to use the bot.'
     )
 
