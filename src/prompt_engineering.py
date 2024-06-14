@@ -5,9 +5,9 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from telegram import Update
 
-from helpers import get_user_details, alpha_space
+from helpers import get_user_details, alpha_space, alert_admin
 from models import Topic, QuizQuestion, QuizAnswer, AnswerExplanation
-from admin_alerts import alert_admin
+
 
 
 async def update_db(json_response, topic):

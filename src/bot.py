@@ -12,10 +12,9 @@ from telegram.ext._utils.types import RLARGS
 
 from constants import INTRO_MESSAGE
 from decorators import balance_update, has_joined_channel
-from helpers import balance_markup, alpha_space, get_user_details, remove_question_words, remove_verbs
+from helpers import balance_markup, alpha_space, get_user_details, remove_question_words, remove_verbs, alert_admin
 from models import TelegramUser, Topic, StarPayment, QuizQuestion
 from prompt_engineering import generate_quiz_question
-from admin_alerts import alert_admin
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
