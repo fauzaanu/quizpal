@@ -49,23 +49,41 @@ async def generate_quiz_question(update: Update, context, topic: str, previous_q
         system_prompt += f'{question}\n'
 
     user_prompt = (
-        "Generate an extremely challenging and difficult quiz question on the specified topic. "
-        "The question should be designed to test deep understanding and advanced knowledge. "
-        "The response should be in JSON format as follows:"
+        "Generate an extremely challenging quiz question on the specified topic to test deep understanding and advanced knowledge. "
         "The response should be in JSON format as follows:\n"
         "{\n"
         "  'question': 'Question text',\n"
         "  'options': ['Option 1', 'Option 2', 'Option 3', 'Option 4'],\n"
         "  'correct_option': 'Correct option text',\n"
-        "  'explanation': 'Explanation of the correct answer'\n"
+        "  'explanation': 'Explanation of the correct answer',\n"
+        "  'related_topics': ['Related topic 1', 'Related topic 2', 'Related topic 3']\n"
         "}\n"
-        "Make sure the question is unique, highly complex, "
-        "and not similar to previously asked questions. "
-        "The correct option must be included among the options. "
-        "The question should be concise yet demanding, "
-        "requiring thorough comprehension of the topic"
-        "Poll options length must not exceed 100 characters."
-        "Question length must not exceed 300 characters."
+        "The question should be unique, complex, and concise (max 300 characters). "
+        "Options should be concise (max 100 characters) and include the correct answer. "
+        "Avoid phrases like 'In the context of', 'According to', etc.\n\n"
+
+        "Good Example:\n"
+        "{\n"
+        "  'question': 'Which protein complex is crucial for separating sister chromatids during anaphase?',\n"
+        "  'options': ['Condensin', 'Cohesin', 'Anaphase Promoting Complex (APC/C)', 'Kinetochores'],\n"
+        "  'correct_option': 'Anaphase Promoting Complex (APC/C)',\n"
+        "  'explanation': 'The Anaphase Promoting Complex (APC/C) triggers "
+        "the separation of sister chromatids by targeting securin for degradation, "
+        "thus activating separase to cleave cohesin complexes.',\n"
+        "  'related_topics': ['Cell Cycle', 'Mitotic Spindle', 'Chromosome Segregation']\n"
+        "}\n\n"
+
+        "Bad Example:\n"
+        "{\n"
+        "  'question': 'In the context of cell division, what does the Anaphase Promoting Complex (APC/C) do?',\n"
+        "  'options': ['Starts mitosis', 'Ends mitosis', 'Separates chromatids', 'Repairs DNA'],\n"
+        "  'correct_option': 'Separates chromatids',\n"
+        "  'explanation': 'The Anaphase Promoting Complex (APC/C) triggers the separation of sister "
+        "chromatids by targeting securin for degradation.',\n"
+        "  'related_topics': ['Cell Division', 'Chromatids']\n"
+        "}\n\n"
+        "Note that the good example is specific, challenging, and requires deep understanding, whereas the bad example "
+        "is too straightforward and lacks complexity and includes unnecessary phrases such as 'In the context of'.\n\n"
     )
 
     response = await send_to_gpt(update, context, user_prompt, system_prompt, )
@@ -85,12 +103,14 @@ async def validate_json(response: Dict[str, str]) -> bool:
     """
     Validate the JSON response.
     """
-    required_keys = ['question', 'options', 'correct_option', 'explanation']
+    required_keys = ['question', 'options', 'correct_option', 'explanation', 'related_topics']
     if not all(key in response for key in required_keys):
         return False
     if not response['question'] or not response['explanation']:
         return False
     if not isinstance(response['options'], list) or len(response['options']) < 2:
+        return False
+    if not isinstance(response['related_topics'], list):
         return False
     if response['correct_option'] not in response['options']:
         return False
