@@ -1,6 +1,14 @@
 import os
 
+import requests
+from dotenv import load_dotenv
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
+from telegram.error import BadRequest
+import requests
+
+from models import TelegramUser
+from src.constants import INTRO_MESSAGE
+from src.markdown_escaper import escape_dot
 
 
 def balance_markup(star_balance):
@@ -88,17 +96,11 @@ async def alert_admin(message, context, update):
 
 
 async def get_journal_articles(question: str):
-    "from the question grab some journal articles"
-    import requests
-    # https://www.doaj.org/api/search/articles/cognitive%20load?page=1&pageSize=20
+    """from the question grab some journal articles:
+    no longer used as semantic scholar approved api request
+    """
 
-    # publisher
-    # year
-    # author
-    # link
-    # abstract
-    # title
-    # created_date
+    # https://www.doaj.org/api/search/articles/cognitive%20load?page=1&pageSize=20
 
     question = remove_question_words(alpha_space(remove_verbs(question)))
     base_url = "https://www.doaj.org/api/search/articles/"
@@ -114,16 +116,35 @@ async def get_journal_articles(question: str):
         return response_str
 
 
-def escape_dot(string_to_convert):
-    converted_string = str()
-    for char in string_to_convert:
-        if char == '.':
-            converted_string += f'\{char}'
-        elif char == '-':
-            converted_string += f'\{char}'
-        else:
-            converted_string += char
-    return converted_string
+def semantic_scholar(question: str):
+    headers = {
+        'X-API-KEY': os.environ['SEMANTIC_SCHOLAR_API_KEY']
+    }
+
+    # https://api.semanticscholar.org/graph/v1/paper/
+    # search?query=covid&year=2020-2023&openAccessPdf&fieldsOfStudy=Physics,
+    # Philosophy&fields=title,year,authors
+    res = requests.get(f'https://api.semanticscholar.org/graph/v1/paper/search?'
+                       f'query={question}&openAccessPdf&limit=1&fields=url,title,openAccessPdf',
+                       headers=headers)
+
+    if res.status_code != 200:
+        return None
+    else:
+        json_response = res.json()
+        print(json_response)
+
+        formated_response = str()
+        if json_response['total'] == 0:
+            return None
+        if json_response['next'] >= 1:
+            for article in json_response['data']:
+                print(article['title'])
+                print(article['openAccessPdf']['url'])
+                formated_response += f"📚 {escape_dot(article['title'])}\n" \
+                                     f"[🔗 Link]({escape_dot(article['openAccessPdf']['url'])})\n\n"
+        return formated_response
+
 
 
 def process_response_str(response_json, response_str):
@@ -136,7 +157,38 @@ def process_response_str(response_json, response_str):
     return response_str
 
 
+def get_chat_id(update):
+    """
+    Gets the chatid no matter the update type
+    """
+    if update.message:
+        return update.message.chat.id
+    return update.callback_query.message.chat.id
+
+
+async def balance_updater(update, context):
+    if update.message is None:
+        user_id = update.callback_query.message.chat.id
+    else:
+        user_id = update.message.chat.id
+
+    # update the users balance on the message
+    user = TelegramUser.get(chat_id=user_id)
+
+    try:
+        await context.bot.edit_message_text(
+            chat_id=user_id,
+            message_id=user.state,
+            text=INTRO_MESSAGE,
+            parse_mode='MarkdownV2',
+            reply_markup=balance_markup(user.star_balance)
+        )
+    except BadRequest:
+        pass
+    finally:
+        pass
+
+
 if __name__ == "__main__":
-    pass
-    # x = get_journal_articles("cognitive load")
-    # print(x)
+    load_dotenv()
+    semantic_scholar("cognitive load")
