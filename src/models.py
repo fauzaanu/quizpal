@@ -86,6 +86,15 @@ class StaticFile(Model):
         database = db
 
 
+class UserQuestionMultiplier(Model):
+    user = ForeignKeyField(TelegramUser, backref='multipliers',null=False)
+    multiplier = IntegerField(default=1, null=True)
+    created_at = DateField(default=datetime.datetime.now)
+
+    class Meta:
+        database = db
+
+
 if __name__ == '__main__':
     print(os.getcwd())
     os.chdir('../')
@@ -97,7 +106,8 @@ if __name__ == '__main__':
                       Topic,
                       StarPayment,
                       SuggestedTopic,
-                      StaticFile
+                      StaticFile,
+                      UserQuestionMultiplier
                       ])
 
     db.close()
