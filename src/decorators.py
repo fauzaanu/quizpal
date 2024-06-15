@@ -2,12 +2,10 @@ import random
 from functools import wraps
 
 from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
-from telegram.error import BadRequest
 from telegram.ext import CallbackContext
 
-from constants import CHANNEL, INTRO_MESSAGE
-from helpers import balance_markup
-from models import TelegramUser
+from constants import CHANNEL
+from helpers import balance_updater
 
 
 def has_joined_channel(func):
@@ -50,26 +48,7 @@ def balance_update(func):
     async def wrapper(update: Update, context: CallbackContext, *args, **kwargs):
         """Decorator to check if the user has joined the channel"""
 
-        if update.message is None:
-            user_id = update.callback_query.message.chat.id
-        else:
-            user_id = update.message.chat.id
-
-        # update the users balance on the message
-        user = TelegramUser.get(chat_id=user_id)
-
-        try:
-            await context.bot.edit_message_text(
-                chat_id=user_id,
-                message_id=user.state,
-                text=INTRO_MESSAGE,
-                parse_mode='MarkdownV2',
-                reply_markup=balance_markup(user.star_balance)
-            )
-        except BadRequest:
-            pass
-        finally:
-            # User is a member of the channel
-            return await func(update, context, *args, **kwargs)
+        await balance_updater(update, context)
+        return await func(update, context, *args, **kwargs)
 
     return wrapper
