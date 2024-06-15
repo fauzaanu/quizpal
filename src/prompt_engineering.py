@@ -1,13 +1,15 @@
 import json
 import os
 from typing import List, Dict
+
 from dotenv import load_dotenv
 from openai import OpenAI
 from telegram import Update
 
-from helpers import get_user_details, alpha_space, alert_admin
+from constants import (TELEGRAM_QUIZ_QUESTION_LIMIT,
+                       TELEGRAM_QUIZ_OPTION_LIMIT, TELEGRAM_QUIZ_EXPLANATION_LIMIT)
+from helpers import alert_admin
 from models import Topic, QuizQuestion, QuizAnswer, AnswerExplanation
-
 
 
 async def update_db(json_response, topic):
@@ -102,6 +104,21 @@ async def generate_quiz_question(update: Update, context, topic: str, previous_q
         return await generate_quiz_question(topic, previous_questions, attempt + 1)
 
 
+def validate_lengths(response):
+    """
+    Fail Json validation deleberately if the lengths are not in proportion to
+    telegrams requested limits.
+    """
+    if len(response['question']) > TELEGRAM_QUIZ_QUESTION_LIMIT:
+        return False
+    if len(response['explanation']) > TELEGRAM_QUIZ_OPTION_LIMIT:
+        return False
+    for option in response['options']:
+        if len(option) > TELEGRAM_QUIZ_EXPLANATION_LIMIT:
+            return False
+    return True
+
+
 async def validate_json(response: Dict[str, str]) -> bool:
     """
     Validate the JSON response.
@@ -117,7 +134,7 @@ async def validate_json(response: Dict[str, str]) -> bool:
         return False
     if response['correct_option'] not in response['options']:
         return False
-    return True
+    return validate_lengths(response)
 
 
 async def send_to_gpt(update: Update, context, user_prompt: str, system_prompt: str,
@@ -136,10 +153,6 @@ async def send_to_gpt(update: Update, context, user_prompt: str, system_prompt: 
         frequency_penalty=0.5,
         temperature=0.7,
     )
-    # $0.0005 /
-    # 1K tokens
-    # $0.0015 /
-    # 1K tokens
     print(completion.usage.prompt_tokens * (0.0005 / 1000) + completion.usage.completion_tokens * (0.0015 / 1000),
           "USD")
 
@@ -160,38 +173,6 @@ if __name__ == "__main__":
     previous_questions = [
     ]
 
-    # 0.0002775 USD |
-    # 0.0002655 USD
-    # 0.000287 USD
-
-    # 0.000276667 AVG
-
-    # 50 stars =  $0.65 = 0.013 USD per star as payout
-    # 2500 stars = $32.50 = 0.013 USD per star as payout
-
-    # 0.013 - 0.000276667 = 0.012723333
-    # 1.2723333
-
-    # 10x model
-    # 10 stars per question = cost: 0.000276667
-    # payout = 0.013 * 10 = 0.13
-    # profit = 0.13 - 0.000276667 = 0.129723333
-    # 100 questions =  0.129723333 * 100 = 12.9723333
-
-    # 100x model
-    # 100 stars per question = cost: 0.000276667
-    # payout = 0.013 * 100 = 1.3
-    # profit = 1.3 - 0.000276667 = 1.299723333
-    # 100 questions =  1.299723333 * 100 = 129.9723333
-
-    # competitive research
-    # 20$ per year - how many questions can we generate for $20
-    # 20 / 0.000276667 = 72289.069531242
-    # around 72k questions
-
-    # so how many stars will pay us 20$ per year
-    # ok let users purchase 2500 stars and give them a balance of 25,000 in game stars
-    # no refunds?
     try:
         quiz_question = generate_quiz_question(topic, previous_questions)
         print(json.dumps(quiz_question, indent=2))
