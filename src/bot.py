@@ -1,27 +1,26 @@
 import json
 import logging
 import os
-from typing import Callable, Coroutine, Any, Union, List, Dict, Optional
 
 from dotenv import load_dotenv
 from telegram import LabeledPrice, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton, \
     InputMediaAnimation
-from telegram._utils.types import JSONDict, FileInput
 from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHandler, PreCheckoutQueryHandler, \
-    CallbackQueryHandler, BaseRateLimiter
-from telegram.ext._utils.types import RLARGS
+    CallbackQueryHandler
 
-from constants import INTRO_MESSAGE
 from decorators import balance_update, has_joined_channel
-from helpers import balance_markup, alpha_space, get_user_details, remove_question_words, remove_verbs, alert_admin, \
-    get_journal_articles
-from models import TelegramUser, Topic, StarPayment, QuizQuestion, SuggestedTopic, AnswerExplanation, StaticFile
+from helpers import balance_markup, alpha_space, remove_question_words, remove_verbs, alert_admin, \
+    get_chat_id, semantic_scholar, escape_dot
+from models import TelegramUser, Topic, StarPayment, QuizQuestion, SuggestedTopic, AnswerExplanation, StaticFile, \
+    UserQuestionMultiplier
 from prompt_engineering import generate_quiz_question
+from src.constants import INTRO_MESSAGE
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
+
 
 
 async def start_command(update, context):
@@ -37,7 +36,7 @@ async def start_command(update, context):
         user.first_name = update.message.chat.first_name,
         user.last_name = update.message.chat.last_name,
         user.username = update.message.chat.username,
-        user.star_balance = 50
+        user.star_balance = 25
         user.save()
 
     intro_msg = await context.bot.send_message(
@@ -55,11 +54,6 @@ async def start_command(update, context):
         chat_id=update.message.chat.id,
         message_id=intro_msg.message_id,
         disable_notification=True
-    )
-
-    await context.bot.send_message(
-        chat_id=update.message.chat.id,
-        text='📝 Send /help to see a video demo of how to use the bot.'
     )
 
 
@@ -135,6 +129,10 @@ async def save_topic(update, context):
                     text='#H File updated successfully.'
                 )
 
+    # process only if TEXT
+    if update.message.text is None:
+        return
+
     topic = update.message.text
 
     topic = topic.strip()
@@ -192,13 +190,13 @@ async def generate_and_send_question(chat_id, topic, update, user, context):
         question_text = quiz_question['question']
         question = QuizQuestion.get(question=question_text)
 
-        await context.bot.send_poll(
+        poll_question = await context.bot.send_poll(
             type='quiz',
             chat_id=chat_id,
             question=question_text,
             options=options,
             correct_option_id=correct_option_id,
-            is_anonymous=True,
+            is_anonymous=False,
             protect_content=False,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -208,7 +206,13 @@ async def generate_and_send_question(chat_id, topic, update, user, context):
                     ],
                 ]
             )
+        )
 
+        context.job_queue.run_once(
+            time_up_callback, 10,
+            chat_id=chat_id,
+            name=str(chat_id),
+            data=poll_question.message_id
         )
 
         for topic in quiz_question['related_topics']:
@@ -249,6 +253,71 @@ async def generate_and_send_question(chat_id, topic, update, user, context):
         await alert_admin(f"Error generating question: {e}", context, update)
 
 
+async def time_up_callback(context):
+    """Callback to be called when the time for the poll is up"""
+    job = context.job
+    poll = job.data
+
+    multiplier, _ = UserQuestionMultiplier.get_or_create(
+        user=TelegramUser.get(chat_id=job.chat_id)
+    )
+
+    await context.bot.send_message(job.chat_id, text=f'Time is up!')
+
+    poll = await context.bot.stop_poll(
+        chat_id=job.chat_id,
+        message_id=poll
+    )
+
+    user = TelegramUser.get(chat_id=job.chat_id)
+
+    user_answer_id = int()
+    correct_option_id = poll.correct_option_id
+
+    itersx = 0
+    for options in poll.options:
+        print("text", options.text)
+        print("voter_count", options.voter_count)
+
+        if options.voter_count > 0:
+            user_answer_id = itersx
+        itersx += 1
+
+    if user_answer_id == correct_option_id:
+        earnings = 1 * multiplier.multiplier
+        user.star_balance += earnings
+        user.save()
+
+        multiplier.multiplier += 1 if multiplier.multiplier < 5 else 1
+        multiplier.save()
+
+        await context.bot.send_message(
+            chat_id=job.chat_id,
+            text=(
+                f'🎉 Your answer is correct! You earned {earnings} ⭐️\n\n'
+                f'You now have {user.star_balance} ⭐️ left.\n\n'
+                f'Your current win rate is {multiplier.multiplier}x 🚀\n\n'
+                f'You will earn {multiplier.multiplier}x the stars for the next question '
+                f'if you get it right. 🌟\n\n'
+                '⚠️ Your multiplier will reset once you reach a 5x multiplier.\n'
+                '❌ If you get it wrong, your multiplier will be reset to 1.'
+            )
+        )
+
+    else:
+        multiplier.multiplier = 1
+        multiplier.save()
+
+        await context.bot.send_message(
+            chat_id=job.chat_id,
+            text=(
+                '👎 Incorrect! You did not earn any stars. ❌\n\n'
+                f'You still have {user.star_balance} ⭐️ left.\n\n'
+                '🔄 Your win multiplier has been reset to 1.'
+            )
+        )
+
+
 async def explanation(update, context):
     query = update.callback_query
     question = query.data.split('=')[1]
@@ -267,7 +336,7 @@ async def explanation(update, context):
 
     for stopic_obj in SuggestedTopic.filter(question=question_obj):
         topic_text += f'🔗 `{stopic_obj.stopic}`\n'
-        j = await get_journal_articles(stopic_obj.stopic)
+        j = semantic_scholar(stopic_obj.stopic)
         journal_text += j if j else ''
 
     if journal_text:
@@ -401,7 +470,9 @@ async def get_balance(update, context):
 
 @balance_update
 @has_joined_channel
-async def send_invoice(update, context, chat_id):
+async def send_invoice(update, context):
+    chat_id = get_chat_id(update)
+
     await context.bot.send_invoice(
         chat_id=chat_id,
         title='Quizpal Yearly',
@@ -412,6 +483,15 @@ async def send_invoice(update, context, chat_id):
             LabeledPrice('Basic', 1500)
         ],
         provider_token='',
+    )
+
+    await context.bot.send_message(
+        chat_id=chat_id,
+        text='Unfortunately, we dont have plans that are less than 1500 stars. '
+             'However, if you are a student who cannot afford this '
+             'please reach out to us and we will give you some free stars.'
+             'You can contact us at:\n\n'
+             '@fauzaanu'
     )
 
 
@@ -515,38 +595,39 @@ if __name__ == '__main__':
     token = os.environ['TELEGRAM_BOT_TOKEN']
 
     application = ApplicationBuilder().token(token).build()
+    job_queue = application.job_queue
 
     # Handlers
-    commands = CommandHandler('start', start_command)
-    topic = CommandHandler('topics', topics)
-    # withdraw = CommandHandler('withdraw', withdraw_stars)
-    balance = CommandHandler('balance', get_balance)
-    video = CommandHandler('help', get_video)
+    start_cmd = CommandHandler('start', start_command)
+    application.add_handler(start_cmd)
+
+    topics_cmd = CommandHandler('topics', topics)
+    application.add_handler(topics_cmd)
+
+    topup_cmd = CommandHandler('topup', send_invoice)
+    application.add_handler(topup_cmd)
+
+    # withdraw_cmd = CommandHandler('withdraw', withdraw_stars)
+    # application.add_handler(withdraw_cmd)
+
+    balance_cmd = CommandHandler('balance', get_balance)
+    application.add_handler(balance_cmd)
+
+    help_cmd = CommandHandler('help', get_video)
+    application.add_handler(help_cmd)
 
     successful_payment = MessageHandler(filters.SUCCESSFUL_PAYMENT, successful_payment_callback)
-    save_topic = MessageHandler(filters.ALL, save_topic)
-
-    # Command handlers
-    application.add_handler(commands)
-    application.add_handler(balance)
-    application.add_handler(topic)
-    # application.add_handler(withdraw)
-    application.add_handler(video)
 
     # payments
     application.add_handler(PreCheckoutQueryHandler(precheckout_callback))
     application.add_handler(successful_payment)
 
-    # Next question callback
+    # callbacks
     application.add_handler(CallbackQueryHandler(next_question_callback, pattern='nq'))
-
-    # Explain callback
     application.add_handler(CallbackQueryHandler(explanation, pattern='ex'))
-
-    # Learn more callback
     application.add_handler(CallbackQueryHandler(learn_more, pattern='lm'))
 
-    # Save topic handler - Full text and so the last handler
+    save_topic = MessageHandler(filters.ALL, save_topic)
     application.add_handler(save_topic)
 
     application.run_polling()
