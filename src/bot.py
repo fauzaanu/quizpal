@@ -22,7 +22,6 @@ logging.basicConfig(
 )
 
 
-
 async def start_command(update, context):
     """Welcome message to the user"""
 
@@ -180,7 +179,10 @@ async def generate_and_send_question(chat_id, topic, update, user, context):
 
     try:
         previous_questions = [question.question for question in topic.questions]
-        quiz_question = await generate_quiz_question(update, context, topic.name, previous_questions)
+        quiz_question = await generate_quiz_question(update,
+                                                     context,
+                                                     topic.name,
+                                                     previous_questions)
         print(json.dumps(quiz_question, indent=2))
 
         options = quiz_question['options']
@@ -198,18 +200,10 @@ async def generate_and_send_question(chat_id, topic, update, user, context):
             correct_option_id=correct_option_id,
             is_anonymous=False,
             protect_content=False,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(text='🔍 Explain', callback_data=f'ex?q={question.id}'),
-                        InlineKeyboardButton(text='♾️ Next Question', callback_data=f'nq?t={topic.id}')
-                    ],
-                ]
-            )
         )
 
         context.job_queue.run_once(
-            time_up_callback, 10,
+            time_up_callback, 30,
             chat_id=chat_id,
             name=str(chat_id),
             data=poll_question.message_id
@@ -262,8 +256,6 @@ async def time_up_callback(context):
         user=TelegramUser.get(chat_id=job.chat_id)
     )
 
-    await context.bot.send_message(job.chat_id, text=f'Time is up!')
-
     poll = await context.bot.stop_poll(
         chat_id=job.chat_id,
         message_id=poll
@@ -271,8 +263,34 @@ async def time_up_callback(context):
 
     user = TelegramUser.get(chat_id=job.chat_id)
 
+    question = QuizQuestion.get(question=poll.question)
+    topic = question.topic
+
+    keyboard = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(text='🔍 Explain', callback_data=f'ex?q={question.id}'),
+                InlineKeyboardButton(text='♾️ Next Question', callback_data=f'nq?t={topic.id}')
+            ],
+        ]
+    )
+
     user_answer_id = int()
     correct_option_id = poll.correct_option_id
+
+    if poll.total_voter_count == 0:
+        multiplier.multiplier = 1
+        multiplier.save()
+        return await context.bot.send_message(
+            chat_id=job.chat_id,
+            text=(
+                '👎 The question was not answered. You did not earn any stars. ❌\n\n'
+                f'You still have {user.star_balance} ⭐️ left.\n\n'
+                '🔄 Your win multiplier has been reset to 1.'
+            ),
+            reply_to_message_id=job.data,
+            reply_markup=keyboard
+        )
 
     itersx = 0
     for options in poll.options:
@@ -294,14 +312,10 @@ async def time_up_callback(context):
         await context.bot.send_message(
             chat_id=job.chat_id,
             text=(
-                f'🎉 Your answer is correct! You earned {earnings} ⭐️\n\n'
-                f'You now have {user.star_balance} ⭐️ left.\n\n'
-                f'Your current win rate is {multiplier.multiplier}x 🚀\n\n'
-                f'You will earn {multiplier.multiplier}x the stars for the next question '
-                f'if you get it right. 🌟\n\n'
-                '⚠️ Your multiplier will reset once you reach a 5x multiplier.\n'
-                '❌ If you get it wrong, your multiplier will be reset to 1.'
-            )
+                f'🎉 Your answer is correct! You earned +{earnings} ⭐️\n\n'
+            ),
+            reply_to_message_id=job.data,
+            reply_markup=keyboard
         )
 
     else:
@@ -312,9 +326,9 @@ async def time_up_callback(context):
             chat_id=job.chat_id,
             text=(
                 '👎 Incorrect! You did not earn any stars. ❌\n\n'
-                f'You still have {user.star_balance} ⭐️ left.\n\n'
-                '🔄 Your win multiplier has been reset to 1.'
-            )
+            ),
+            reply_to_message_id=job.data,
+            reply_markup=keyboard
         )
 
 
@@ -325,17 +339,13 @@ async def explanation(update, context):
     topic = question_obj.topic
 
     keyboard = [
-        [
-            InlineKeyboardButton(text='Learn more', callback_data=f'lm?q={question_obj.id}'),
-            InlineKeyboardButton(text='♾️ Next Question', callback_data=f'nq?t={topic.id}')
-        ],
+        [InlineKeyboardButton(text='♾️ Next Question', callback_data=f'nq?t={topic.id}'), ],
+        [InlineKeyboardButton(text='Learn more', callback_data=f'lm?q={question_obj.id}'), ],
+        [InlineKeyboardButton(text='Suggest Related Topics', callback_data=f'st?q={question_obj.id}'), ]
     ]
 
-    topic_text = str()
     journal_text = str()
-
     for stopic_obj in SuggestedTopic.filter(question=question_obj):
-        topic_text += f'🔗 `{stopic_obj.stopic}`\n'
         j = semantic_scholar(stopic_obj.stopic)
         journal_text += j if j else ''
 
@@ -350,14 +360,44 @@ async def explanation(update, context):
         f"📖 *Answer*\n\n"
         f"||{a_explanation}|| \n\n"
         f"✏️💡\n\n"
-        f"*✨ Suggested Topics*\n\n"
-        f"{topic_text}\n\n"
         f"{journal_text if journal_text else ''}"
     )
 
     await context.bot.send_message(
         chat_id=query.message.chat.id,
         text=explanation_text,
+        parse_mode="MarkdownV2",
+        reply_markup=InlineKeyboardMarkup(keyboard),
+        disable_web_page_preview=True
+    )
+
+
+async def suggested_topics(update, context):
+    query = update.callback_query
+    question = query.data.split('=')[1]
+    question_obj = QuizQuestion.get(id=question)
+    topic = question_obj.topic
+
+    keyboard = [
+        [
+            InlineKeyboardButton(text='Learn more', callback_data=f'lm?q={question_obj.id}'),
+            InlineKeyboardButton(text='♾️ Next Question', callback_data=f'nq?t={topic.id}')
+        ],
+    ]
+
+    topic_text = str()
+    for stopic_obj in SuggestedTopic.filter(question=question_obj):
+        topic_text += f'🔗 `{stopic_obj.stopic}`\n'
+
+    suggested_text = (
+        f"*✨ Suggested Topics*\n"
+        f"_\(click to copy, & then just send me to switch to that topic\)_\n\n"
+        f"{topic_text}\n\n"
+    )
+
+    await context.bot.send_message(
+        chat_id=query.message.chat.id,
+        text=suggested_text,
         parse_mode="MarkdownV2",
         reply_markup=InlineKeyboardMarkup(keyboard),
         disable_web_page_preview=True
@@ -626,6 +666,7 @@ if __name__ == '__main__':
     application.add_handler(CallbackQueryHandler(next_question_callback, pattern='nq'))
     application.add_handler(CallbackQueryHandler(explanation, pattern='ex'))
     application.add_handler(CallbackQueryHandler(learn_more, pattern='lm'))
+    application.add_handler(CallbackQueryHandler(suggested_topics, pattern='st'))
 
     save_topic = MessageHandler(filters.ALL, save_topic)
     application.add_handler(save_topic)
