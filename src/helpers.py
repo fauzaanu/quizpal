@@ -137,12 +137,14 @@ def semantic_scholar(question: str):
         formated_response = str()
         if json_response['total'] == 0:
             return None
-        if json_response['next'] >= 1:
-            for article in json_response['data']:
-                print(article['title'])
-                print(article['openAccessPdf']['url'])
-                formated_response += f"📚 {escape_dot(article['title'])}\n" \
-                                     f"[🔗 Link]({escape_dot(article['openAccessPdf']['url'])})\n\n"
+        # check if the next key is present
+        if 'next' in json_response:
+            if json_response['next'] >= 1:
+                for article in json_response['data']:
+                    print(article['title'])
+                    print(article['openAccessPdf']['url'])
+                    formated_response += f"📚 {escape_dot(article['title'])}\n" \
+                                         f"[🔗 Link]({escape_dot(article['openAccessPdf']['url'])})\n\n"
         return formated_response
 
 
