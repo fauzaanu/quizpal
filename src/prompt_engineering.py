@@ -101,7 +101,7 @@ async def generate_quiz_question(update: Update, context, topic: str, previous_q
             raise ValueError("Invalid JSON response received from GPT.")
     except (json.JSONDecodeError, ValueError) as e:
         print(f"Attempt {attempt}: {e}")
-        return await generate_quiz_question(topic, previous_questions, attempt + 1)
+        return await generate_quiz_question(update, context, topic, previous_questions, attempt + 1)
 
 
 def validate_lengths(response):
@@ -110,11 +110,11 @@ def validate_lengths(response):
     telegrams requested limits.
     """
     if len(response['question']) > TELEGRAM_QUIZ_QUESTION_LIMIT:
-        return False
-    if len(response['explanation']) > TELEGRAM_QUIZ_OPTION_LIMIT:
-        return False
+        raise ValueError("Question length exceeds Telegram limit.")
+
     for option in response['options']:
-        if len(option) > TELEGRAM_QUIZ_EXPLANATION_LIMIT:
+        if len(option) > TELEGRAM_QUIZ_OPTION_LIMIT:
+            raise ValueError("Option length exceeds Telegram limit.")
             return False
     return True
 
