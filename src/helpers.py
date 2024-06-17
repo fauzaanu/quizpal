@@ -6,8 +6,8 @@ from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.error import BadRequest
 
 from models import TelegramUser
-from src.constants import INTRO_MESSAGE
-from src.markdown_escaper import escape_dot
+from constants import INTRO_MESSAGE
+from markdown_escaper import escape_dot
 
 
 def balance_markup(star_balance):

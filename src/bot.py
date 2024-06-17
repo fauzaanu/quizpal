@@ -14,7 +14,7 @@ from helpers import balance_markup, alpha_space, remove_question_words, remove_v
 from models import TelegramUser, Topic, StarPayment, QuizQuestion, SuggestedTopic, AnswerExplanation, StaticFile, \
     UserQuestionMultiplier
 from prompt_engineering import generate_quiz_question
-from src.constants import INTRO_MESSAGE
+from constants import INTRO_MESSAGE
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',

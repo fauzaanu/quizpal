@@ -1,4 +1,4 @@
-from src.markdown_escaper import escape_dot
+from markdown_escaper import escape_dot
 
 CHANNEL = "@aboutquizpal"
 TELEGRAM_QUIZ_QUESTION_LIMIT = 300
