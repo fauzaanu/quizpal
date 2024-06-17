@@ -7,7 +7,7 @@ db = SqliteDatabase('databases/bot.db')
 
 
 class TelegramUser(Model):
-    chat_id = IntegerField(null=False)
+    chat_id = IntegerField()
     first_name = CharField(null=True)
     last_name = CharField(null=True)
     username = CharField(null=True)
@@ -22,7 +22,7 @@ class TelegramUser(Model):
 
 class StarPayment(Model):
     user = ForeignKeyField(TelegramUser, backref='payments')
-    amount = IntegerField(null=False)
+    amount = IntegerField()
     telegram_charge_id = CharField(null=False)
     refunded = BooleanField(default=False)
     created_at = DateField(default=datetime.datetime.now)
@@ -87,7 +87,7 @@ class StaticFile(Model):
 
 
 class UserQuestionMultiplier(Model):
-    user = ForeignKeyField(TelegramUser, backref='multipliers',null=False)
+    user = ForeignKeyField(TelegramUser, backref='multipliers', null=False)
     multiplier = IntegerField(default=1, null=True)
     created_at = DateField(default=datetime.datetime.now)
 

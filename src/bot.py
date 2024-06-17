@@ -10,7 +10,7 @@ from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHan
 
 from decorators import balance_update, has_joined_channel
 from helpers import balance_markup, alpha_space, remove_question_words, remove_verbs, alert_admin, \
-    get_chat_id, semantic_scholar, escape_dot
+    get_chat_id, semantic_scholar
 from models import TelegramUser, Topic, StarPayment, QuizQuestion, SuggestedTopic, AnswerExplanation, StaticFile, \
     UserQuestionMultiplier
 from prompt_engineering import generate_quiz_question
@@ -389,6 +389,7 @@ async def suggested_topics(update, context):
     for stopic_obj in SuggestedTopic.filter(question=question_obj):
         topic_text += f'🔗 `{stopic_obj.stopic}`\n'
 
+    # PEP 8: W605 invalid escape sequence '\('
     suggested_text = (
         f"*✨ Suggested Topics*\n"
         f"_\(click to copy, & then just send me to switch to that topic\)_\n\n"
@@ -473,16 +474,16 @@ async def topics(update, context):
     displays a list of topics to pick from, includes all the topics the user has created
     """
     user = TelegramUser.get(chat_id=update.message.chat.id)
-    topics = user.topics
+    users_topics = user.topics
 
-    if not topics:
+    if not users_topics:
         await context.bot.send_message(
             chat_id=update.message.chat.id,
             text='You have not created any topics yet. Please create a topic first.'
         )
     else:
         # get the last 3 topics
-        topic_names = [topic.name for topic in topics[-3:]]
+        topic_names = [topic.name for topic in users_topics[-3:]]
         message = 'Pick a topic from the list below\n\n'
         await context.bot.send_message(
             chat_id=update.message.chat.id,
@@ -535,7 +536,7 @@ async def send_invoice(update, context):
     )
 
 
-async def precheckout_callback(update, context):
+async def precheckout_callback(update):
     # F7379681202039436480U996280547B6915733021A150m181920
 
     # F7379681202039436480U996280547B6915733021A150m181920

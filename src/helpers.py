@@ -4,7 +4,6 @@ import requests
 from dotenv import load_dotenv
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.error import BadRequest
-import requests
 
 from models import TelegramUser
 from src.constants import INTRO_MESSAGE
@@ -146,7 +145,6 @@ def semantic_scholar(question: str):
                     formated_response += f"📚 {escape_dot(article['title'])}\n" \
                                          f"[🔗 Link]({escape_dot(article['openAccessPdf']['url'])})\n\n"
         return formated_response
-
 
 
 def process_response_str(response_json, response_str):

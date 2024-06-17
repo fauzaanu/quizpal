@@ -2,21 +2,20 @@ import json
 import os
 from typing import List, Dict
 
-from dotenv import load_dotenv
 from openai import OpenAI
 from telegram import Update
 
 from constants import (TELEGRAM_QUIZ_QUESTION_LIMIT,
-                       TELEGRAM_QUIZ_OPTION_LIMIT, TELEGRAM_QUIZ_EXPLANATION_LIMIT)
+                       TELEGRAM_QUIZ_OPTION_LIMIT)
 from helpers import alert_admin
 from models import Topic, QuizQuestion, QuizAnswer, AnswerExplanation
 
 
-async def update_db(json_response, topic):
-    topic = Topic.get(name=topic)
+async def update_db(json_response, topic_obj):
+    topic_obj = Topic.get(name=topic_obj)
     question = QuizQuestion.create(
         question=json_response['question'],
-        topic=topic
+        topic=topic_obj
     )
     for option in json_response['options']:
         is_correct = (option == json_response['correct_option'])
@@ -51,7 +50,8 @@ async def generate_quiz_question(update: Update, context, topic: str, previous_q
         system_prompt += f'{question}\n'
 
     user_prompt = (
-        "Generate an extremely challenging quiz question on the specified topic to test deep understanding and advanced knowledge. "
+        "Generate an extremely challenging quiz question on the specified topic to "
+        "test deep understanding and advanced knowledge. "
         "The response should be in JSON format as follows:\n"
         "{\n"
         "  'question': 'Question text',\n"
@@ -115,7 +115,6 @@ def validate_lengths(response):
     for option in response['options']:
         if len(option) > TELEGRAM_QUIZ_OPTION_LIMIT:
             raise ValueError("Option length exceeds Telegram limit.")
-            return False
     return True
 
 
@@ -168,13 +167,4 @@ async def send_to_gpt(update: Update, context, user_prompt: str, system_prompt: 
 
 # Example usage:
 if __name__ == "__main__":
-    load_dotenv()
-    topic = "Payments for physical goods and services and the bartar system"
-    previous_questions = [
-    ]
-
-    try:
-        quiz_question = generate_quiz_question(topic, previous_questions)
-        print(json.dumps(quiz_question, indent=2))
-    except ValueError as e:
-        print(e)
+    pass
