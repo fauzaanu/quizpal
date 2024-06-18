@@ -521,25 +521,73 @@ async def get_balance(update, context):
 async def send_invoice(update, context):
     chat_id = get_chat_id(update)
 
-    await context.bot.send_invoice(
+    #  #   <!--
+    #     # 4.99 -  400 points - per point = 82 points per dollar
+    #     # 14.99 - 2500 points - per point = 167 points per dollar (100% more points)
+    #     # 29.99 - 10,000 points - per point = 334 points per dollar (200% more points)
+    #     # -->
+    await context.bot.send_message(
         chat_id=chat_id,
-        title='Quizpal Yearly',
-        description='You will recieve 10,000 Quizpal stars Valid forever.',
+        text=(
+            "Explore our topup options:\n\n"
+            "1. **Starter** - 400 stars - Approx. $4.99\n"
+            "2. **Explorer** - 2500 stars - $15\n"
+            "3. **Researcher** - 10,000 stars - $30\n\n"
+            "It should be noted that each question consumes 1 star and we only charge for usage. However, "
+            "the best value is on the Researcher plan which is almost 200% more stars that the Starter plan."
+            "If you are a student who cannot afford this, please reach out to me ( @fauzaanu ) and I will definitely help you out."
+            "Please send /starter to get the starter plan."
+            "Please send /explorer to get the explorer plan."
+            "Please send /researcher to get the researcher plan."
+        )
+    )
+
+
+async def basic_plan(update, context):
+    """Sends an invoice for the basic
+    plan to the user"""
+    await context.bot.send_invoice(
+        chat_id=update.message.chat.id,
+        title='Starter',
+        description='You will recieve 400 Quizpal stars Valid forever.',
         payload='WPBOT-PYLD',
         currency='XTR',
         prices=[
-            LabeledPrice('Basic', 1500)
+            LabeledPrice('Starter', 250),
         ],
         provider_token='',
     )
 
-    await context.bot.send_message(
-        chat_id=chat_id,
-        text='Unfortunately, we dont have plans that are less than 1500 stars. '
-             'However, if you are a student who cannot afford this '
-             'please reach out to us and we will give you some free stars.'
-             'You can contact us at:\n\n'
-             '@fauzaanu'
+
+async def explorer_plan(update, context):
+    """Sends an invoice for the basic
+    plan to the user"""
+    await context.bot.send_invoice(
+        chat_id=update.message.chat.id,
+        title='Explorer',
+        description='You will recieve 2500 Quizpal stars Valid forever.',
+        payload='WPBOT-PYLD',
+        currency='XTR',
+        prices=[
+            LabeledPrice('Basic Topup', 750),
+        ],
+        provider_token='',
+    )
+
+
+async def researcher_plan(update, context):
+    """Sends an invoice for the basic
+    plan to the user"""
+    await context.bot.send_invoice(
+        chat_id=update.message.chat.id,
+        title='Researcher',
+        description='You will recieve 10,000 Quizpal stars Valid forever.',
+        payload='WPBOT-PYLD',
+        currency='XTR',
+        prices=[
+            LabeledPrice('Researcher', 1500),
+        ],
+        provider_token='',
     )
 
 
