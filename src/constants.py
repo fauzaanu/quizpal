@@ -28,3 +28,7 @@ INTRO_MESSAGE = (
         escape_dot("🔹 `Clinical Pharmacokinetics and Pharmacodynamics`\n\n") +
         escape_dot("📚 *Start by sending a topic!* 📚\n")
 )
+
+CELEBRATION_EFFECT_ID = 5046509860389126442
+CRYING_EFFECT_ID = 5069111056337470630
+WHY_EFFECT_ID = 5122846324185629167

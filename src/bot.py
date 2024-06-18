@@ -9,7 +9,7 @@ from telegram import LabeledPrice, ReplyKeyboardMarkup, KeyboardButton, InlineKe
 from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHandler, PreCheckoutQueryHandler, \
     CallbackQueryHandler
 
-from constants import INTRO_MESSAGE
+from constants import INTRO_MESSAGE, CELEBRATION_EFFECT_ID, CRYING_EFFECT_ID, WHY_EFFECT_ID
 from decorators import balance_update, has_joined_channel
 from helpers import balance_markup, alpha_space, remove_question_words, remove_verbs, alert_admin, \
     get_chat_id, semantic_scholar
@@ -308,12 +308,11 @@ async def time_up_callback(context):
         return await context.bot.send_message(
             chat_id=job.chat_id,
             text=(
-                '👎 The question was not answered. You did not earn any stars. ❌\n\n'
-                f'You still have {user.star_balance} ⭐️ left.\n\n'
-                '🔄 Your win multiplier has been reset to 1.'
+                '👎 The question was not answered.'
             ),
             reply_to_message_id=job.data,
-            reply_markup=keyboard
+            reply_markup=keyboard,
+            message_effect_id=WHY_EFFECT_ID
         )
 
     itersx = 0
@@ -336,10 +335,11 @@ async def time_up_callback(context):
         await context.bot.send_message(
             chat_id=job.chat_id,
             text=(
-                f'🎉 Your answer is correct! You earned +{earnings} ⭐️\n\n'
+                f'🎉 Your answer is correct!\n\n'
             ),
             reply_to_message_id=job.data,
-            reply_markup=keyboard
+            reply_markup=keyboard,
+            message_effect_id=CELEBRATION_EFFECT_ID
         )
 
     else:
@@ -352,7 +352,8 @@ async def time_up_callback(context):
                 '👎 Incorrect! You did not earn any stars. ❌\n\n'
             ),
             reply_to_message_id=job.data,
-            reply_markup=keyboard
+            reply_markup=keyboard,
+            message_effect_id=CRYING_EFFECT_ID
         )
 
 
