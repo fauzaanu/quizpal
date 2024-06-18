@@ -182,11 +182,13 @@ async def balance_updater(update, context):
             media=InputMediaPhoto(
                 media=StaticFile.get(identifier='#I').telegram_fileid,
                 caption=INTRO_MESSAGE,
+                show_caption_above_media=True,
+                parse_mode='MarkdownV2'
             ),
             reply_markup=InlineKeyboardMarkup(
                 [
                     [InlineKeyboardButton(text=f'You have {user.star_balance} ⭐', callback_data='balance')],
-                ])
+                ]),
         )
     except BadRequest:
         pass
