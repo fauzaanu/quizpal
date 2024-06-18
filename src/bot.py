@@ -535,7 +535,8 @@ async def send_invoice(update, context):
             "3. **Researcher** - 10,000 stars - $30\n\n"
             "It should be noted that each question consumes 1 star and we only charge for usage. However, "
             "the best value is on the Researcher plan which is almost 200% more stars that the Starter plan."
-            "If you are a student who cannot afford this, please reach out to me ( @fauzaanu ) and I will definitely help you out."
+            "If you are a student who cannot afford this, please reach out "
+            "to me ( @fauzaanu ) and I will definitely help you out."
             "Please send /starter to get the starter plan."
             "Please send /explorer to get the explorer plan."
             "Please send /researcher to get the researcher plan."
@@ -590,6 +591,7 @@ async def researcher_plan(update, context):
         provider_token='',
     )
 
+
 async def admin_plan(update, context):
     """Sends an invoice for the basic
     plan to the user"""
@@ -618,7 +620,7 @@ async def successful_payment_callback(update, context):
     user = TelegramUser.get(chat_id=update.message.chat.id)
 
     payment_amounts = {
-        150: 1000, # admins test plan
+        150: 1000,  # admins test plan
         250: 400,
         750: 2500,
         1500: 10000
@@ -677,7 +679,8 @@ async def withdraw_stars(update, context):
                     else:
                         await context.bot.send_message(
                             chat_id=update.message.chat.id,
-                            text=f'An error occurred while withdrawing your stars for payment {payment.telegram_charge_id}.'
+                            text=f'An error occurred while withdrawing your stars for payment'
+                                 f' {payment.telegram_charge_id}.'
                         )
 
 
