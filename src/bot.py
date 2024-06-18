@@ -9,10 +9,10 @@ from telegram import LabeledPrice, ReplyKeyboardMarkup, KeyboardButton, InlineKe
 from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHandler, PreCheckoutQueryHandler, \
     CallbackQueryHandler
 
-from constants import INTRO_MESSAGE, CELEBRATION_EFFECT_ID, CRYING_EFFECT_ID, WHY_EFFECT_ID
+from constants import INTRO_MESSAGE
 from decorators import balance_update, has_joined_channel
 from helpers import balance_markup, alpha_space, remove_question_words, remove_verbs, alert_admin, \
-    get_chat_id, semantic_scholar
+    get_chat_id, semantic_scholar, balance_updater
 from models import TelegramUser, Topic, StarPayment, QuizQuestion, SuggestedTopic, AnswerExplanation, StaticFile, \
     UserQuestionMultiplier
 from prompt_engineering import generate_quiz_question
@@ -247,18 +247,7 @@ async def generate_and_send_question(chat_id, topic, update, user, context):
                 media=StaticFile.get(identifier='#S').telegram_fileid,
             )
         )
-        await context.bot.edit_message_media(
-            chat_id=chat_id,
-            message_id=user.state,
-            media=InputMediaPhoto(
-                media=StaticFile.get(identifier='#I').telegram_fileid,
-                caption=INTRO_MESSAGE,
-            ),
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [InlineKeyboardButton(text=f'You have {user.star_balance} ⭐', callback_data='balance')],
-                ])
-        )
+        await balance_updater(update, context)
 
     except Exception as e:
         await context.bot.edit_message_media(
