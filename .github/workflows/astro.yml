@@ -11,7 +11,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -19,13 +19,23 @@ jobs:
         with:
           node-version: '18.17.1'
 
-      - name: Install dependencies
-        run: npm i
-        working-directory: blog
+      - name: Install Dependencies
+        run: |
+          cd blog
+          npm ci
 
-      - name: Build Astro site
-        run: npx astro build
-        working-directory: blog
+      - name: Build Astro Site
+        run: |
+          cd blog
+          npx astro build
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
       - name: Deploy to GitHub Pages
         id: deployment
