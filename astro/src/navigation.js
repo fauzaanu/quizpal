@@ -4,31 +4,18 @@ export const headerData = {
   links: [
     {
       text: 'Blog',
-      links: [
-        {
-          text: 'Blog List',
-          href: getBlogPermalink(),
-        },
-        {
-          text: 'Article',
-          href: getPermalink('get-started-website-with-astro-tailwind-css', 'post'),
-        },
-        {
-          text: 'Article (with MDX)',
-          href: getPermalink('markdown-elements-demo-post', 'post'),
-        },
-        {
-          text: 'Category Page',
-          href: getPermalink('tutorials', 'category'),
-        },
-        {
-          text: 'Tag Page',
-          href: getPermalink('astro', 'tag'),
-        },
-      ],
+      href: getBlogPermalink(),
+    },
+    {
+      text: 'Terms',
+      href: getPermalink('/terms'),
+    },
+    {
+      text: 'Privacy',
+      href: getPermalink('/privacy'),
     },
   ],
-  actions: [{ text: '/Start', href: 'https://t.me/quizpalbot', target: '_blank' }],
+  actions: [{text: '/Start', href: 'https://t.me/quizpalbot', target: '_blank'}],
 };
 
 export const footerData = {
