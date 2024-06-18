@@ -21,13 +21,13 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          cd blog
+          cd astro
           ls
           npm ci
 
       - name: Build Astro Site
         run: |
-          cd blog
+          cd astro
           npx astro build
 
   deploy:
