@@ -247,11 +247,13 @@ async def generate_and_send_question(chat_id, topic, update, user, context):
                 media=StaticFile.get(identifier='#S').telegram_fileid,
             )
         )
-        await context.bot.edit_message_text(
+        await context.bot.edit_message_media(
             chat_id=chat_id,
             message_id=user.state,
-            text=INTRO_MESSAGE,
-            parse_mode='MarkdownV2',
+            media=InputMediaPhoto(
+                media=StaticFile.get(identifier='#I').telegram_fileid,
+                caption=INTRO_MESSAGE,
+            ),
             reply_markup=InlineKeyboardMarkup(
                 [
                     [InlineKeyboardButton(text=f'You have {user.star_balance} ⭐', callback_data='balance')],
