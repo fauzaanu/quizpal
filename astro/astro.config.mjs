@@ -26,7 +26,7 @@ const whenExternalScripts = (items = []) =>
 
 export default defineConfig({
   output: 'static',
-  site: 'https://fauzaanu.github.io/quizpal/',
+  site: 'https://quizpalbot.com/',
 
   integrations: [
     tailwind({

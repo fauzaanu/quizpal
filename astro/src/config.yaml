@@ -1,7 +1,7 @@
 site:
   name: Quizpal
-  site: 'https://fauzaanu.github.io/quizpal/'
-  base: '/quizpal'
+  site: 'https://quizpalbot.com/'
+  base: '/'
   trailingSlash: true
 
   googleSiteVerificationId: orcPxI47GSa-cRvY11tUe6iGg2IO_RPvnA1q95iEM3M
