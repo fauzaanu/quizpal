@@ -298,17 +298,20 @@ async def time_up_callback(context):
             ],
         ]
     )
+    #   <!--
+    # 4.99 -  400 points - per point = 82 points per dollar
+    # 14.99 - 2500 points - per point = 167 points per dollar (100% more points)
+    # 29.99 - 10,000 points - per point = 334 points per dollar (200% more points)
+    # -->
 
     user_answer_id = int()
     correct_option_id = poll.correct_option_id
 
     if poll.total_voter_count == 0:
-        multiplier.multiplier = 1
-        multiplier.save()
         return await context.bot.send_message(
             chat_id=job.chat_id,
             text=(
-                '👎 The question was not answered.'
+                'You did not answer the question in-time.\n\n'
             ),
             reply_to_message_id=job.data,
             reply_markup=keyboard,
@@ -325,17 +328,10 @@ async def time_up_callback(context):
         itersx += 1
 
     if user_answer_id == correct_option_id:
-        earnings = 1 * multiplier.multiplier
-        user.star_balance += earnings
-        user.save()
-
-        multiplier.multiplier += 1 if multiplier.multiplier < 5 else 1
-        multiplier.save()
-
         await context.bot.send_message(
             chat_id=job.chat_id,
             text=(
-                f'🎉 Your answer is correct!\n\n'
+                f'Your answer is correct.\n\n'
             ),
             reply_to_message_id=job.data,
             reply_markup=keyboard,
@@ -343,13 +339,10 @@ async def time_up_callback(context):
         )
 
     else:
-        multiplier.multiplier = 1
-        multiplier.save()
-
         await context.bot.send_message(
             chat_id=job.chat_id,
             text=(
-                '👎 Incorrect! You did not earn any stars. ❌\n\n'
+                'Your answer is incorrect.\n\n'
             ),
             reply_to_message_id=job.data,
             reply_markup=keyboard,

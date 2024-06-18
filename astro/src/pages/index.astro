@@ -34,8 +34,7 @@ const metadata = {
   <Fragment slot="header">
     <Header
       position="left"
-      links={[
-      ]}
+      links={[]}
       actions={[
         {
           text: 'Quiz Me!',
@@ -46,7 +45,7 @@ const metadata = {
     />
   </Fragment>
 
-  <!-- Hero2 Widget ******************* --> 
+  <!-- Hero2 Widget ******************* -->
 
   <Hero2
     tagline="Learn anything!"
@@ -60,8 +59,8 @@ const metadata = {
     </Fragment>
 
     <Fragment slot="subtitle">
-      @QuizpalBot sends you AI generated Quiz questions on a topic of your choosing. Explanations, Direct links to
-      research papers and suggested topics are also provided to help you learn more and dive deeper into the topic.
+      @QuizpalBot sends you AI generated Quiz questions on a topic of your choosing. Runs on telegram, almost like
+      chatting with that friend who knows everything.
     </Fragment>
 
 
@@ -145,11 +144,11 @@ const metadata = {
 
   <Prices
     title="Topup Pricing"
-    subtitle="Powered by Telegram Stars"
+    subtitle="Powered by Telegram Stars - Payment can be made by sending /topup inside the Bot or when you run out of our free points."
     prices={[
       {
         title: 'Basic Topup',
-        subtitle: 'You can topup by sending /topup within the bot or you will be prompted to topup when you run out of points',
+        subtitle: '400 Questions',
         price: 4.99,
         period: 'Once',
         items: [
@@ -171,7 +170,7 @@ const metadata = {
       },
       {
         title: 'Basic Topup',
-        subtitle: 'You can topup by sending /topup within the bot or you will be prompted to topup when you run out of points',
+        subtitle: '2500 Questions',
         price: 14.99,
         period: 'once',
         items: [
@@ -193,7 +192,7 @@ const metadata = {
       },
       {
         title: 'Topup Points',
-        subtitle: 'You can topup by sending /topup within the bot or you will be prompted to topup when you run out of points',
+        subtitle: '10,000 Questions',
         price: 29.99,
         period: 'once',
         items: [
@@ -216,18 +215,11 @@ const metadata = {
     ]}
   />
 
-  <!--
-  4.99 -  400 points - per point = 82 points per dollar
-  14.99 - 2500 points - per point = 167 points per dollar (100% more points)
-  29.99 - 10,000 points - per point = 334 points per dollar (200% more points)
-  -->
-
-
   <!-- CallToAction Widget *********** -->
   <CallToAction
     id="download"
     title="No Downloads needed!"
-    subtitle="@quizpalbot runs on telegram, simply click start after visiting our bot and thats it!. You also keep your chat history on all devices. Telegram is awesome! <3"
+    subtitle="@quizpalbot runs on telegram without any downloads or installations. It's almost like chatting with that friend who knows everything."
   >
 
 
