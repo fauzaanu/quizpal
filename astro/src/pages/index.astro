@@ -1,19 +1,11 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-
 import Header from '~/components/widgets/Header.astro';
-
 import Hero2 from '~/components/widgets/Hero2.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 import Features3 from '~/components/widgets/Features3.astro';
-import Content from '~/components/widgets/Content.astro';
-import Testimonials from '~/components/widgets/Testimonials.astro';
-import FAQs from '~/components/widgets/FAQs.astro';
-import Stats from '~/components/widgets/Stats.astro';
-
 import Button from '~/components/ui/Button.astro';
 import Image from '~/components/common/Image.astro';
-import {getAssetsPrefix} from "astro/dist/assets/utils/getAssetsPrefix";
 import Prices from "../components/widgets/Pricing.astro";
 
 const telegramBotImg = '~/assets/images/telegram.png';
@@ -25,12 +17,11 @@ const explainLink = '~/assets/images/features/explain.png';
 const learnMoreLink = '~/assets/images/features/learnmore.png';
 const suggestedTopicsLink = '~/assets/images/features/suggested_topics.png';
 const metadata = {
-  title: 'Quizpal - Learn anything!',
+  title: 'Quizpal - Learn through AI generated quizzes!',
 };
 ---
 
 <Layout metadata={metadata}>
-  <Fragment slot="announcement"></Fragment>
   <Fragment slot="header">
     <Header
       position="left"
