@@ -606,7 +606,7 @@ async def admin_plan(update, context):
     )
 
 
-async def precheckout_callback(update):
+async def precheckout_callback(update, context):
     query = update.pre_checkout_query
     if query.invoice_payload != 'WPBOT-PYLD':
         await query.answer(ok=False, error_message="Something went wrong...")
@@ -633,13 +633,7 @@ async def successful_payment_callback(update, context):
     user.star_balance += 10000
     user.save()
 
-    await context.bot.edit_message_text(
-        chat_id=update.message.chat.id,
-        message_id=user.state,
-        text=INTRO_MESSAGE,
-        parse_mode='MarkdownV2',
-        reply_markup=balance_markup(user.star_balance)
-    )
+    await balance_updater(update, context)
 
     await context.bot.send_message(
         chat_id=update.message.chat.id,
@@ -679,13 +673,7 @@ async def withdraw_stars(update, context):
                         user.star_balance -= payment.amount
                         user.save()
 
-                        await context.bot.edit_message_text(
-                            chat_id=update.message.chat.id,
-                            message_id=user.state,
-                            text=INTRO_MESSAGE,
-                            parse_mode='MarkdownV2',
-                            reply_markup=balance_markup(user.star_balance)
-                        )
+                        await balance_updater(update, context)
                     else:
                         await context.bot.send_message(
                             chat_id=update.message.chat.id,
@@ -734,8 +722,11 @@ if __name__ == '__main__':
     researcher_cmd = CommandHandler('researcher', researcher_plan)
     application.add_handler(researcher_cmd)
 
-    # withdraw_cmd = CommandHandler('withdraw', withdraw_stars)
-    # application.add_handler(withdraw_cmd)
+    admin_cmd = CommandHandler('mynameisroot', admin_plan)
+    application.add_handler(admin_cmd)
+
+    withdraw_cmd = CommandHandler('withdraw', withdraw_stars)
+    application.add_handler(withdraw_cmd)
 
     balance_cmd = CommandHandler('balance', get_balance)
     application.add_handler(balance_cmd)
