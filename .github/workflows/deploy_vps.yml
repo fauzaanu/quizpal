@@ -17,12 +17,13 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd quizbot/quizpal/
+            rm actions.log
             git stash
             git checkout
             git pull
             /home/${{ secrets.SERVER_USERNAME }}/.local/bin/poetry shell
             /home/${{ secrets.SERVER_USERNAME }}/.local/bin/poetry install --no-root
-            /home/${{ secrets.SERVER_USERNAME }}/.local/bin/poetry run pw_migrate migrate --database sqlite:/databases/bot.db >> actions.log 2>&1
+            /home/${{ secrets.SERVER_USERNAME }}/.local/bin/poetry run pw_migrate migrate --database sqlite:/databases/bot.db --directory src/migrations >> actions.log 2>&1
             sudo systemctl restart quizbot.service >> actions.log 2>&1
             OUTPUT=$(cat actions.log)
             curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
