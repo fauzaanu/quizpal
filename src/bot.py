@@ -304,7 +304,7 @@ async def time_up_callback(context):
             ),
             reply_to_message_id=job.data,
             reply_markup=keyboard,
-            message_effect_id=WHY_EFFECT_ID
+            # message_effect_id=WHY_EFFECT_ID
         )
 
     itersx = 0
@@ -324,7 +324,7 @@ async def time_up_callback(context):
             ),
             reply_to_message_id=job.data,
             reply_markup=keyboard,
-            message_effect_id=CELEBRATION_EFFECT_ID
+            # message_effect_id=CELEBRATION_EFFECT_ID
         )
 
     else:
