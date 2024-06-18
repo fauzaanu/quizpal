@@ -1,5 +1,4 @@
 import datetime
-import os
 
 from peewee import Model, SqliteDatabase, CharField, DateField, IntegerField, ForeignKeyField, BooleanField
 
@@ -15,6 +14,7 @@ class TelegramUser(Model):
     questions_generated = IntegerField(default=0)
     star_balance = IntegerField(default=0)
     created_at = DateField(default=datetime.datetime.now)
+    total_money_spent = IntegerField(default=0)
 
     class Meta:
         database = db
@@ -86,28 +86,16 @@ class StaticFile(Model):
         database = db
 
 
-class UserQuestionMultiplier(Model):
-    user = ForeignKeyField(TelegramUser, backref='multipliers', null=False)
-    multiplier = IntegerField(default=1, null=True)
-    created_at = DateField(default=datetime.datetime.now)
-
-    class Meta:
-        database = db
+# class UserQuestionMultiplier(Model):
+#     user = ForeignKeyField(TelegramUser, backref='multipliers', null=False)
+#     multiplier = IntegerField(default=1, null=True)
+#     created_at = DateField(default=datetime.datetime.now)
+#
+#     class Meta:
+#         database = db
 
 
 if __name__ == '__main__':
-    print(os.getcwd())
-    os.chdir('../')
-    db.connect()
-    db.create_tables([TelegramUser,
-                      QuizQuestion,
-                      QuizAnswer,
-                      AnswerExplanation,
-                      Topic,
-                      StarPayment,
-                      SuggestedTopic,
-                      StaticFile,
-                      UserQuestionMultiplier
-                      ])
-
-    db.close()
+    # pw_migrate create --auto --auto-source models --database sqlite:/../databases/bot.db add_total_money_spent
+    # pw_migrate migrate --database sqlite:/../databases/bot.db
+    pass

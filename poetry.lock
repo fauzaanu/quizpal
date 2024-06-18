@@ -170,6 +170,20 @@ files = [
 ]
 
 [[package]]
+name = "click"
+version = "8.1.7"
+description = "Composable command line interface toolkit"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "click-8.1.7-py3-none-any.whl", hash = "sha256:ae74fb96c20a0277a1d615f1e4d73c8414f5a98db8b799a7931d1582f3390c28"},
+    {file = "click-8.1.7.tar.gz", hash = "sha256:ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de"},
+]
+
+[package.dependencies]
+colorama = {version = "*", markers = "platform_system == \"Windows\""}
+
+[[package]]
 name = "colorama"
 version = "0.4.6"
 description = "Cross-platform colored terminal text."
@@ -290,6 +304,21 @@ python-versions = "*"
 files = [
     {file = "peewee-3.17.5.tar.gz", hash = "sha256:e1b6a64192207fd3ddb4e1188054820f42aef0aadfa749e3981af3c119a76420"},
 ]
+
+[[package]]
+name = "peewee-migrate"
+version = "1.12.2"
+description = "Support for migrations in Peewee ORM"
+optional = false
+python-versions = ">=3.8,<4.0"
+files = [
+    {file = "peewee_migrate-1.12.2-py3-none-any.whl", hash = "sha256:2930bf83ef802cdb5fb123116c5eb87cbf3756cb27674f674923be6bb27dabee"},
+    {file = "peewee_migrate-1.12.2.tar.gz", hash = "sha256:c8187c97b756909ea57e77cce06ae66395219e86764ef0b286a7bc72ff7405ad"},
+]
+
+[package.dependencies]
+click = "*"
+peewee = ">=3,<4"
 
 [[package]]
 name = "pydantic"
@@ -575,4 +604,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "ea076ac10460c4b4165f98c1449df4b73c31863537796ea1b1d5dc088a7bb2f3"
+content-hash = "38bd37886f8ede54cf8da26d182f5a8c21dac40f5c691ded9d94f9ca651d7bb7"
