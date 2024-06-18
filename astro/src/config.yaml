@@ -1,6 +1,6 @@
 site:
-  name: AstroWind
-  site: 'https://astrowind.vercel.app'
+  name: Quizpal
+  site: 'https://fauzaanu.github.io/quizpal/'
   base: '/quizpal'
   trailingSlash: true
 
@@ -9,22 +9,22 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: AstroWind
-    template: '%s — AstroWind'
-  description: "\U0001F680 Suitable for Startups, Small Business, Sass Websites, Professional Portfolios, Marketing Websites, Landing Pages & Blogs."
+    default: Quizpal
+    template: '%s — Quizpal'
+  description: "\U0001F680 Quizpal transforms learning into an engaging experience by generating custom quizzes on any topic you choose."
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: AstroWind
+    site_name: Quizpal
     images:
-      - url: '~/assets/images/default.png'
+      - url: '~/assets/images/og_img.png'
         width: 1200
         height: 628
     type: website
   twitter:
-    handle: '@onwidget'
-    site: '@onwidget'
+    handle: ''
+    site: ''
     cardType: summary_large_image
 
 i18n:
