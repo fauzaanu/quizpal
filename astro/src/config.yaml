@@ -11,7 +11,7 @@ metadata:
   title:
     default: Quizpal
     template: '%s — Quizpal'
-  description: "\U0001F680 Quizpal transforms learning into an engaging experience by generating custom quizzes on any topic you choose."
+  description: "\U0001F680 Quizpal transforms learning into an engaging experience by generating custom quizzes through AI on any topic you choose. "
   robots:
     index: true
     follow: true
