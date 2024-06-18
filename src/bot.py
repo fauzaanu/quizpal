@@ -1,20 +1,21 @@
 import json
 import logging
 import os
+from pprint import pprint
 
 from dotenv import load_dotenv
 from telegram import LabeledPrice, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton, \
-    InputMediaAnimation
+    InputMediaPhoto
 from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHandler, PreCheckoutQueryHandler, \
     CallbackQueryHandler
 
+from constants import INTRO_MESSAGE
 from decorators import balance_update, has_joined_channel
 from helpers import balance_markup, alpha_space, remove_question_words, remove_verbs, alert_admin, \
     get_chat_id, semantic_scholar
 from models import TelegramUser, Topic, StarPayment, QuizQuestion, SuggestedTopic, AnswerExplanation, StaticFile, \
     UserQuestionMultiplier
 from prompt_engineering import generate_quiz_question
-from constants import INTRO_MESSAGE
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -70,10 +71,11 @@ async def save_topic(update, context):
 
     # is this a message sent by admin with a file_id tag
     if update.message.chat.id == int(os.environ['ADMIN_CHAT_ID']):
+        pprint(update)
         if update.message.caption:
             if update.message.caption == "#S":
                 # get the file_id
-                file_id = update.message.animation.file_id
+                file_id = update.message.photo[0].file_id
                 # save the file_id to the database
                 s, _ = StaticFile.get_or_create(
                     identifier="#S",
@@ -87,7 +89,7 @@ async def save_topic(update, context):
                 )
             elif update.message.caption == "#E":
                 # get the file_id
-                file_id = update.message.animation.file_id
+                file_id = update.message.photo[0].file_id
                 # save the file_id to the database
                 s, _ = StaticFile.get_or_create(
                     identifier="#E",
@@ -101,7 +103,7 @@ async def save_topic(update, context):
                 )
             elif update.message.caption == "#G":
                 # get the file_id
-                file_id = update.message.animation.file_id
+                file_id = update.message.photo[0].file_id
                 # save the file_id to the database
                 s, _ = StaticFile.get_or_create(
                     identifier="#G",
@@ -111,9 +113,9 @@ async def save_topic(update, context):
 
                 return await context.bot.send_message(
                     chat_id=update.message.chat.id,
-                    text='#E File updated successfully.'
+                    text='#G File updated successfully.'
                 )
-            elif update.message.caption == "#G":
+            elif update.message.caption == "#H":
                 # get the file_id
                 file_id = update.message.video.file_id
                 # save the file_id to the database
@@ -172,9 +174,9 @@ async def save_topic(update, context):
 
 
 async def generate_and_send_question(chat_id, topic, update, user, context):
-    generating_msg = await context.bot.sendAnimation(
+    generating_msg = await context.bot.send_photo(
         chat_id=chat_id,
-        animation=StaticFile.get(identifier='#G').telegram_fileid,
+        photo=StaticFile.get(identifier='#G').telegram_fileid,
     )
 
     try:
@@ -221,7 +223,7 @@ async def generate_and_send_question(chat_id, topic, update, user, context):
         await context.bot.edit_message_media(
             chat_id=chat_id,
             message_id=generating_msg.message_id,
-            media=InputMediaAnimation(
+            media=InputMediaPhoto(
                 media=StaticFile.get(identifier='#S').telegram_fileid,
             )
         )
@@ -240,7 +242,7 @@ async def generate_and_send_question(chat_id, topic, update, user, context):
         await context.bot.edit_message_media(
             chat_id=chat_id,
             message_id=generating_msg.message_id,
-            media=InputMediaAnimation(
+            media=InputMediaPhoto(
                 media=StaticFile.get(identifier='#E').telegram_fileid,
             )
         )
