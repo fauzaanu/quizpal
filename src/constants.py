@@ -7,6 +7,7 @@ TELEGRAM_QUIZ_EXPLANATION_LIMIT = 200
 
 INTRO_MESSAGE = (
         escape_dot("🌟 *Welcome to Quizpal* 🌟\n\n") +
+        escape_dot("By using this bot you agree to our terms and conditions on: quizpalbot.com/terms\n\n") +
         escape_dot("📚 Send any topic to generate questions!\n") +
         escape_dot("💫 Each question costs 1 Quizpal Star.\n") +
         escape_dot("💫 You start with 25 Quizpal Stars.\n\n") +
