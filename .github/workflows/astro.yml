@@ -41,7 +41,7 @@ jobs:
             echo "manager=npm" >> $GITHUB_OUTPUT
             echo "command=ci" >> $GITHUB_OUTPUT
             echo "runner=npx --no-install" >> $GITHUB_OUTPUT
-            echo "lockfile=package-lock.json" >> $GITHUB_OUTPUT
+            echo "lockfile=blog/package-lock.json" >> $GITHUB_OUTPUT
             exit 0
       - name: Setup Node
         uses: actions/setup-node@v4
