@@ -1,6 +1,7 @@
 # QuizpalBot - Infinite learning for any topic
 
-[![Telegram Bot CI/CD](https://github.com/fauzaanu/quizpal/actions/workflows/deploy_vps.yml/badge.svg)](https://github.com/fauzaanu/quizpal/actions/workflows/deploy_vps.yml)
+[![Bot](https://github.com/fauzaanu/quizpal/actions/workflows/deploy_vps.yml/badge.svg)](https://github.com/fauzaanu/quizpal/actions/workflows/deploy_vps.yml)
+[![Blog](https://github.com/fauzaanu/quizpal/actions/workflows/astro.yml/badge.svg)](https://github.com/fauzaanu/quizpal/actions/workflows/astro.yml)
 
 https://github.com/fauzaanu/quizpal/assets/86226565/6fe991c0-010a-422a-a888-7a1f04a700c8
 
