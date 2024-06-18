@@ -1,4 +1,4 @@
-# QuizpalBot - Infinite learning for any topic
+# QuizpalBot - Learn through AI generated quizzes
 
 [![Bot](https://github.com/fauzaanu/quizpal/actions/workflows/deploy_vps.yml/badge.svg)](https://github.com/fauzaanu/quizpal/actions/workflows/deploy_vps.yml)
 [![Blog](https://github.com/fauzaanu/quizpal/actions/workflows/astro.yml/badge.svg)](https://github.com/fauzaanu/quizpal/actions/workflows/astro.yml)
