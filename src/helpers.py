@@ -2,12 +2,12 @@ import os
 
 import requests
 from dotenv import load_dotenv
-from telegram import InlineKeyboardMarkup, InlineKeyboardButton
+from telegram import InlineKeyboardMarkup, InlineKeyboardButton, InputMediaPhoto
 from telegram.error import BadRequest
 
-from models import TelegramUser
 from constants import INTRO_MESSAGE
 from markdown_escaper import escape_dot
+from models import TelegramUser, StaticFile
 
 
 def balance_markup(star_balance):
@@ -176,12 +176,17 @@ async def balance_updater(update, context):
     user = TelegramUser.get(chat_id=user_id)
 
     try:
-        await context.bot.edit_message_text(
+        await context.bot.edit_message_media(
             chat_id=user_id,
             message_id=user.state,
-            text=INTRO_MESSAGE,
-            parse_mode='MarkdownV2',
-            reply_markup=balance_markup(user.star_balance)
+            media=InputMediaPhoto(
+                media=StaticFile.get(identifier='#I').telegram_fileid,
+                caption=INTRO_MESSAGE,
+            ),
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [InlineKeyboardButton(text=f'You have {user.star_balance} ⭐', callback_data='balance')],
+                ])
         )
     except BadRequest:
         pass
