@@ -15,6 +15,7 @@ class TelegramUser(Model):
     star_balance = IntegerField(default=0)
     created_at = DateField(default=datetime.datetime.now)
     total_money_spent = IntegerField(default=0)
+    random_useless_field = CharField(null=True)
 
     class Meta:
         database = db
