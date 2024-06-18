@@ -592,9 +592,6 @@ async def researcher_plan(update, context):
 
 
 async def precheckout_callback(update):
-    # F7379681202039436480U996280547B6915733021A150m181920
-
-    # F7379681202039436480U996280547B6915733021A150m181920
     query = update.pre_checkout_query
     if query.invoice_payload != 'WPBOT-PYLD':
         await query.answer(ok=False, error_message="Something went wrong...")
@@ -633,43 +630,45 @@ async def successful_payment_callback(update, context):
 @has_joined_channel
 async def withdraw_stars(update, context):
     """withdraws stars from the user's account and refunds the payment to the user's account"""
-    user = TelegramUser.get(chat_id=update.message.chat.id)
-    if user.star_balance == 0:
-        await context.bot.send_message(
-            chat_id=update.message.chat.id,
-            text='You do not have any stars to withdraw.'
-        )
-    else:
-        # get last payment
-        for payment in user.payments:
-            if not payment.refunded:
-                status = await context.bot.refund_star_payment(
-                    user_id=update.message.chat.id,
-                    telegram_payment_charge_id=payment.telegram_charge_id
-                )
-                if status:
-                    await context.bot.send_message(
-                        chat_id=update.message.chat.id,
-                        text=f'Your payment {payment.telegram_charge_id} has been refunded successfully.'
+    # works for admin
+    if update.message.chat.id == int(os.environ['ADMIN_CHAT_ID']):
+        user = TelegramUser.get(chat_id=update.message.chat.id)
+        if user.star_balance == 0:
+            await context.bot.send_message(
+                chat_id=update.message.chat.id,
+                text='You do not have any stars to withdraw.'
+            )
+        else:
+            # get last payment
+            for payment in user.payments:
+                if not payment.refunded:
+                    status = await context.bot.refund_star_payment(
+                        user_id=update.message.chat.id,
+                        telegram_payment_charge_id=payment.telegram_charge_id
                     )
-                    payment.refunded = True
-                    payment.save()
+                    if status:
+                        await context.bot.send_message(
+                            chat_id=update.message.chat.id,
+                            text=f'Your payment {payment.telegram_charge_id} has been refunded successfully.'
+                        )
+                        payment.refunded = True
+                        payment.save()
 
-                    user.star_balance -= payment.amount
-                    user.save()
+                        user.star_balance -= payment.amount
+                        user.save()
 
-                    await context.bot.edit_message_text(
-                        chat_id=update.message.chat.id,
-                        message_id=user.state,
-                        text=INTRO_MESSAGE,
-                        parse_mode='MarkdownV2',
-                        reply_markup=balance_markup(user.star_balance)
-                    )
-                else:
-                    await context.bot.send_message(
-                        chat_id=update.message.chat.id,
-                        text=f'An error occurred while withdrawing your stars for payment {payment.telegram_charge_id}.'
-                    )
+                        await context.bot.edit_message_text(
+                            chat_id=update.message.chat.id,
+                            message_id=user.state,
+                            text=INTRO_MESSAGE,
+                            parse_mode='MarkdownV2',
+                            reply_markup=balance_markup(user.star_balance)
+                        )
+                    else:
+                        await context.bot.send_message(
+                            chat_id=update.message.chat.id,
+                            text=f'An error occurred while withdrawing your stars for payment {payment.telegram_charge_id}.'
+                        )
 
 
 @balance_update
