@@ -590,6 +590,21 @@ async def researcher_plan(update, context):
         provider_token='',
     )
 
+async def admin_plan(update, context):
+    """Sends an invoice for the basic
+    plan to the user"""
+    await context.bot.send_invoice(
+        chat_id=update.message.chat.id,
+        title='admin',
+        description='You will recieve 10,000 Quizpal stars Valid forever.',
+        payload='WPBOT-PYLD',
+        currency='XTR',
+        prices=[
+            LabeledPrice('Researcher', 150),
+        ],
+        provider_token='',
+    )
+
 
 async def precheckout_callback(update):
     query = update.pre_checkout_query
@@ -602,9 +617,16 @@ async def precheckout_callback(update):
 async def successful_payment_callback(update, context):
     user = TelegramUser.get(chat_id=update.message.chat.id)
 
+    payment_amounts = {
+        150: 1000, # admins test plan
+        250: 400,
+        750: 2500,
+        1500: 10000
+    }
+
     StarPayment.create(
         user=TelegramUser.get(chat_id=update.message.chat.id),
-        amount=update.message.successful_payment.total_amount,
+        amount=payment_amounts[update.message.successful_payment.total_amount],
         telegram_charge_id=update.message.successful_payment.telegram_payment_charge_id
     )
 
@@ -701,6 +723,16 @@ if __name__ == '__main__':
 
     topup_cmd = CommandHandler('topup', send_invoice)
     application.add_handler(topup_cmd)
+
+    # payment plans
+    starter_cmd = CommandHandler('starter', basic_plan)
+    application.add_handler(starter_cmd)
+
+    explorer_cmd = CommandHandler('explorer', explorer_plan)
+    application.add_handler(explorer_cmd)
+
+    researcher_cmd = CommandHandler('researcher', researcher_plan)
+    application.add_handler(researcher_cmd)
 
     # withdraw_cmd = CommandHandler('withdraw', withdraw_stars)
     # application.add_handler(withdraw_cmd)
