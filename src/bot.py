@@ -30,7 +30,7 @@ async def start_command(update, context):
         chat_id=update.message.chat.id,
     )
 
-    await alert_admin("Someone used start", context, update)
+    await alert_admin("Alert from start", context, update)
 
     if user.star_balance == 0:
         user.first_name = update.message.chat.first_name,
@@ -39,11 +39,13 @@ async def start_command(update, context):
         user.star_balance = 25
         user.save()
 
-    intro_msg = await context.bot.send_message(
+    intro_msg = await context.bot.send_photo(
         chat_id=update.message.chat.id,
-        text=INTRO_MESSAGE,
+        caption=INTRO_MESSAGE,
+        photo=StaticFile.get(identifier='#I').telegram_fileid,
         parse_mode='MarkdownV2',
-        reply_markup=balance_markup(user.star_balance)
+        reply_markup=balance_markup(user.star_balance),
+        show_caption_above_media=True
     )
 
     user.state = intro_msg.message_id
@@ -115,6 +117,20 @@ async def save_topic(update, context):
                     chat_id=update.message.chat.id,
                     text='#G File updated successfully.'
                 )
+            elif update.message.caption == "#I":
+                # get the file_id
+                file_id = update.message.photo[0].file_id
+                # save the file_id to the database
+                s, _ = StaticFile.get_or_create(
+                    identifier="#I",
+                )
+                s.telegram_fileid = file_id
+                s.save()
+
+                return await context.bot.send_message(
+                    chat_id=update.message.chat.id,
+                    text='#I File updated successfully.'
+                )
             elif update.message.caption == "#H":
                 # get the file_id
                 file_id = update.message.video.file_id
@@ -132,6 +148,10 @@ async def save_topic(update, context):
 
     # process only if TEXT
     if update.message.text is None:
+        return
+
+    # ignore typo commands
+    if update.message.text.startswith('/'):
         return
 
     topic = update.message.text
