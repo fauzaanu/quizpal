@@ -335,7 +335,7 @@ async def time_up_callback(context):
             ),
             reply_to_message_id=job.data,
             reply_markup=keyboard,
-            message_effect_id=CRYING_EFFECT_ID
+            # message_effect_id=CRYING_EFFECT_ID
         )
 
 
