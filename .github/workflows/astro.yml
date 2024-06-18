@@ -22,6 +22,7 @@ jobs:
       - name: Install Dependencies
         run: |
           cd blog
+          ls
           npm ci
 
       - name: Build Astro Site
