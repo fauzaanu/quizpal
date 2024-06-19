@@ -6,8 +6,7 @@ TELEGRAM_QUIZ_OPTION_LIMIT = 100
 TELEGRAM_QUIZ_EXPLANATION_LIMIT = 200
 
 INTRO_MESSAGE = (
-    escape_dot("Hi, I'm QuizpalBot 👋, ready to send you Telegram quizzes"
-               " on any topic you choose. What would you like to learn about?")
+    escape_dot("Hi, I'm QuizpalBot ??, Send me a topic to get started. ??\n\n")
 )
 
 COMMANDS = (
