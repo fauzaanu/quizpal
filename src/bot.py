@@ -13,8 +13,7 @@ from constants import INTRO_MESSAGE
 from decorators import balance_update, has_joined_channel
 from helpers import balance_markup, alpha_space, remove_question_words, remove_verbs, alert_admin, \
     get_chat_id, semantic_scholar, balance_updater
-from models import TelegramUser, Topic, StarPayment, QuizQuestion, SuggestedTopic, AnswerExplanation, StaticFile, \
-    UserQuestionMultiplier
+from models import TelegramUser, Topic, StarPayment, QuizQuestion, SuggestedTopic, AnswerExplanation, StaticFile
 from prompt_engineering import generate_quiz_question
 
 logging.basicConfig(
@@ -264,10 +263,6 @@ async def time_up_callback(context):
     """Callback to be called when the time for the poll is up"""
     job = context.job
     poll = job.data
-
-    multiplier, _ = UserQuestionMultiplier.get_or_create(
-        user=TelegramUser.get(chat_id=job.chat_id)
-    )
 
     poll = await context.bot.stop_poll(
         chat_id=job.chat_id,
