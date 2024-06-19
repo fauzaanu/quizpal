@@ -46,7 +46,7 @@ async def generate_quiz_question(update: Update, context, topic: str, previous_q
         f'You have been asked to generate a challanging quiz question for a quiz competition. '
         f'Here are some previous questions to avoid repetition:\n'
     )
-    for question in previous_questions:
+    for question in previous_questions[-10:]:
         system_prompt += f'{question}\n'
 
     user_prompt = (
