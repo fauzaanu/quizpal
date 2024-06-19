@@ -7,7 +7,7 @@ from telegram import Update
 
 from constants import (TELEGRAM_QUIZ_QUESTION_LIMIT,
                        TELEGRAM_QUIZ_OPTION_LIMIT)
-from helpers import alert_admin
+from helpers import alert_admin, remove_verbs, remove_question_words
 from models import Topic, QuizQuestion, QuizAnswer, AnswerExplanation
 
 
@@ -44,10 +44,14 @@ async def generate_quiz_question(update: Update, context, topic: str, previous_q
     system_prompt = (
         f'You are an expert in the topic: {topic}. '
         f'You have been asked to generate a challanging quiz question for a quiz competition. '
-        f'Here are some previous questions to avoid repetition:\n'
+        f'Here are some question ideas covered in previouse questions:\n'
     )
+
+    count = 0
     for question in previous_questions[-10:]:
-        system_prompt += f'{question}\n'
+        question = remove_question_words(remove_verbs(question))
+        system_prompt += f'Q{count}. {question}\n'
+        count += 1
 
     user_prompt = (
         "Generate an extremely challenging quiz question on the specified topic to "
