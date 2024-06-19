@@ -23,6 +23,7 @@ jobs:
             git pull
             /home/${{ secrets.SERVER_USERNAME }}/.local/bin/poetry shell
             /home/${{ secrets.SERVER_USERNAME }}/.local/bin/poetry install --no-root
+            /home/${{ secrets.SERVER_USERNAME }}/.local/bin/poetry run playwright install
             /home/${{ secrets.SERVER_USERNAME }}/.local/bin/poetry run pw_migrate migrate --database sqlite:/databases/bot.db --directory src/migrations >> actions.log 2>&1
             sudo systemctl restart quizbot.service >> actions.log 2>&1
             OUTPUT=$(cat actions.log)
