@@ -1,6 +1,7 @@
-import json
+import logging
 import logging
 import os
+import random
 from pprint import pprint
 
 from dotenv import load_dotenv
@@ -183,11 +184,9 @@ async def save_topic(update, context):
     if user.star_balance == 1:
         await context.bot.send_message(
             chat_id=update.message.chat.id,
-            text='You have 1 star left. Please purchase our premium plan to continue generating questions.'
-                 'Our premium pack grants you 10,000 Quizpal stars and they never expire.'
-                 'The cost of the premium plan is 1500 Telegram Stars. (Approx. $30)'
+            text='You have 1 star left. Please /topup to continue generating questions.'
         )
-        return await send_invoice(update, context, chat_id=update.message.chat.id)
+        return
 
     await generate_and_send_question(update.message.chat.id, topic, update, user, context)
 
@@ -200,11 +199,38 @@ async def generate_and_send_question(chat_id, topic, update, user, context):
 
     try:
         previous_questions = [question.question for question in topic.questions]
-        quiz_question = await generate_quiz_question(update,
-                                                     context,
-                                                     topic.name,
-                                                     previous_questions)
-        print(json.dumps(quiz_question, indent=2))
+        probs = {
+            0: 1,
+            1: 0.95,
+            2: 0.9,
+            3: 0.85,
+            4: 0.8,
+            5: 0.75,
+            6: 0.7,
+            7: 0.65,
+            8: 0.6,
+            9: 0.55,
+        }
+        total_q = len(previous_questions)
+        prob_threshold = probs[total_q] if total_q <= 10 else 0.5
+        coin_flip = random.randint(0, 1)
+
+        if total_q >= 10:
+            if user.total_money_spent >= 0 and coin_flip < prob_threshold:
+                quiz_question = await generate_quiz_question(update,
+                                                             context,
+                                                             topic.name,
+                                                             previous_questions)
+            else:
+                # take random question from the database
+                quiz_question = await grab_quiz_question(topic)
+
+        else:
+            # if questions are less than 10 we dont care, we will generate (as long as use has balance ofc)
+            quiz_question = await generate_quiz_question(update,
+                                                         context,
+                                                         topic.name,
+                                                         previous_questions)
 
         options = quiz_question['options']
         correct_option = quiz_question['correct_option']
@@ -231,7 +257,7 @@ async def generate_and_send_question(chat_id, topic, update, user, context):
         )
 
         for topic in quiz_question['related_topics']:
-            SuggestedTopic.create(
+            SuggestedTopic.get_or_create(
                 stopic=topic,
                 question=question
             )
@@ -257,6 +283,17 @@ async def generate_and_send_question(chat_id, topic, update, user, context):
             )
         )
         await alert_admin(f"Error generating question: {e}", context, update)
+
+
+async def grab_quiz_question(topic):
+    quiz_question = random.choice(topic.questions)
+    quiz_question = {
+        'question': quiz_question.question,
+        'options': [answer.answer for answer in quiz_question.answers],
+        'correct_option': [answer.answer for answer in quiz_question.answers if answer.is_correct][0],
+        'related_topics': [stopic.stopic for stopic in SuggestedTopic.filter(question=quiz_question)]
+    }
+    return quiz_question
 
 
 async def time_up_callback(context):
