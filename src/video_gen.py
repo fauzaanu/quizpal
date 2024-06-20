@@ -7,14 +7,14 @@ from PIL import Image
 from playwright.async_api import async_playwright
 from telegram import InputMediaPhoto, InputMediaVideo
 
-from src.models import QuizQuestion
+from models import QuizQuestion
 
 
 def get_html(question_i: QuizQuestion):
     """
     Helper function for get screenshot to retrieve the html for the question
     """
-    with open("src/video_gen/quiz.html", "r") as f:
+    with open("src/quiz.html", "r") as f:
         question = question_i.question
         html_content = f.read()
         html_content = html_content.replace("#QUESTION", question)
@@ -40,11 +40,10 @@ async def get_screenshot(question: QuizQuestion, context=None, update=None, only
     html_content, correct_option = get_html(question)
     unique_job_dir = f"jobs/images" + uuid.uuid4().hex
     os.makedirs(unique_job_dir, exist_ok=True)
-    os.chdir(unique_job_dir)
 
     async with async_playwright() as p:
         browser = await p.chromium.launch_persistent_context(
-            user_data_dir="browser-screenshot",
+            user_data_dir=unique_job_dir,
             headless=True,
             viewport={"width": 1080, "height": 1920},
         )
@@ -52,37 +51,31 @@ async def get_screenshot(question: QuizQuestion, context=None, update=None, only
         await page.set_content(html_content)
 
         element = await page.query_selector("section")
-        await element.screenshot(path="question.png")
+        await element.screenshot(path=unique_job_dir + "/question.png")
 
         html_content = html_content.replace(f"bg-slate-900 #CORRECT{correct_option}",
                                             f"bg-green-500")
 
         await page.set_content(html_content)
         element = await page.query_selector("section")
-        await element.screenshot(path="answer.png")
+        await element.screenshot(path=unique_job_dir + "/answer.png")
         await browser.close()
 
     # send the message to the user
     if update is not None and context is not None:
-        if only_photo:
-            await context.bot.send_photo(chat_id=update.effective_chat.id, photo=open("question.png", "rb"))
-            await context.bot.send_photo(chat_id=update.effective_chat.id, photo=open("answer.png", "rb"))
         if not only_photo:
-            # await context.bot.send_photo(chat_id=update.effective_chat.id, photo=open("question.png", "rb"))
-            # await context.bot.send_photo(chat_id=update.effective_chat.id, photo=open("answer.png", "rb"))
-
             ordered_files = []
             for i in range(5):
-                Image.open("question.png").save(f"1_question{i}.png")
-                ordered_files.append(f"1_question{i}.png")
+                Image.open(unique_job_dir + "/question.png").save(f"{unique_job_dir}/1_question{i}.png")
+                ordered_files.append(f"{unique_job_dir}/1_question{i}.png")
             for i in range(5):
-                Image.open("answer.png").save(f"2_answer{i}.png")
-                ordered_files.append(f"2_answer{i}.png")
+                Image.open(unique_job_dir + "/answer.png").save(f"{unique_job_dir}/2_answer{i}.png")
+                ordered_files.append(f"{unique_job_dir}/2_answer{i}.png")
 
             img_array = []
             # Read all images from the directory
             for filename in ordered_files:
-                print(os.getcwd())
+                # print(os.getcwd())
                 file_path = filename
                 img = cv2.imread(file_path)
 
@@ -122,16 +115,17 @@ async def get_screenshot(question: QuizQuestion, context=None, update=None, only
 
             out.release()
 
-            question = InputMediaPhoto(open("question.png", "rb"))
-            answer = InputMediaPhoto(open("answer.png", "rb"))
-            video = InputMediaVideo(open("project.mp4", "rb"))
+            # move the video to the directory
+            shutil.move("project.mp4", unique_job_dir + "/project.mp4")
+
+            question = InputMediaPhoto(open(unique_job_dir + "/question.png", "rb"))
+            answer = InputMediaPhoto(open(unique_job_dir + "/answer.png", "rb"))
+            video = InputMediaVideo(open(unique_job_dir + "/project.mp4", "rb"))
 
             await context.bot.send_media_group(chat_id=update.effective_chat.id,
                                                media=[question, answer, video])
 
-    os.chdir("../../")
     shutil.rmtree(unique_job_dir)
-
     return True
 
 

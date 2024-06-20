@@ -1,5 +1,4 @@
 import logging
-import logging
 import os
 import random
 from pprint import pprint
@@ -16,7 +15,7 @@ from helpers import balance_markup, alpha_space, remove_question_words, remove_v
     get_chat_id, semantic_scholar, balance_updater
 from models import TelegramUser, Topic, StarPayment, QuizQuestion, SuggestedTopic, AnswerExplanation, StaticFile
 from prompt_engineering import generate_quiz_question
-from src.video_gen.video_gen import get_screenshot
+from video_gen import get_screenshot
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
