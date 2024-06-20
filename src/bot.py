@@ -16,6 +16,7 @@ from helpers import balance_markup, alpha_space, remove_question_words, remove_v
     get_chat_id, semantic_scholar, balance_updater
 from models import TelegramUser, Topic, StarPayment, QuizQuestion, SuggestedTopic, AnswerExplanation, StaticFile
 from prompt_engineering import generate_quiz_question
+from src.video_gen.video_gen import get_screenshot
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -317,6 +318,9 @@ async def time_up_callback(context):
                 InlineKeyboardButton(text='🔍 Explain', callback_data=f'ex?q={question.id}'),
                 InlineKeyboardButton(text='♾️ Next Question', callback_data=f'nq?t={topic.id}')
             ],
+            [
+                InlineKeyboardButton(text='💾 Share to Socials', callback_data=f'socials?q={question.id}'),
+            ]
         ]
     )
     #   <!--
@@ -730,6 +734,30 @@ async def get_video(update, context):
     )
 
 
+@balance_update
+@has_joined_channel
+async def generate_video_quiz(update, context):
+    question = update.callback_query.data.split('=')[1]
+    question_obj = QuizQuestion.get(id=question)
+
+    await context.bot.send_message(
+        chat_id=update.callback_query.message.chat.id,
+        text='🎥✨ Please hold while I convert the question into a media format... ✨🎥\n\n'
+             '💖 We’d love for you to share these videos on TikTok, Instagram, YouTube Shorts, or even on your Telegram Status! 💖\n\n'
+             '🌟 After sharing, send us the link and we’ll reward you with some free points! 🌟\n\n'
+             '🙌 Thank you for spreading the word! 🙌'
+    )
+
+    await get_screenshot(question_obj, context, update, only_photo=False)
+
+
+@balance_update
+@has_joined_channel
+async def generate_photo_quiz(update, context):
+    question = update.callback_query.data.split('=')[1]
+    question_obj = QuizQuestion.get(id=question)
+
+
 if __name__ == '__main__':
     load_dotenv(override=True)
     token = os.environ['TELEGRAM_BOT_TOKEN']
@@ -780,6 +808,7 @@ if __name__ == '__main__':
     application.add_handler(CallbackQueryHandler(explanation, pattern='ex'))
     application.add_handler(CallbackQueryHandler(learn_more, pattern='lm'))
     application.add_handler(CallbackQueryHandler(suggested_topics, pattern='st'))
+    application.add_handler(CallbackQueryHandler(generate_video_quiz, pattern='socials'))
 
     save_topic = MessageHandler(filters.ALL, save_topic)
     application.add_handler(save_topic)
