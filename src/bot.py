@@ -742,10 +742,14 @@ async def generate_video_quiz(update, context):
 
     await context.bot.send_message(
         chat_id=update.callback_query.message.chat.id,
-        text='🎥✨ Please hold while I convert the question into a media format... ✨🎥\n\n'
-             '💖 We’d love for you to share these videos on TikTok, Instagram, YouTube Shorts, or even on your Telegram Status! 💖\n\n'
-             '🌟 After sharing, send us the link and we’ll reward you with some free points! 🌟\n\n'
-             '🙌 Thank you for spreading the word! 🙌'
+        text='🎥✨ *Converting the question into a media format\.\.\.* ✨🎥\n\n'
+             '💖 Please share these videos on:\n'
+             '\- **TikTok**\n'
+             '\- **Instagram**\n'
+             '\- **YouTube Shorts**\n'
+             '\- Your **Telegram Story**\n\n'
+             'Thank you for supporting *Quizpal*\! 🚀',
+        parse_mode='MarkdownV2'
     )
 
     await get_screenshot(question_obj, context, update, only_photo=False)
