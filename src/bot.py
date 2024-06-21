@@ -741,8 +741,8 @@ async def generate_video_quiz(update, context):
 
     await context.bot.send_message(
         chat_id=update.callback_query.message.chat.id,
-        text='🎥✨ Generating video for this question ...\n\n'
-             'This may take a few minutes. Please be patient',
+        text='🎥✨ Generating video for this question\n\n'
+             'This may take a few minutes\. Please be patient',
         parse_mode='MarkdownV2'
     )
     try:
