@@ -745,8 +745,14 @@ async def generate_video_quiz(update, context):
              'This may take a few minutes. Please be patient',
         parse_mode='MarkdownV2'
     )
-
-    await get_screenshot(question_obj, context, update, only_photo=False)
+    try:
+        await get_screenshot(question_obj, context, update, only_photo=False)
+    except Exception as e:
+        await context.bot.send_message(
+            chat_id=update.callback_query.message.chat.id,
+            text='An error occurred while generating the video. Please try again later.'
+        )
+        await alert_admin(f"Error generating video:{e}", context, update)
 
 
 if __name__ == '__main__':
