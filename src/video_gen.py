@@ -6,7 +6,7 @@ import uuid
 import cv2
 from PIL import Image
 from playwright.async_api import async_playwright
-from telegram import InputMediaPhoto, InputMediaVideo
+from telegram import InputMediaPhoto, InputMediaVideo, InlineKeyboardMarkup, InlineKeyboardButton
 
 from models import QuizQuestion
 
@@ -175,11 +175,20 @@ async def get_screenshot(question: QuizQuestion, context=None, update=None, only
             answer_img = InputMediaPhoto(open(unique_job_dir + "/answer.png", "rb"))
             video_file = InputMediaVideo(open(unique_job_dir + "/project.mp4", "rb"))
 
+            topic = question.topic
+            keyboard = InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton(text='♾️ Next Question', callback_data=f'nq?t={topic.id}')
+                    ]
+                ]
+            )
+
             await context.bot.send_media_group(chat_id=update.effective_chat.id,
                                                caption="`{}`".format(question.question),
                                                media=[question_img, answer_img, video_file],
-                                               parse_mode="MarkdownV2")
-
+                                               parse_mode="MarkdownV2",
+                                               reply_markup=keyboard)
     shutil.rmtree(unique_job_dir)
     return True
 
