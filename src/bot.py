@@ -250,7 +250,7 @@ async def generate_and_send_question(chat_id, topic, update, user, context):
         )
 
         context.job_queue.run_once(
-            time_up_callback, 15,
+            time_up_callback, 10,
             chat_id=chat_id,
             name=str(chat_id),
             data=poll_question.message_id
