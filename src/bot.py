@@ -741,24 +741,12 @@ async def generate_video_quiz(update, context):
 
     await context.bot.send_message(
         chat_id=update.callback_query.message.chat.id,
-        text='🎥✨ *Converting the question into a media format\.\.\.* ✨🎥\n\n'
-             '💖 Please share these videos on:\n'
-             '\- **TikTok**\n'
-             '\- **Instagram**\n'
-             '\- **YouTube Shorts**\n'
-             '\- Your **Telegram Story**\n\n'
-             'Thank you for supporting *Quizpal*\! 🚀',
+        text='🎥✨ Generating video for this question ...\n\n'
+             'This may take a few minutes. Please be patient',
         parse_mode='MarkdownV2'
     )
 
     await get_screenshot(question_obj, context, update, only_photo=False)
-
-
-@balance_update
-@has_joined_channel
-async def generate_photo_quiz(update, context):
-    question = update.callback_query.data.split('=')[1]
-    question_obj = QuizQuestion.get(id=question)
 
 
 if __name__ == '__main__':
