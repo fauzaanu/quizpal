@@ -44,6 +44,7 @@ class QuizQuestion(Model):
     question = CharField()
     created_at = DateField(default=datetime.datetime.now)
     topic = ForeignKeyField(Topic, backref='questions')
+    cost_in_usd = IntegerField(default=0)
 
     class Meta:
         database = db

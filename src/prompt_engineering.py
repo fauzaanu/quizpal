@@ -11,11 +11,12 @@ from helpers import alert_admin
 from models import Topic, QuizQuestion, QuizAnswer, AnswerExplanation
 
 
-async def update_db(json_response, topic_obj):
+async def update_db(json_response, topic_obj, cost):
     topic_obj = Topic.get(name=topic_obj)
     question = QuizQuestion.create(
         question=json_response['question'],
-        topic=topic_obj
+        topic=topic_obj,
+        cost_in_usd=cost
     )
     for option in json_response['options']:
         is_correct = (option == json_response['correct_option'])
@@ -65,11 +66,11 @@ async def generate_quiz_question(update: Update, context, topic: str, previous_q
         "}\n"
     )
 
-    response = await send_to_gpt(update, context, user_prompt, system_prompt, )
+    response,cost = await send_to_gpt(update, context, user_prompt, system_prompt, )
     try:
         json_response: dict = json.loads(response)
         if await validate_json(json_response):
-            await update_db(json_response, topic)
+            await update_db(json_response, topic, cost)
             return json_response
         else:
             raise ValueError("Invalid JSON response received from GPT.")
@@ -113,7 +114,7 @@ async def validate_json(response: Dict[str, str]) -> bool:
 
 
 async def send_to_gpt(update: Update, context, user_prompt: str, system_prompt: str,
-                      model: str = "gpt-3.5-turbo") -> str:
+                      model: str = "gpt-3.5-turbo") -> tuple[str, float]:
     """
     Creates the OpenAI client and sends the request to the API.
     """
@@ -132,13 +133,14 @@ async def send_to_gpt(update: Update, context, user_prompt: str, system_prompt: 
           "USD")
 
     # alert admin about cost
+    cost = 0
     try:
         cost = completion.usage.prompt_tokens * (0.0005 / 1000) + completion.usage.completion_tokens * (0.0015 / 1000)
         await alert_admin(f"{cost} USD\n{cost * 15.42} MVR", context, update)
     except Exception as e:
         print(e)
 
-    return completion.choices[0].message.content
+    return completion.choices[0].message.content, cost
 
 
 # Example usage:
