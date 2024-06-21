@@ -21,7 +21,7 @@ async def update_db(json_response, topic_obj, cost):
     for option in json_response['options']:
         is_correct = (option == json_response['correct_option'])
 
-        QuizAnswer.create(
+        QuizAnswer.get_or_create(
             answer=option,
             is_correct=is_correct,
             question=question
@@ -107,8 +107,6 @@ async def validate_json(response: Dict[str, str]) -> bool:
     if not isinstance(response['related_topics'], list):
         return False
     if response['correct_option'] not in response['options']:
-        return False
-    if len(response['options']) != 4:
         return False
     return validate_lengths(response)
 
