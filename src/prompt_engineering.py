@@ -7,7 +7,7 @@ from telegram import Update
 
 from constants import (TELEGRAM_QUIZ_QUESTION_LIMIT,
                        TELEGRAM_QUIZ_OPTION_LIMIT)
-from helpers import alert_admin, remove_verbs, remove_question_words
+from helpers import alert_admin
 from models import Topic, QuizQuestion, QuizAnswer, AnswerExplanation
 
 
@@ -43,19 +43,18 @@ async def generate_quiz_question(update: Update, context, topic: str, previous_q
 
     system_prompt = (
         f'You are an expert in the topic: {topic}. '
-        f'You have been asked to generate a challanging quiz question for a quiz competition. '
-        f'Here are some question ideas covered in previouse questions:\n'
+        f'You have been asked to create an exceptionally complex, innovative, '
+        f'globally relevant, precisely worded,'
+        f' quiz question designed to rigorously assess '
+        f'and differentiate the highest levels of talent and expertise for a massive quiz competition with'
+        f'a grade prize of 27 Trillion Dollars'
+        f'You will not be including any questions that were previously asked.\n'
+        f'Previouse Questions:\n'
     )
-
-    count = 0
-    for question in previous_questions[-10:]:
-        question = remove_question_words(remove_verbs(question))
-        system_prompt += f'Q{count}. {question}\n'
-        count += 1
+    for question in previous_questions:
+        system_prompt += f'{question}\n'
 
     user_prompt = (
-        "Generate an extremely challenging quiz question on the specified topic to "
-        "test deep understanding and advanced knowledge. "
         "The response should be in JSON format as follows:\n"
         "{\n"
         "  'question': 'Question text',\n"
@@ -64,35 +63,8 @@ async def generate_quiz_question(update: Update, context, topic: str, previous_q
         "  'explanation': 'Explanation of the correct answer',\n"
         "  'related_topics': ['Related topic 1', 'Related topic 2', 'Related topic 3']\n"
         "}\n"
-        "The question should be unique, complex, and concise (max 300 characters). "
-        "Options should be concise (max 100 characters) and include the correct answer. "
-        "Avoid phrases like 'In the context of', 'According to', etc.\n\n"
-
-        "Good Example:\n"
-        "{\n"
-        "  'question': 'Which protein complex is crucial for separating sister chromatids during anaphase?',\n"
-        "  'options': ['Condensin', 'Cohesin', 'Anaphase Promoting Complex (APC/C)', 'Kinetochores'],\n"
-        "  'correct_option': 'Anaphase Promoting Complex (APC/C)',\n"
-        "  'explanation': 'The Anaphase Promoting Complex (APC/C) triggers "
-        "the separation of sister chromatids by targeting securin for degradation, "
-        "thus activating separase to cleave cohesin complexes.',\n"
-        "  'related_topics': ['Cell cycle regulation and checkpoints', "
-        "'Mitosis and meiosis cycles, "
-        "Chromosome structure and function']\n"
-        "}\n\n"
-
-        "Bad Example:\n"
-        "{\n"
-        "  'question': 'In the context of cell division, what does the Anaphase Promoting Complex (APC/C) do?',\n"
-        "  'options': ['Starts mitosis', 'Ends mitosis', 'Separates chromatids', 'Repairs DNA'],\n"
-        "  'correct_option': 'Separates chromatids',\n"
-        "  'explanation': 'The Anaphase Promoting Complex (APC/C) triggers the separation of sister "
-        "chromatids by targeting securin for degradation.',\n"
-        "  'related_topics': ['Cell', 'Chromatids']\n"
-        "}\n\n"
-        "Note that the good example is specific, challenging, and requires deep understanding, whereas the bad example "
-        "is too straightforward and lacks complexity and includes unnecessary phrases such as 'In the context of"
-        "The Good example also gives more specefic related topics rather than short one word phrases'.\n\n"
+        "Question must not exceed 300 characters.\n"
+        "Options must not exceed 100 characters & should include the correct answer."
     )
 
     response = await send_to_gpt(update, context, user_prompt, system_prompt, )
@@ -137,6 +109,8 @@ async def validate_json(response: Dict[str, str]) -> bool:
         return False
     if response['correct_option'] not in response['options']:
         return False
+    if len(response['options']) != 4:
+        return False
     return validate_lengths(response)
 
 
@@ -153,8 +127,8 @@ async def send_to_gpt(update: Update, context, user_prompt: str, system_prompt: 
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
         ],
-        frequency_penalty=0.5,
-        temperature=0.7,
+        frequency_penalty=2,
+        temperature=1,
     )
     print(completion.usage.prompt_tokens * (0.0005 / 1000) + completion.usage.completion_tokens * (0.0015 / 1000),
           "USD")
