@@ -188,7 +188,11 @@ async def get_screenshot(question: QuizQuestion, context=None, update=None, only
                                                caption="`{}`".format(question.question),
                                                media=[question_img, answer_img, video_file],
                                                parse_mode="MarkdownV2",
-                                               reply_markup=keyboard)
+                                               )
+            await context.bot.send_message(chat_id=update.effective_chat.id,
+                                           text="Please share these on tiktok and tag us @quizpalbot",
+                                           reply_markup=keyboard)
+
     shutil.rmtree(unique_job_dir)
     return True
 
