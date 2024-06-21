@@ -43,11 +43,11 @@ async def generate_quiz_question(update: Update, context, topic: str, previous_q
 
     system_prompt = (
         f'You are an expert in the topic: {topic}. '
-        f'You have been asked to create an exceptionally complex, innovative, '
-        f'globally relevant, precisely worded,'
-        f' quiz question designed to rigorously assess '
-        f'and differentiate the highest levels of talent and expertise for a massive quiz competition with'
-        f'a grade prize of 27 Trillion Dollars'
+        f'You have been asked to create an innovative, '
+        f'highly concise and to the point, and challenging,'
+        f'quiz question designed to rigorously assess '
+        f'the highest levels of talent and expertise for a competition with'
+        f'a grand prize of 27T$.'
         f'You will not be including any questions that were previously asked.\n'
         f'Previouse Questions:\n'
     )
@@ -63,8 +63,6 @@ async def generate_quiz_question(update: Update, context, topic: str, previous_q
         "  'explanation': 'Explanation of the correct answer',\n"
         "  'related_topics': ['Related topic 1', 'Related topic 2', 'Related topic 3']\n"
         "}\n"
-        "Question must not exceed 300 characters.\n"
-        "Options must not exceed 100 characters & should include the correct answer."
     )
 
     response = await send_to_gpt(update, context, user_prompt, system_prompt, )

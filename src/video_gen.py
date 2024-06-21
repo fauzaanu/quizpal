@@ -1,4 +1,5 @@
 import os
+import random
 import shutil
 import uuid
 
@@ -10,13 +11,65 @@ from telegram import InputMediaPhoto, InputMediaVideo
 from models import QuizQuestion
 
 
+def get_color():
+    tw_colors = [
+        "Slate",
+        "Gray",
+        "Zinc",
+        "Neutral",
+        "Stone",
+        "Red",
+        "Orange",
+        "Amber",
+        "Yellow",
+        "Lime",
+        "Green",
+        "Emerald",
+        "Teal",
+        "Cyan",
+        "Sky",
+        "Blue",
+        "Indigo",
+        "Violet",
+        "Purple",
+        "Fuchsia",
+        "Pink",
+        "Rose",
+    ]
+    # pick two random colors
+    color_1 = tw_colors[random.randint(0, len(tw_colors) - 1)]
+
+    color_2_list = tw_colors.copy()
+    color_2_list.remove(color_1)
+
+    color_2 = color_2_list[random.randint(0, len(color_2_list) - 1)]
+
+    color_3_list = color_2_list.copy()
+    color_3_list.remove(color_2)
+
+    color_3 = color_3_list[random.randint(0, len(color_3_list) - 1)]
+
+    color_1 = color_1.lower()
+    color_2 = color_2.lower()
+    color_3 = color_3.lower()
+
+    return color_1, color_2, color_3
+
+
 def get_html(question_i: QuizQuestion):
     """
     Helper function for get screenshot to retrieve the html for the question
     """
-    with open("src/quiz.html", "r") as f:
+    with open("src/quiz.html") as f:
         question = question_i.question
         html_content = f.read()
+
+        # replace background gradient color
+        color_1, color_2, color_3 = get_color()
+        html_content = html_content.replace("#COLOR1", color_1)
+        html_content = html_content.replace("#COLOR2", color_2)
+        html_content = html_content.replace("#COLOR3", color_3)
+
         html_content = html_content.replace("#QUESTION", question)
         options_id = ["A", "B", "C", "D"]
         correct_option = str()
@@ -118,12 +171,14 @@ async def get_screenshot(question: QuizQuestion, context=None, update=None, only
             # move the video to the directory
             shutil.move("project.mp4", unique_job_dir + "/project.mp4")
 
-            question = InputMediaPhoto(open(unique_job_dir + "/question.png", "rb"))
-            answer = InputMediaPhoto(open(unique_job_dir + "/answer.png", "rb"))
-            video = InputMediaVideo(open(unique_job_dir + "/project.mp4", "rb"))
+            question_img = InputMediaPhoto(open(unique_job_dir + "/question.png", "rb"))
+            answer_img = InputMediaPhoto(open(unique_job_dir + "/answer.png", "rb"))
+            video_file = InputMediaVideo(open(unique_job_dir + "/project.mp4", "rb"))
 
             await context.bot.send_media_group(chat_id=update.effective_chat.id,
-                                               media=[question, answer, video])
+                                               caption="`{}`".format(question.question),
+                                               media=[question_img, answer_img, video_file],
+                                               parse_mode="MarkdownV2")
 
     shutil.rmtree(unique_job_dir)
     return True
